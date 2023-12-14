@@ -9,10 +9,10 @@ import { mobile } from "../responsive";
 
 
 const Container = styled.div`
-  height: 60px;
-  margin-bottom:20px;
+  height: 70px;
+  margin-bottom:0px;
   background-color: #f2f2f2;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   ${mobile({ height: "50px" })}
 `;
 
@@ -94,14 +94,14 @@ const Navbar2 = () => {
             </Center>
 
             <Right>
-              <Link to='/register'>
+              <Link to='/register' style={{ textDecoration: 'none' }}>
                 <Title>Register</Title>
               </Link>
               
-              <Link to='/login'>
+              <Link to='/login' style={{ textDecoration: 'none' }}>
                 <Title>Log In</Title>
               </Link>
-              <Link to="/cart">
+              <Link to="/cart" style={{ textDecoration: 'none' }}>
                 <Badge badgeContent={quantity} color="secondary">
                   <ShoppingCartOutlined />
                 </Badge>

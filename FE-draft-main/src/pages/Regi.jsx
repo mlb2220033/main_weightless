@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -53,7 +54,7 @@ const Button = styled.button`
   color: white;
   cursor: pointer;
 `;
-import React from 'react'
+
 
 const Regi = () => {
   return (

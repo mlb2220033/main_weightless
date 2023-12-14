@@ -61,8 +61,10 @@ const Center = styled.div`
 `;
 const Announcement = () => {
   return (
+    <div style={{backgroundColor: 'black'}}>
     
     <Container>
+      
       <Left>
 
         <SocialContainer>
@@ -83,6 +85,7 @@ const Announcement = () => {
           Telephone:  +1 234 56 78
         </Title>
         </Left>
+        
         <Center>
           
         Free Shipping on Orders Over $50 
@@ -96,7 +99,7 @@ const Announcement = () => {
 
 
     </Container>
-
+</div>
   )
 }
 

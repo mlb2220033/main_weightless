@@ -9,7 +9,7 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 60px;
-  margin-bottom:20px;
+  margin-bottom:0px;
   background-color: #f2f2f2;
   padding-bottom: 10px;
   ${mobile({ height: "50px" })}
@@ -73,7 +73,7 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 const Logo = styled.img`
-  margin-top:10px;
+  margin-top:5px;
   width:150px;
   height:50px;
   ${mobile({ fontSize: "24px" })}
@@ -84,10 +84,10 @@ const Navbar = () => {
     <Container>
         <Wrapper>
             <Left>
-              <Link to='/products'>
+              <Link to='/products' style={{ textDecoration: 'none' }}>
                 <Title>Shop</Title>
               </Link>
-              <Link to=''>
+              <Link to='/introduction/aboutus' style={{ textDecoration: 'none' }}>
                 <Title>Introduction</Title>
               </Link>  
                 
@@ -104,18 +104,18 @@ const Navbar = () => {
                   <Input/>
                   <Search style={{color:'gray',fontSize:'16px'}}/>
               </SearchContainer>
-              <Link to='/blogs'>
+              <Link to='/blogs' style={{ textDecoration: 'none' }}>
                 <Title>Blogs</Title>
               </Link> 
-              <Link to='/register'>
+              <Link to='/register' style={{ textDecoration: 'none' }}>
                 <Title>Register</Title>
               </Link>
               
-              <Link to='/login'>
+              <Link to='/login' style={{ textDecoration: 'none' }}>
                 <Title>Log In</Title>
               </Link>
               <Link to="/cart">
-                <Badge badgeContent={quantity} color="secondary">
+                <Badge badgeContent='4' color="secondary">
                   <ShoppingCartOutlined />
                 </Badge>
               </Link>

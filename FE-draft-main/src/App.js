@@ -7,21 +7,30 @@ import Product from './pages/Product';
 import Regi from './pages/Regi';
 import Logi from './pages/Logi';
 import Cart from './pages/Cart';
-import { Routes, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import BlogHome from 'pages/Blog/Blog';
+import About_Us from 'pages/Aboutus';
+import Introduction from 'pages/Introduction';
+import CustomerServices from 'pages/CustomerServices';
+import TermsandPolicies from 'pages/TermsandPolicies';
+
+import {
+  BrowserRouter as Router,
+  Routes ,
+  Route,
+  Navigate ,
+} from "react-router-dom"
 import Navbar from './components/Navbar'
 import Announcement from './components/Announcement'
-import {
-  Navigate 
-} from "react-router-dom"
+
 
 
 import { useSelector } from "react-redux"
 import CartItems from './pages/Newcart';
 import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
+import Register from 'pages/Register';
 
-import BlogHome from 'pages/Blog/Blog';
+
 
 
 function App() {
@@ -29,7 +38,7 @@ function App() {
   console.log('Navigating to Checkout Success');
   
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/products/" element={<ProductList />}></Route>
@@ -38,12 +47,18 @@ function App() {
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/newcart" element={<CartItems />} />
         <Route path="/blogs" element={<BlogHome/>} />
+        <Route path="/introduction" element={<Introduction/>}>
+        <Route path="customer-service" element={<CustomerServices/>}/>
+        <Route path="terms-and-policies" element={<TermsandPolicies/>}/>
+        <Route path="aboutus" element={<About_Us/>}/>
+      </Route>
         
         <Route path="/login" element={user ? <Navigate to="/" /> : <Logi />} />
-        <Route path="/register" element={user ? <Navigate to="/" /> : <Regi />} />
+        <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/payment" element={<PaymentPage />} />
+        
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

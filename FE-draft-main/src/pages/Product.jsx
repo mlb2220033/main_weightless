@@ -6,11 +6,12 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-
+import { normal } from "../data";
 
 
 
@@ -140,7 +141,7 @@ const ImageList = styled.div`
     gap: 16px;
 `;
 
-const ProductImage = styled.img`
+const Image = styled.img`
     height: 163px;
 `;
 
@@ -227,37 +228,40 @@ const CategoryInfo = styled.p`
 `;
 
 const Product = () => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
-  const dispatch = useDispatch();
+//   const location = useLocation();
+//   const id = location.pathname.split("/")[2];
+//   const [product, setProduct] = useState({});
+//   const [quantity, setQuantity] = useState(1);
+//   const [color, setColor] = useState("");
+//   const [size, setSize] = useState("");
+//   const dispatch = useDispatch();
   
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);
-      } catch {}
-    };
-    getProduct();
-  }, [id]);
+//   useEffect(() => {
+//     const getProduct = async () => {
+//       try {
+//         const res = await publicRequest.get("/products/find/" + id);
+//         setProduct(res.data);
+//       } catch {}
+//     };
+//     getProduct();
+//   }, [id]);
 
-  const handleQuantity = (type) => {
-    if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
+//   const handleQuantity = (type) => {
+//     if (type === "dec") {
+//       quantity > 1 && setQuantity(quantity - 1);
+//     } else {
+//       setQuantity(quantity + 1);
+//     }
+//   };
 
-  const handleClick = () => {
-    dispatch(
-      addProduct({ ...product, quantity, color, size })
-    );
-  };
+//   const handleClick = () => {
+//     dispatch(
+//       addProduct({ ...product, quantity, color, size })
+//     );
+//   };
+
+const { id } = useParams();
+  const product = normal.find((b) => b._id === id)
   return (
 //     <Container>
       
@@ -303,7 +307,7 @@ const Product = () => {
             <ImageList>
                 {/* Hiển thị danh sách các ảnh */}
          
-                <Image src={product.img} />
+                <Image src={product?.img[0]} />
           
             </ImageList>
                 {/* <div className="productdisplay_img">
@@ -311,14 +315,14 @@ const Product = () => {
                 </div> */}
             </LeftSection>
             <RightSection>
-                <ProductTitle>{product.name}</ProductTitle>
+                <ProductTitle>{product?.name}</ProductTitle>
                 <StarRating></StarRating>
                 <PriceContainer>
-                    <OldPrice>${product.price}</OldPrice>
-                    <NewPrice>${product.price}</NewPrice>
+                    <OldPrice>${product?.price}</OldPrice>
+                    <NewPrice>${product?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
-                    {product.desc}
+                    {product?.desc}
                 </div>
                 <SizeSelectionTitle>select size</SizeSelectionTitle>
                 <SizeOptions>
@@ -328,8 +332,8 @@ const Product = () => {
                     <SizeOption>XL</SizeOption>
                     <SizeOption>XXL</SizeOption>
                 </SizeOptions>
-                <AddToCartButton onClick={() => { addToCart(product.id) }}>ADD TO CART</AddToCartButton>
-                <CategoryInfo><span>Category :</span> {product.cat}</CategoryInfo>
+                <AddToCartButton >ADD TO CART</AddToCartButton>
+                <CategoryInfo><span>Category :</span> {product?.cat}</CategoryInfo>
                 
             </RightSection>
         </ProductDisplayContainer>

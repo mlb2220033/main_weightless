@@ -90,7 +90,7 @@ export const nav = [
       title: "JUPITER IS FULL OF WATERFALLS SO EARLY",
       desc: "Vestibulum suscipit nibh sed odio pharetra, condimentum lacinia nisi varius. Ut ac ornare diam. Suspendisse vitae quam risus. Nulla ullamcorper libero justo, vitae dictum est efficitur id. Aenean et lacinia arcu. Sed non dolor id risus dapibus congue. Quisque tincidunt vitae tellus ut malesuada. Nulla eleifend nibh a maximus consectetur. Duis et mi porta, bibendum leo non, fermentum enim. Vivamus sed diam suscipit, ultricies ipsum sed, efficitur dui. Sed pharetra purus at iaculis vehicula. Fusce pellentesque placerat ante, id elementum dolor maximus sed. Aenean viverra at lectus quis vehicula. Aenean at arcu odio. Etiam mauris justo, cursus finibus aliquam eget, fermentum nec nulla. Sed finibus viverra magna non sagittis. Mauris fringilla augue vel quam rhoncus, in tempor enim lacinia. Donec nibh velit, scelerisque id neque sit amet, ornare consectetur sem. Donec convallis nec justo id consequat. Donec sem leo, pulvinar sit amet nisi a, mollis gravida est. Duis porttitor eleifend cursus. Vivamus ac dapibus dolor. Nullam leo tellus, rhoncus sit amet tempor vel, malesuada vel augue. Morbi laoreet sem eget tortor pulvinar mattis. Maecenas commodo ultricies orci, ut blandit urna accumsan sit amet. Ut a porttitor orci, maximus feugiat turpis. In eu sodales orci, et volutpat felis. Quisque orci quam, gravida at nulla tempor, vulputate pretium magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent congue, magna vitae interdum blandit, arcu mauris placerat nulla, sit amet rhoncus justo risus in neque.",
       category: "Nature",
-      img: "./assets/images/product-2.jpg",
+      img: "https://www.gornation.com/cdn/shop/files/header_mobile_1.jpg?v=1677672331&width=2000",
       date: "MARCH 15, 2018",
     },
     {
@@ -98,7 +98,7 @@ export const nav = [
       title: "START YOU CUP ON TABLE OF THAT",
       desc: "Duis rutrum eu tortor et efficitur. Nulla ac consequat leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vestibulum mattis est eu volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae tristique nibh. Quisque vel lectus interdum lacus ultricies venenatis. In ex nisl, commodo vitae risus ac, efficitur imperdiet dolor. Maecenas dignissim luctus mi sit amet mollis. Maecenas sit amet bibendum dolor, a molestie tellus. Donec et varius risus. Duis tincidunt mi lorem, vitae luctus turpis rutrum sit amet. Aliquam aliquet malesuada odio, ut pellentesque nisi tempus in. Ut fermentum, augue id accumsan aliquet, dolor dui euismod elit, nec fringilla mi justo nec mauris. Duis tellus nisl, elementum et urna at, molestie condimentum eros. Sed mattis quis risus id tincidunt. Donec ultrices vestibulum vestibulum.",
       category: "Sports",
-      img: "./assets/images/product-3.jpg",
+      img: "https://www.gornation.com/cdn/shop/files/heaader_equipment_mobile.jpg?v=1694443250&width=2000",
       date: "MARCH 15, 2018",
     },
     {
