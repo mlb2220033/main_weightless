@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 const Wrapper = styled.div`
     justify-content: center;
-    width: 500px;
+    width: 525px;
     margin-inline: 24px;
     background-color: hsla(#ff6d1a, .01);
     border: 2px solid hsla(0, 0%, 100%, .7);
@@ -39,6 +39,7 @@ const Title = styled.h1`
     text-align: center;
     font-size: 32px;
     margin-bottom: 20px;
+    margin-top: 10px;
 `;
 const Form = styled.form`
     font-size: 16px;
@@ -101,11 +102,12 @@ const Login = styled.div`
 const MyRow = styled(Row)`
 display: flex;
 flex-wrap: wrap;
-
+justify-content: center;
 `
 ;
 const CheckBox = styled.div`
-    padding-top: 20px;
+    
+    padding-top: 11px;
     
     align-items: center;
 `;
@@ -136,15 +138,18 @@ a {
 
 const MyCol = styled(Col)`
 
-  grid-template-columns: 1fr max-content;
-  column-gap: 12px;
-  align-items: center;
-  padding-inline: 20px;
-  border-radius: 10px;
-  border: 2px solid hsla(0, 0%, 100%, 0.7); /* Updated border color opacity */
-  margin: 5px;
-  font-size: 14px;
-  flex: 1;
+//   grid-template-columns: 1fr max-content;
+//   column-gap: 12px;
+//   align-items: center;
+    padding-inline: 10px;
+    border-radius: 10px;
+    border: 2px solid hsla(0, 0%, 100%, 0.7);
+    margin: 4px;
+    font-size: 16px;
+    flex: 1;
+    text-align: center;
+    padding-block: 10px;
+ 
   ${mobile} {
     width: 100%; // Make the columns take full width on smaller screens
   }
