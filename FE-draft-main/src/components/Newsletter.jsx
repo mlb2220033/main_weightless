@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   height: 60vh;
-  background-color: #fff5f1;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +14,7 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 70px;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const Desc = styled.div`

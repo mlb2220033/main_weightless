@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 import {mobile} from "../responsive";
 import gg from '../assets/images/google.png'
 import fb from '../assets/images/Facebook.png'
-import Navbar2 from 'components/Navbar2';
 
 const Container = styled.div`
   width: 100vw;
@@ -31,6 +30,9 @@ const Wrapper = styled.div`
     color: var(--white-color);
     border-radius: 15px;
     backdrop-filter: blur(14px);
+    ${mobile} {
+        width: 90%; // Adjust the width for smaller screens
+      }
     
 `;
 const Title = styled.h1`
@@ -98,6 +100,7 @@ const Login = styled.div`
 `;
 const MyRow = styled(Row)`
 display: flex;
+flex-wrap: wrap;
 
 `
 ;
@@ -109,7 +112,7 @@ const CheckBox = styled.div`
 const CheckInput = styled.input`
     width: 13px;
     height: 13px;
-    margin-left:5px;
+    margin-left:5%;
     margin-right:1px;
 
 
@@ -142,6 +145,9 @@ const MyCol = styled(Col)`
   margin: 5px;
   font-size: 14px;
   flex: 1;
+  ${mobile} {
+    width: 100%; // Make the columns take full width on smaller screens
+  }
 `;
 const LoginButton = styled.button`
     width: 80%;
@@ -158,6 +164,10 @@ const LoginButton = styled.button`
     font-weight: 500;
     cursor: pointer;
     border: 2px solid hsla(0, 0%, 100%, .7);
+    ${mobile} {
+        margin-left: 0;
+        margin-right: 0;
+      }
 `;
 const GoogleImage = styled.img`
     width: 30px;
@@ -180,7 +190,7 @@ const FacebookButton = styled.button`
     justify-content: space-between;
     border-radius: 10px;
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     height: 60px;
     padding: 0 30px;
     background: #1877F2;
@@ -193,18 +203,32 @@ const GoogleButton = styled.button`
     justify-content: space-between;
     border-radius: 10px;
     cursor: pointer;
-    width: 100%;
+    width: 90%;
     height: 60px;
     padding: 0 30px;
     background: #fff;
     border: 1px solid #ccc;
 `;
+const MyLink = styled(Link)`
+  text-decoration: none;
+  color: #ffffff; /* Màu văn bản mặc định */
+  position: relative;
+  display: inline-block;
+  width:max-content;
+  
+
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.3s ease-in-out;
+    .dropdown {
+      display: block; /* Hiển thị dropdown khi hover */
+    }
+  }
+  ${mobile({ fontSize: "24px" })}
+`;
 function Register() {
     return (
-        <div>
-        
         <Container>
-            
             <Form>
             <Wrapper>
                 
@@ -243,7 +267,7 @@ function Register() {
                                 <CheckInput type="radio" name="gender" id="custome-option"/></CheckBox>
                             </MyCol>
                         </MyRow>
-                        <Title1>By Clicking Sign-up, you agree to our  <Link to='/terms-and-policies'>Terms and Policies</Link>
+                        <Title1>By Clicking Sign-up, you agree to our  <MyLink to='/terms-and-policies'>Terms and Policies</MyLink>
                          . You may receive SMS notifications from us and can opt out at any time.
                          </Title1>
                          <LoginButton type="submit">Register</LoginButton>
@@ -263,11 +287,11 @@ function Register() {
                         </FacebookButton>
                     </SignIn>
                     <Login>
-                        Already have an account? <Link to='/login'>Log in</Link>
+                        Already have an account? <MyLink to='/login'>Log in</MyLink>
                     </Login>
             </Wrapper>
             </Form>
-        </Container></div>
+        </Container>
     )
 }
 

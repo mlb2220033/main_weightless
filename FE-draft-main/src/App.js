@@ -8,10 +8,10 @@ import Regi from './pages/Regi';
 import Logi from './pages/Logi';
 import Cart from './pages/Cart';
 import BlogHome from 'pages/Blog/Blog';
-import About_Us from 'pages/Aboutus';
-import Introduction from 'pages/Introduction';
-import CustomerServices from 'pages/CustomerServices';
-import TermsandPolicies from 'pages/TermsandPolicies';
+import Aboutus from './pages/Aboutus';
+
+import TermsandPolicies from './pages/Tnp';
+import CustomerServices from './pages/Cs';
 
 import {
   BrowserRouter as Router,
@@ -47,12 +47,9 @@ function App() {
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="/newcart" element={<CartItems />} />
         <Route path="/blogs" element={<BlogHome/>} />
-        <Route path="/introduction" element={<Introduction/>}>
-        <Route path="customer-service" element={<CustomerServices/>}/>
-        <Route path="terms-and-policies" element={<TermsandPolicies/>}/>
-        <Route path="aboutus" element={<About_Us/>}/>
-      </Route>
-        
+        <Route path="/customer-service" element={<CustomerServices/>}></Route>
+        <Route path="/terms-and-policies" element={<TermsandPolicies/>}></Route>
+        <Route path="/aboutus" element={<Aboutus/>}></Route>
         <Route path="/login" element={user ? <Navigate to="/" /> : <Logi />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
         <Route path="/payment" element={<PaymentPage />} />

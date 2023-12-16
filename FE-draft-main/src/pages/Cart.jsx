@@ -8,6 +8,7 @@ import { mobile } from "../responsive";
 import { useSelector } from 'react-redux';
 import { normal } from "../data";
 import { useNavigate } from 'react-router-dom';
+import Navbarnoscroll from 'components/Navbarnoscroll';
 
 import remove_icon from '../assets/images/cart_cross_icon.png';
 const Container = styled.div``;
@@ -177,8 +178,8 @@ const Cart = () => {
   return (
     <Container>
       
-      <Announcement />
-      <Navbar />
+      {/* <Announcement /> */}
+      <Navbarnoscroll />
       <Wrapper>
         
         <Top>

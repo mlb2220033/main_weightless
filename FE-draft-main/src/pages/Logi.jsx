@@ -36,6 +36,7 @@ const LoginFields = styled.div`
     color: var(--white-color);
     border-radius: 15px;
     backdrop-filter: blur(14px);
+    
 `;
 
 const Title = styled.h1`
@@ -53,6 +54,7 @@ const LoginBox = styled.div`
     border-radius: 10px;
     border: 2px solid hsla(0, 0%, 100%, .7);
     margin-bottom: 10px;
+    
 `;
 
 const Input = styled.input`
@@ -231,6 +233,23 @@ const Register = styled.div`
 //   text-decoration: underline;
 //   cursor: pointer;
 // `;
+const MyLink = styled(Link)`
+  text-decoration: none;
+  color: #ffffff; /* Màu văn bản mặc định */
+  position: relative;
+  display: inline-block;
+  width:max-content;
+  
+
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.3s ease-in-out;
+    .dropdown {
+      display: block; /* Hiển thị dropdown khi hover */
+    }
+  }
+  ${mobile({ fontSize: "24px" })}
+`;
 function Logi() {
   return (
     <Container>
@@ -279,7 +298,7 @@ function Logi() {
                     </FacebookButton>
                 </SignIn>
                 <Register>
-                    Don't have an account? <Link to='/register'>Register</Link>
+                    Don't have an account? <MyLink to='/register'>Register</MyLink>
                 </Register>
             </LoginFields>
         </Form>
