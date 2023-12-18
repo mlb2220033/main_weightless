@@ -17,7 +17,7 @@ const Container = styled.div`
 position: fixed;
   width: 100%;
   z-index: 1000;
-  transition: background-color 0.3s ease
+  transition: background-color 0.3s ease;
   height: 80px;
   background: transparent;
   // padding: 10px 10px;

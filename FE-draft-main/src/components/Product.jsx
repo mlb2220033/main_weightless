@@ -24,7 +24,7 @@ import {
   `;
   const Container = styled.div`
     max-width:280px;
-    }
+    
   `;
   const SmallContainer = styled.div`
     flex: 1;
