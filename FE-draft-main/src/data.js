@@ -193,3 +193,4 @@ export const news=[
     title:"The most comfortable Calisthenics Clothes"
   }
 ]
+
