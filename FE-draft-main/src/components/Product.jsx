@@ -24,7 +24,7 @@ import {
   `;
   const Container = styled.div`
     max-width:280px;
-    }
+    
   `;
   const SmallContainer = styled.div`
     flex: 1;
@@ -115,7 +115,8 @@ const Product = ({item}) => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <SearchOutlined />
+          <Link to={`/product/${item.id}`}>
+          <SearchOutlined /></Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />

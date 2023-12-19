@@ -4,16 +4,19 @@ import { useState } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
+  
   
   position: relative;
   overflow: hidden;
   
-  margin-top: 20px;
+  margin-top: 15px;
+  ${mobile({ fontSize: "24px" })}
 `;
 
 const Arrow = styled.div`
@@ -38,13 +41,16 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
+  
   transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
+
 `;
 
 const Slide = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
+  
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
@@ -56,12 +62,18 @@ const ImgContainer = styled.div`
 `;
 
 const Image = styled.img`
-  height: 80%;
+  height: 100%;
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
-  padding: 50px;
+flex: 1;
+
+/* padding: 40px; */
+padding-right: 5vw;
+// padding-left: 5vw;
+height: 55vh;
+padding-top: 20vh;
+padding-bottom: 5vh;
 `;
 
 const Title = styled.h1`
@@ -71,15 +83,27 @@ const Title = styled.h1`
 const Desc = styled.p`
   margin: 50px 0px;
   font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 3px;
+  // font-weight: 500;
+  // letter-spacing: 3px;
+  font-family: 'Fjalla One', sans-serif;
+  text-align:justify;
 `;
+const ButtonLink = styled(Link)`
+  text-decoration: none;
 
+`;
 const Button = styled.button`
   padding: 10px;
   font-size: 20px;
   background-color: transparent;
   cursor: pointer;
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.3s ease-in-out;
+    .dropdown {
+      display: block; /* Hiển thị dropdown khi hover */
+    }
+  }
 `;
 const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
@@ -104,7 +128,8 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <ButtonLink to={`/products`}>
+              <Button> SHOP NOW</Button></ButtonLink>
             </InfoContainer>
           </Slide>
         ))}

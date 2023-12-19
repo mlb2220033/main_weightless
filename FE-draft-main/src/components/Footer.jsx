@@ -1,155 +1,160 @@
-import React from 'react'
+import React from 'react';
 import {
-    Facebook,
-    Height,
-    Instagram,
-    MailOutline,
-    Phone,
-    Pinterest,
-    Room,
-    Twitter,
-    YouTube
-  } from "@material-ui/icons";
-  import logo from '../assets/images/footer-logo.png'
-  import styled from "styled-components";
-  import { mobile } from "../responsive";
+  Facebook,
+  Instagram,
+  MailOutline,
+  Phone,
+  Room,
+  Twitter,
+  YouTube
+} from "@material-ui/icons";
+import logo from '../assets/images/footer-logo.png';
+import styled from "styled-components";
+import { mobile } from "../responsive";
+import { Link } from 'react-router-dom';
+
+const Container = styled.div`
+  display: flex;
+  height:25vh;
+  flex-wrap: wrap;
+  padding-top:2%;
+  padding-right:10%;
+  padding-left:10%;
+  background: linear-gradient(rgba(27, 31, 30, 0.9), rgba(27, 31, 30, 0.9)),
+  url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/4b2e6d135446867.61e806cc3eeac.jpg") center;
+  ${mobile({ flexDirection: "column" })}
+`;
+
+const Column = styled.div`
+  flex: 1;
+  margin: 10px;
+  // text-align: center;
+  width:50px;
+`;
+
+const Logo = styled.img`
+  width: 150px;
+  height: 50px;
+`;
+
+const SocialContainer = styled.div`
+  display: flex;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+
+`;
+
+const SocialIcon = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+  background-color: #${(props) => props.color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+`;
+
+const Title = styled.h3`
+margin-block-start: 1em;
+margin-block-end: 0.5em;
+color:#d9d9d9
+
+`;
+
+const MyLink = styled(Link)`
+  text-decoration: none;
+  color: #d9d9d9;
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.3s ease-in-out;
+  }
+`;
+const MyUl = styled.ul`
+  list-style: none;
+  // padding-top: 3px;
+  padding-inline-start: 0px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  color:#d9d9d9
   
-  const Container = styled.div`
-    display: flex;
-    background: linear-gradient(
-      rgba(255, 255, 255, 0.8),
-      rgba(255, 255, 255, 0.8)
-    ),
-    url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/4b2e6d135446867.61e806cc3eeac.jpg")
-      center;
-    ${mobile({ flexDirection: "column" })}
-  `;
+`;
+const MyLi = styled.li`
+  padding:5px;
+  color:#d9d9d9
   
-  const Left = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  `;
-  
-  const Logo = styled.img`
-  width:150px;
-  height:50px;
-  `;
-  
-  const Desc = styled.p`
-    margin: 20px 0px;
-  `;
-  
-  const SocialContainer = styled.div`
-    display: flex;
-  `;
-  
-  const SocialIcon = styled.div`
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    color: white;
-    background-color: #${(props) => props.color};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-  `;
-  
-  const Center = styled.div`
-    flex: 1;
-    padding: 20px;
-    ${mobile({ display: "none" })}
-  `;
-  
-  const Title = styled.h3`
-    margin-bottom: 30px;
-  `;
-  
-  const List = styled.ul`
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-  `;
-  
-  const ListItem = styled.li`
-    width: 50%;
-    margin-bottom: 10px;
-  `;
-  
-  const Right = styled.div`
-    flex: 1;
-    padding: 20px;
-    ${mobile({ backgroundColor: "#fff8f8" })}
-  
-  `;
-  
-  const ContactItem = styled.div`
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-  `;
-  
-  const Payment = styled.img`
-      width: 50%;
-  `;
+`;
+
 const Footer = () => {
   return (
     <Container>
-        <Left>
+      <Column> 
         <Logo src={logo}></Logo>
-        <Desc>Lift your body, lift your spirit!</Desc>
-        <Title>Socials</Title>
+        
         <SocialContainer>
-          <SocialIcon color="3B5999">
-            <Facebook style={{ fontSize: 34 }}/>
+          <SocialIcon >
+            <Facebook style={{ fontSize: 20 }}/>
           </SocialIcon>
-          <SocialIcon color="E4405F">
-            <Instagram style={{ fontSize: 34}}/>
+          <SocialIcon >
+            <Instagram style={{ fontSize: 20}}/>
           </SocialIcon>
-          <SocialIcon color="55ACEE">
-            <Twitter style={{ fontSize: 34}}/>
+          <SocialIcon >
+            <Twitter style={{ fontSize: 20}}/>
           </SocialIcon>
-          <SocialIcon color="E60023">
-            <YouTube style={{ fontSize: 34}}/>
+          <SocialIcon >
+            <YouTube style={{ fontSize: 20}}/>
           </SocialIcon>
         </SocialContainer>
-        </Left>
+        <MyUl>
+          <MyLi>© 2023 Weightless Calisthenics Vietnam. All rights reserved.</MyLi>
+        </MyUl>
 
-        <Center>
-            <Title>Quick Links</Title>
-            <List>
-                <ListItem>Home</ListItem>
-                <ListItem>Introduction</ListItem>
-                
-            
-            </List>
-            <Title>More Infor</Title>
-            <List>
-                
-                <ListItem>Privacy Policy</ListItem>
-                <ListItem>Customer Services</ListItem>
-            </List>
-        </Center>
-
-        <Right>
+      </Column>
+      <Column>
+        <Title>Quick Links</Title>
+        <MyUl>
+        <MyLi><MyLink to='/'>Home</MyLink></MyLi>
+        <MyLi><MyLink to='/products'>Products</MyLink></MyLi>
+        <MyLi><MyLink to='/aboutus'>Introduction</MyLink></MyLi>
+        </MyUl>
+      </Column>
+      <Column>
+        <Title>More Info</Title>
+        <MyUl>
+          <MyLi><MyLink to='/customer-service'>Customer Services</MyLink></MyLi>
+          <MyLi><MyLink to='/terms-and-policies'>Terms and Policies</MyLink></MyLi>
+        </MyUl>
+        
+        
+        
+      </Column>
+      <Column>
         <Title>Contact</Title>
-        <ContactItem>
-          <Room style={{marginRight:"10px"}}/> 16, Quang Trung, Hiep Phu, Thu Duc City
-        </ContactItem>
-        <ContactItem>
-          <Phone style={{marginRight:"10px"}}/> +1 234 56 78
-        </ContactItem>
-        <ContactItem>
-          <MailOutline style={{marginRight:"10px"}} /> weightless@gmail.com
-        </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
-        </Right>
+        <MyUl>
+        <MyLi><Room/> 16, Quang Trung, Hiep Phu, Thu Duc City</MyLi>
+        <MyLi><Phone/> +1 234 56 78</MyLi>
+        <MyLi><MailOutline /> weightless@gmail.com</MyLi>
+        </MyUl>
+      </Column>
+ 
+      {/* <Column>
+        <Link to='/products'>Products</Link>
+      </Column>
+      <Column>
+        <MyLink to='/terms-and-policies'>Terms and Policies</MyLink>
+      </Column>
+      <Column>
+        © 2023 Weightless Calisthenics Vietnam. All rights reserved.
+      </Column>
+      <Column>
+        <Link to='/aboutus'>Introduction</Link>
+      </Column>
+      <Column>
+        <MailOutline style={{marginRight:"10px"}} /> weightless@gmail.com
+      </Column> */}
     </Container>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

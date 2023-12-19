@@ -85,30 +85,30 @@ const PaymentPage = () => {
     <Navbar2/>
     <div style={{ background: '#f5f5fa', width: '100%', height: '100vh' }}>
       <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
-        <h3>Thanh toán</h3>
+        <h3>Check Out</h3>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <WrapperLeft>
             <WrapperInfo>
               <div>
-                <Label>Chọn phương thức giao hàng</Label>
+                <Label>Delivery Methods</Label>
                 <WrapperRadio onChange={handleDelivery} value={delivery}>
                   <Radio value="slow">
-                    <span style={{ color: '#ea8500', fontWeight: 'bold' }}>GHTK</span> Giao hàng tiết kiệm
+                    <span style={{ color: '#ea8500', fontWeight: 'bold' }}>GHTK</span> 
                   </Radio>
                   <Radio value="fast">
-                    <span style={{ color: '#ea8500', fontWeight: 'bold' }}>WEL_express</span> Giao hàng nhanh
+                    <span style={{ color: '#ea8500', fontWeight: 'bold' }}>WEL_express</span> 
                   </Radio>
                 </WrapperRadio>
               </div>
             </WrapperInfo>
             <WrapperInfo>
               <div>
-                <Label>Chọn phương thức thanh toán</Label>
+                <Label>Payment Methods</Label>
                 <WrapperRadio onChange={handlePayment} value={payment}>
                   <Radio value="COD"><img src={i_money} alt="COD Icon" style={{ marginRight: '8px', width: '24px', height: '24px' }} />
-                    Thanh toán tiền mặt khi nhận hàng COD</Radio>
+                    Cash On Delivery (COD)</Radio>
                   <Radio value="paypal"><img src={i_paypal} alt="Paypal Icon" style={{ marginRight: '8px', width: '24px', height: '24px' }} />
-                    Thanh toán tiền bằng Paypal</Radio>
+                    Paypal</Radio>
                 </WrapperRadio>
               </div>
             </WrapperInfo>
@@ -117,32 +117,32 @@ const PaymentPage = () => {
             <div style={{ width: '100%' }}>
               <WrapperInfo>
                 <div>
-                  <span>Địa chỉ: </span>
+                  <span>Address: </span>
                   <span style={{ fontWeight: 'bold' }}> </span>
                   <span onClick={handleChangeAddress} style={{ color: '#9255FD', cursor: 'pointer' }}>
-                    Thay đổi
+                    Adjust
                   </span>
                 </div>
               </WrapperInfo>
               <WrapperInfo>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <span>Tạm tính: </span>
+                    <span>Total Prices: </span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
                   </div>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <span>Giảm giá: </span>
+                    <span>Discount: </span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
                   </div>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <span>Phí giao hàng: </span>
+                    <span>Ship: </span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
                   </div>
                 </WrapperInfo>
               <WrapperTotal>
-                <span>Tổng tiền: </span>
+                <span>Total: </span>
                 <span style={{ display: 'flex', flexDirection: 'column' }}>
                   <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}></span>
-                  <span style={{ color: '#000', fontSize: '11px' }}>(Đã bao gồm VAT 10%)</span>
+                  <span style={{ color: '#000', fontSize: '11px' }}>(Included VAT 10%)</span>
                 </span>
               </WrapperTotal>
               {payment === 'COD' ? (
@@ -158,7 +158,7 @@ const PaymentPage = () => {
                 }}
                 onSuccess={onSuccessCOD}  
                 onError={onErrorCOD}
-                textbutton={'Đặt hàng và trả tiền mặt'}
+                textbutton={'Cash On Delivery'}
                 styleTextButton={{ color: '#fff', fontSize: '15px', fontWeight: '700' }}
               ></ButtonComponent>
               

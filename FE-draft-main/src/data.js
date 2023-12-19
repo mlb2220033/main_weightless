@@ -85,7 +85,7 @@ export const popularProducts = [
 
 export const normal=[
   {
-    id:1,
+    id:'1',
     img:["https://shop.thenx.com/cdn/shop/products/DSC06555_900x.jpg?v=16346057002",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -97,7 +97,7 @@ export const normal=[
     price:30
   },
   {
-    id:2,
+    id:'2',
     img:["https://shop.thenx.com/cdn/shop/products/DSC00050bbb_1080x.jpg?v=1530716871",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -109,7 +109,7 @@ export const normal=[
     price:15
   },
   {
-    id:3,
+    id:'3',
     img:["https://shop.thenx.com/cdn/shop/products/THENX_wrist_wraps_grey_900x.jpg?v=1576099464",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -121,7 +121,7 @@ export const normal=[
     price:10
   },
   {
-    id:4,
+    id:'4',
     img:["https://shop.thenx.com/cdn/shop/products/DSC00083_1dddd_1080x.jpg?v=1531501887",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -133,7 +133,7 @@ export const normal=[
     price:9.9
   },
   {
-    id:5,
+    id:'5',
     img:["https://shop.thenx.com/cdn/shop/products/THENX_Black_hoodie_1080x.jpg?v=1531924281",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -145,7 +145,7 @@ export const normal=[
     price:25
   },
   {
-    id:6,
+    id:'6',
     img:["https://shop.thenx.com/cdn/shop/products/Black_Thenx_Socks0002_540x.JPG?v=1525827636",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -157,7 +157,7 @@ export const normal=[
     price:2
   },
   {
-    id:7,
+    id:'7',
     img:["https://shop.thenx.com/cdn/shop/products/GYM_bags_Black_540x.JPG?v=1563830957",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -169,7 +169,7 @@ export const normal=[
     price:15
   },
   {
-    id:8,
+    id:'8',
     img:["https://shop.thenx.com/cdn/shop/products/Jumprope_0000_1080x.JPG?v=1531926254",
     "https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",  
     "https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
@@ -193,3 +193,4 @@ export const news=[
     title:"The most comfortable Calisthenics Clothes"
   }
 ]
+
