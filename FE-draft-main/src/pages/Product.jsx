@@ -12,7 +12,7 @@ import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { normal } from "../data";
-
+import axios from "axios"
 
 
 // const ProductDisplayContainer = styled.div`
@@ -272,27 +272,27 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
 //   const product = normal.find((b) => b.id === id)
-const products = require('../assets/data/apparel/weightless.products.json');
+// const products = require('../assets/data/apparel/weightless.products.json');
 
-const product = products.apparel_products.find((product) => product._id.$oid === id);
+// const product = products.apparel_products.find((product) => product._id.$oid === id);
 
 
-//   const [product, setProduct] = useState({});
+  const [product, setProduct] = useState([]);
 //   const [quantity, setQuantity] = useState(1);
 //   const [color, setColor] = useState("");
 //   const [size, setSize] = useState("");
 //   const dispatch = useDispatch();
   
-//   useEffect(() => {
-//     const getProduct = async () => {
-//       try {
-//         const res = await publicRequest.get("/products/find/" + id);
-//         setProduct(res.data);
-//       } catch {}
-//     };
-//     getProduct();
-//   }, [id]);
-
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
+        setProduct(res.data);
+      } catch {}
+    };
+    getProduct();
+  }, [id]);
+// console.log(product)
 //   const handleQuantity = (type) => {
 //     if (type === "dec") {
 //       quantity > 1 && setQuantity(quantity - 1);
@@ -357,7 +357,7 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             
                 {/* Hiển thị danh sách các ảnh */}
          
-                <Image src={product?.image[0].image} />
+                <Image src={product.data?.image[0].image} />
           
             
                 {/* <div className="productdisplay_img">
@@ -367,14 +367,16 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             <RightSection>
                 
                 <StarRating></StarRating>
+                
+                <ProductTitle>{product.data?.tittle}</ProductTitle>
                 <PriceContainer>
-                    <OldPrice>${product?.price}</OldPrice>
-                    <NewPrice>${product?.price}</NewPrice>
+                    <OldPrice>${product.data?.price}</OldPrice>
+                    <NewPrice>${product.data?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
-                    {product?.description}
+                    {product.data?.description}
                 </div>
-                <ProductTitle>{product?.tittle}</ProductTitle>
+                
                 {/* {product?.categories?.includes("Apparel")? 
             <FilterContainer>
               <Filter>
@@ -388,13 +390,17 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             </FilterContainer>
                 :  <hr />
                     } */}
-                 
-                 {/* <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")} /> 
-            </AmountContainer> */}
-                {/* <AddToCartButton onClick={handleClick}>ADD TO CART</AddToCartButton> */}
+                 <SizeOptions >
+                  {product.data?.size.map((s) => (
+                    <SizeOption >{s}</SizeOption>
+                  ))}
+                </SizeOptions>
+                 <AmountContainer>
+              <Remove  />
+              <Amount>1</Amount>
+              <Add  /> 
+            </AmountContainer>
+                <AddToCartButton >ADD TO CART</AddToCartButton>
                 {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
                 
             </RightSection>

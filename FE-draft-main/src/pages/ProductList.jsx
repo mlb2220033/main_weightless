@@ -42,6 +42,7 @@ const Option = styled.option``;
 const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
+  
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
   const handleFilters = (e) => {

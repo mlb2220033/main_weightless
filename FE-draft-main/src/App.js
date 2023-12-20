@@ -15,7 +15,7 @@ import CustomerServices from './pages/Cs';
 
 import {
   BrowserRouter as Router,
-  Routes ,
+  Routes ,Switch,
   Route,
   Navigate ,
 } from "react-router-dom"
@@ -29,6 +29,9 @@ import CartItems from './pages/Newcart';
 import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import Register from 'pages/Register';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 
 
@@ -36,7 +39,17 @@ import Register from 'pages/Register';
 function App() {
   const user =  useSelector((state) => state.user.currentUser);
   console.log('Navigating to Checkout Success');
-  
+  // useEffect(()=>{
+  //   fetchapi()
+  // },[]
+  // )
+  const fetchapi= async()=>{
+    const res=await axios.get(`http://localhost:3001/api/product/get-all`)
+    // console.log(res)
+    return res.data
+  }
+  const query = useQuery('todos', fetchapi)
+  console.log('query',query)
   return (
     <Router>
       <Routes>
