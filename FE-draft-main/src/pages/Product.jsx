@@ -13,7 +13,8 @@ import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { normal } from "../data";
 import axios from "axios"
-
+import { useQuery } from "react-query";
+import * as ProductService from '../services/ProductService'
 
 // const ProductDisplayContainer = styled.div`
 //     display: flex;
@@ -277,21 +278,21 @@ const Product = () => {
 // const product = products.apparel_products.find((product) => product._id.$oid === id);
 
 
-  const [product, setProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
 //   const [quantity, setQuantity] = useState(1);
 //   const [color, setColor] = useState("");
 //   const [size, setSize] = useState("");
 //   const dispatch = useDispatch();
   
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
-        setProduct(res.data);
-      } catch {}
-    };
-    getProduct();
-  }, [id]);
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
+  //       setProduct(res.data);
+  //     } catch {}
+  //   };
+  //   getProduct();
+  // }, [id]);
 // console.log(product)
 //   const handleQuantity = (type) => {
 //     if (type === "dec") {
@@ -308,7 +309,98 @@ const Product = () => {
 //   };
 
 // const { id } = useParams();
-  
+
+
+
+//new
+// const [numProduct, setNumProduct] = useState(1)
+//     const user = useSelector((state) => state.user)
+//     const order = useSelector((state) => state.order)
+//     const [errorLimitOrder,setErrorLimitOrder] = useState(false)
+//     const navigate = useNavigate()
+    
+    const dispatch = useDispatch()
+
+    // const onChange = (value) => { 
+    //     setNumProduct(Number(value))
+    // }
+
+    const fetchGetDetailsProduct = async (context) => {
+      const id = context?.queryKey && context?.queryKey[1]
+      if(id) {
+          const res = await ProductService.getDetailsProduct(id)
+          return res.data
+      }
+  }
+
+    // useEffect(() => {
+    //     initFacebookSDK()
+    // }, [])
+
+    // useEffect(() => {
+    //     const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id) 
+    //     if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+    //         setErrorLimitOrder(false)
+    //     } else if(productDetails?.countInStock === 0){
+    //         setErrorLimitOrder(true)
+    //     }
+    // },[numProduct])
+
+    // useEffect(() => {
+    //     if(order.isSucessOrder) {
+    //         message.success('Đã thêm vào giỏ hàng')
+    //     }
+    //     return () => {
+    //         dispatch(resetOrder())
+    //     }
+    // }, [order.isSucessOrder])
+
+    // const handleChangeCount = (type, limited) => {
+    //     if(type === 'increase') {
+    //         if(!limited) {
+    //             setNumProduct(numProduct + 1)
+    //         }
+    //     }else {
+    //         if(!limited) {
+    //             setNumProduct(numProduct - 1)
+    //         }
+    //     }
+    // }
+
+    const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
+    // const handleAddOrderProduct = () => {
+    //     if(!user?.id) {
+    //         navigate('/sign-in', {state: location?.pathname})
+    //     }else {
+            // {
+            //     name: { type: String, required: true },
+            //     amount: { type: Number, required: true },
+            //     image: { type: String, required: true },
+            //     price: { type: Number, required: true },
+            //     product: {
+            //         type: mongoose.Schema.Types.ObjectId,
+            //         ref: 'Product',
+            //         required: true,
+            //     },
+            // },
+    //         const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+    //         if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+    //             dispatch(addOrderProduct({
+    //                 orderItem: {
+    //                     name: productDetails?.name,
+    //                     amount: numProduct,
+    //                     image: productDetails?.image,
+    //                     price: productDetails?.price,
+    //                     product: productDetails?._id,
+    //                     discount: productDetails?.discount,
+    //                     countInstock: productDetails?.countInStock
+    //                 }
+    //             }))
+    //         } else {
+    //             setErrorLimitOrder(true)
+    //         }
+    //     }
+    // }
   return (
 
 // <ProductDisplayContainer>
@@ -357,7 +449,7 @@ const Product = () => {
             
                 {/* Hiển thị danh sách các ảnh */}
          
-                <Image src={product.data?.image[0].image} />
+                <Image src={productDetails?.image[0].image} />
           
             
                 {/* <div className="productdisplay_img">
@@ -368,13 +460,13 @@ const Product = () => {
                 
                 <StarRating></StarRating>
                 
-                <ProductTitle>{product.data?.tittle}</ProductTitle>
+                <ProductTitle>{productDetails?.tittle}</ProductTitle>
                 <PriceContainer>
-                    <OldPrice>${product.data?.price}</OldPrice>
-                    <NewPrice>${product.data?.price}</NewPrice>
+                    <OldPrice>${productDetails?.price}</OldPrice>
+                    <NewPrice>${productDetails?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
-                    {product.data?.description}
+                    {productDetails?.description}
                 </div>
                 
                 {/* {product?.categories?.includes("Apparel")? 
@@ -391,7 +483,7 @@ const Product = () => {
                 :  <hr />
                     } */}
                  <SizeOptions >
-                  {product.data?.size.map((s) => (
+                  {productDetails?.size.map((s) => (
                     <SizeOption >{s}</SizeOption>
                   ))}
                 </SizeOptions>

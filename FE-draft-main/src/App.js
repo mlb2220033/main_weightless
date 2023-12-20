@@ -38,18 +38,18 @@ import { useQuery } from 'react-query';
 
 function App() {
   const user =  useSelector((state) => state.user.currentUser);
-  console.log('Navigating to Checkout Success');
+  
   // useEffect(()=>{
   //   fetchapi()
   // },[]
   // )
-  const fetchapi= async()=>{
-    const res=await axios.get(`http://localhost:3001/api/product/get-all`)
-    // console.log(res)
-    return res.data
-  }
-  const query = useQuery('todos', fetchapi)
-  console.log('query',query)
+  // const fetchapi= async()=>{
+  //   const res=await axios.get(`http://localhost:3001/api/product/get-all`)
+  //   // console.log(res)
+  //   return res.data
+  // }
+  // const query = useQuery('todos', fetchapi)
+  // console.log('query',query)
   return (
     <Router>
       <Routes>
