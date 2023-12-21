@@ -1,11 +1,16 @@
 import React from 'react'
 import styled from "styled-components";
 import { Col, Row } from 'react-bootstrap'
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import {mobile} from "../responsive";
 import gg from '../assets/images/google.png'
 import fb from '../assets/images/Facebook.png'
-
+import { useState } from 'react';
+import InputForm from 'components/InputForm/InputForm';
+import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
+// import * as UserService from '../../src/services/UserService'
+// import { useMutation } from '@tanstack/react-query';
+// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -99,6 +104,7 @@ const Login = styled.div`
         }
     }
 `;
+
 const MyRow = styled(Row)`
 display: flex;
 flex-wrap: wrap;
@@ -154,26 +160,26 @@ const MyCol = styled(Col)`
     width: 100%; // Make the columns take full width on smaller screens
   }
 `;
-const LoginButton = styled.button`
-    width: 80%;
+// const LoginButton = styled.button`
+//     width: 80%;
     
-    margin-left: 50px;
-    margin-right: 50px;
-    padding: 16px;
+//     margin-left: 50px;
+//     margin-right: 50px;
+//     padding: 16px;
     
-    margin-top: 16px;
+//     margin-top: 16px;
     
-    border-radius: 10px;
-    background-color: #ff6d1a;
-    color: #fff;
-    font-weight: 500;
-    cursor: pointer;
-    border: 2px solid hsla(0, 0%, 100%, .7);
-    ${mobile} {
-        margin-left: 0;
-        margin-right: 0;
-      }
-`;
+//     border-radius: 10px;
+//     background-color: #ff6d1a;
+//     color: #fff;
+//     font-weight: 500;
+//     cursor: pointer;
+//     border: 2px solid hsla(0, 0%, 100%, .7);
+//     ${mobile} {
+//         margin-left: 0;
+//         margin-right: 0;
+//       }
+// `;
 const GoogleImage = styled.img`
     width: 30px;
 `;
@@ -232,24 +238,58 @@ const MyLink = styled(Link)`
   ${mobile({ fontSize: "24px" })}
 `;
 function Register() {
-    return (
+    const [Firstname, setFirstname] = useState('');
+    const [Lastname, setLastname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    // const mutation = useMutation(
+    //     data => UserService.loginUser(data)
+    //  )
+    //  console.log('mutation',mutation)
+    
+
+    const handleOnchangeFirstname = (value) => {
+        setFirstname(value)
+    }
+    const handleOnchangeLastname = (value) => {
+        setLastname(value)
+    }
+    const handleOnchangeEmail = (value) => {
+        setEmail(value)
+    }
+    
+    const handleOnchangePassword = (value) => {
+        setPassword(value)
+    }
+
+    const handleOnchangeConfirmPassword = (value) => {
+        setConfirmPassword(value)
+    }
+
+    const handleSignUp = () => {
+        mutation.mutate({ email, password, confirmPassword })
+        console.log('sign-up', email, password, confirmPassword )
+      }
+        return (
         <Container>
             <Form>
             <Wrapper>
                 
                 <Title>CREATE ACCOUNT HERE</Title>
                         <MyRow> 
-                            <MyCol><Input placeholder="First Name" type="text" required/></MyCol>
-                            <MyCol><Input placeholder="Last Name" type="text" required/></MyCol>
+                            <MyCol><InputForm placeholder="First Name" type="text" value={Firstname} onChange={handleOnchangeFirstname} required/></MyCol>
+                            <MyCol><InputForm placeholder="Last Name" type="text" value={Lastname} onChange={handleOnchangeLastname} required/></MyCol>
                         </MyRow>
                         <MyRow>
-                            <MyCol><Input placeholder="Email" type="email" required/></MyCol>
+                            <MyCol><InputForm placeholder="Email" type="email" value={email} onChange={handleOnchangeEmail} required/></MyCol>
                         </MyRow>
                         <MyRow>
-                            <MyCol><Input placeholder="Password" type="password" required/></MyCol>
+                            <MyCol><InputForm placeholder="Password" type="password" value={password} onChange={handleOnchangePassword} required/></MyCol>
                         </MyRow>
                         <MyRow>
-                            <MyCol><Input placeholder="Confirm Password" type="password" required/></MyCol>
+                            <MyCol><InputForm placeholder="Confirm Password" type="password" value={confirmPassword} onChange={handleOnchangeConfirmPassword} required/></MyCol>
                         </MyRow>
 
                         <MyRow xs="auto">
@@ -275,7 +315,23 @@ function Register() {
                         <Title1>By Clicking Sign-up, you agree to our  <MyLink to='/terms-and-policies'>Terms and Policies</MyLink>
                          . You may receive SMS notifications from us and can opt out at any time.
                          </Title1>
-                         <LoginButton type="submit">Register</LoginButton>
+                         <ButtonComponent 
+                            disabled={!email.length || !password.length || !confirmPassword.length}
+                            onClick={handleSignUp}
+                            size={40}
+                            type="submit"
+                            styleButton={{
+                              background: 'rgb(255, 57, 69)',
+                              height: '48px',
+                              width: '100%',
+                              border: 'none',
+                              borderRadius: '4px',
+                              margin: '26px 0 10px',
+                             
+                            }}
+                            textbutton={'Register'}
+                            styleTextButton={{ color: '#fff', fontSize: '20px', fontWeight: '700' }}
+                            ></ButtonComponent>
                          <Separator>
                         <hr className="line" />
                         <p>or</p>

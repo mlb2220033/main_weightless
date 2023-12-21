@@ -3,7 +3,7 @@ import Button from 'react-bootstrap';
 import styled from "styled-components"
 import { Badge } from "@material-ui/core";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import logo from '../assets/images/footer-logo.png'
 import { mobile } from "../responsive";
@@ -186,7 +186,7 @@ const Navbar = () => {
 
   // const handleClick= () => setClick(!click);
   // const closeMobileMenu = () => setClick(false);
-
+  
   const onMouseEnter = () =>{
     if(window.innerWidth < 960){
       setProductDropdown(false)
@@ -286,8 +286,9 @@ const Navbar = () => {
               </MyLink>
               
               <MyLink to='/login'>
-                <Title>Log In</Title>
+                  <Title>Log In</Title>
               </MyLink>
+
               
               
             </Center>
@@ -298,7 +299,7 @@ const Navbar = () => {
                   <Search style={{color:'gray',fontSize:'16px'}}/>
               </SearchContainer>
             <MyLinkcart to="/cart">
-                <Badge badgeContent={quantity} color="secondary">
+                <Badge badgeContent={quantity} color="secondary" overlap="rectangular">
                   <ShoppingCartOutlined />
                 </Badge>
               </MyLinkcart>
@@ -307,5 +308,6 @@ const Navbar = () => {
     </Container>
   )
 }
+
 
 export default Navbar
