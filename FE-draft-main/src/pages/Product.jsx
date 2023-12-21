@@ -403,42 +403,7 @@ const Product = () => {
     // }
   return (
 
-// <ProductDisplayContainer>
-    
-            //<LeftSection>
-            //<ImageList>  
-                //Hiển thị danh sách các ảnh 
-         
-            //     <Image src={product?.img[0]} />
-          
-            // </ImageList>
-                // <div className="productdisplay_img">
-                //     <MainImage src={mainImageSrc} alt="" />
-                // </div> 
-            // </LeftSection>
-            // <RightSection>
-            //     <ProductTitle>{product?.name}</ProductTitle>
-            //     <StarRating></StarRating>
-            //     <PriceContainer>
-            //         <OldPrice>${product?.price}</OldPrice>
-            //         <NewPrice>${product?.price}</NewPrice>
-            //     </PriceContainer>
-                // <div className="productdisplay_right_descr">
-                //     {product?.desc}
-                // </div> 
-        //         <SizeSelectionTitle>select size</SizeSelectionTitle>
-        //         <SizeOptions>
-        //             <SizeOption>S</SizeOption>
-        //             <SizeOption>M</SizeOption>
-        //             <SizeOption>L</SizeOption>
-        //             <SizeOption>XL</SizeOption>
-        //             <SizeOption>XXL</SizeOption>
-        //         </SizeOptions>
-        //         <AddToCartButton >ADD TO CART</AddToCartButton>
-        //         <CategoryInfo><span>Category :</span> {product?.cat}</CategoryInfo>
-                
-        //     </RightSection>
-        // </ProductDisplayContainer>
+
 
 
         <Container>

@@ -11,7 +11,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
-const Products = ({ cat, filters, sort }) => {
+const Products = ({ cat, filters, sort, limit }) => {
   // const [products, setProducts] = useState([]);
   // const [limit,setLimit]=useState(4)
   // const [filteredProducts, setFilteredProducts] = useState([]);
@@ -67,11 +67,11 @@ const Products = ({ cat, filters, sort }) => {
   // const searchProduct = useSelector((state) => state?.product?.search)
   // const searchDebounce = useDebounce(searchProduct, 500)
   const [loading, setLoading] = useState(false)
-  const [limit, setLimit] = useState(6)
+  // const [limit, setLimit] = useState(6)
   const [typeProducts, setTypeProducts] = useState([])
   
   const fetchProductAll = async (context) => {
-    const limit = context?.queryKey && context?.queryKey[1]
+    // const limit = context?.queryKey && context?.queryKey[1]
     const search = context?.queryKey && context?.queryKey[2]
     const res = await ProductService.getAllProduct(search, limit)
 
@@ -108,7 +108,7 @@ console.log(products)
       {products?.data?.map((item) => (
         <Product item={item} key={item._id} />
       ))}
-      <button onClick={()=>setLimit((prev)=>prev*2)}>load more</button>
+      
     </Container>
   )
 }
