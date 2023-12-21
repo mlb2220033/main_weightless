@@ -13,32 +13,25 @@ import BlogHome from './pages/Blog/Blog'; // Adjusted import path
 import Aboutus from './pages/Aboutus';
 import TermsandPolicies from './pages/Tnp';
 import CustomerServices from './pages/Cs';
+
+
+import Navbar from './components/Navbar'
+import Announcement from './components/Announcement'
+
+
+
+import { useSelector } from "react-redux"
 import CartItems from './pages/Newcart';
 import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
-import Register from './pages/Register';
-import Navbar from './components/Navbar';
-import Announcement from './components/Announcement';
+import Register from 'pages/Register';
 
 import { QueryClientProvider as ReactQueryClientProvider } from 'react-query';
 
 function App() {
-  // useEffect(() => {
-  //   fetchApi();
-  // }, []);
-
-  const user = useSelector((state) => state.user.currentUser);
+  const user =  useSelector((state) => state.user.currentUser);
   console.log('Navigating to Checkout Success');
-
-  // const fetchApi = async () => {
-  //   const res = await axios.get(`${process.env.REACT_APP_API_URL}/user/getAll`);
-  //   return res.data;
-  // };
-
-  const query = new QueryClient();
-
-  console.log('query', query);
-
+  
   return (
     <ReactQueryClientProvider client={query}>
       <Router>

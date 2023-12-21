@@ -42,6 +42,7 @@ const Option = styled.option``;
 const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
+  const [limit, setLimit] = useState(6)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
   const handleFilters = (e) => {
@@ -76,7 +77,8 @@ const ProductList = () => {
             </Select>
             </Filter>
         </FilterContainer>
-        <Products cat={cat} filters={filters} sort={sort}></Products>
+        <Products cat={cat} filters={filters} sort={sort} limit={limit}></Products>
+        <button onClick={()=>setLimit((prev)=>prev*2)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
         <Footer></Footer>

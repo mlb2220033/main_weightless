@@ -12,8 +12,9 @@ import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { normal } from "../data";
-
-
+import axios from "axios"
+import { useQuery } from "react-query";
+import * as ProductService from '../services/ProductService'
 
 // const ProductDisplayContainer = styled.div`
 //     display: flex;
@@ -272,27 +273,27 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
 //   const product = normal.find((b) => b.id === id)
-const products = require('../assets/data/apparel/weightless.products.json');
+// const products = require('../assets/data/apparel/weightless.products.json');
 
-const product = products.apparel_products.find((product) => product._id.$oid === id);
+// const product = products.apparel_products.find((product) => product._id.$oid === id);
 
 
-//   const [product, setProduct] = useState({});
+  // const [product, setProduct] = useState([]);
 //   const [quantity, setQuantity] = useState(1);
 //   const [color, setColor] = useState("");
 //   const [size, setSize] = useState("");
 //   const dispatch = useDispatch();
   
-//   useEffect(() => {
-//     const getProduct = async () => {
-//       try {
-//         const res = await publicRequest.get("/products/find/" + id);
-//         setProduct(res.data);
-//       } catch {}
-//     };
-//     getProduct();
-//   }, [id]);
-
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
+  //       setProduct(res.data);
+  //     } catch {}
+  //   };
+  //   getProduct();
+  // }, [id]);
+// console.log(product)
 //   const handleQuantity = (type) => {
 //     if (type === "dec") {
 //       quantity > 1 && setQuantity(quantity - 1);
@@ -308,45 +309,101 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
 //   };
 
 // const { id } = useParams();
-  
+
+
+
+//new
+// const [numProduct, setNumProduct] = useState(1)
+//     const user = useSelector((state) => state.user)
+//     const order = useSelector((state) => state.order)
+//     const [errorLimitOrder,setErrorLimitOrder] = useState(false)
+//     const navigate = useNavigate()
+    
+    const dispatch = useDispatch()
+
+    // const onChange = (value) => { 
+    //     setNumProduct(Number(value))
+    // }
+
+    const fetchGetDetailsProduct = async (context) => {
+      const id = context?.queryKey && context?.queryKey[1]
+      if(id) {
+          const res = await ProductService.getDetailsProduct(id)
+          return res.data
+      }
+  }
+
+    // useEffect(() => {
+    //     initFacebookSDK()
+    // }, [])
+
+    // useEffect(() => {
+    //     const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id) 
+    //     if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+    //         setErrorLimitOrder(false)
+    //     } else if(productDetails?.countInStock === 0){
+    //         setErrorLimitOrder(true)
+    //     }
+    // },[numProduct])
+
+    // useEffect(() => {
+    //     if(order.isSucessOrder) {
+    //         message.success('Đã thêm vào giỏ hàng')
+    //     }
+    //     return () => {
+    //         dispatch(resetOrder())
+    //     }
+    // }, [order.isSucessOrder])
+
+    // const handleChangeCount = (type, limited) => {
+    //     if(type === 'increase') {
+    //         if(!limited) {
+    //             setNumProduct(numProduct + 1)
+    //         }
+    //     }else {
+    //         if(!limited) {
+    //             setNumProduct(numProduct - 1)
+    //         }
+    //     }
+    // }
+
+    const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
+    // const handleAddOrderProduct = () => {
+    //     if(!user?.id) {
+    //         navigate('/sign-in', {state: location?.pathname})
+    //     }else {
+            // {
+            //     name: { type: String, required: true },
+            //     amount: { type: Number, required: true },
+            //     image: { type: String, required: true },
+            //     price: { type: Number, required: true },
+            //     product: {
+            //         type: mongoose.Schema.Types.ObjectId,
+            //         ref: 'Product',
+            //         required: true,
+            //     },
+            // },
+    //         const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+    //         if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+    //             dispatch(addOrderProduct({
+    //                 orderItem: {
+    //                     name: productDetails?.name,
+    //                     amount: numProduct,
+    //                     image: productDetails?.image,
+    //                     price: productDetails?.price,
+    //                     product: productDetails?._id,
+    //                     discount: productDetails?.discount,
+    //                     countInstock: productDetails?.countInStock
+    //                 }
+    //             }))
+    //         } else {
+    //             setErrorLimitOrder(true)
+    //         }
+    //     }
+    // }
   return (
 
-// <ProductDisplayContainer>
-    
-            //<LeftSection>
-            //<ImageList>  
-                //Hiển thị danh sách các ảnh 
-         
-            //     <Image src={product?.img[0]} />
-          
-            // </ImageList>
-                // <div className="productdisplay_img">
-                //     <MainImage src={mainImageSrc} alt="" />
-                // </div> 
-            // </LeftSection>
-            // <RightSection>
-            //     <ProductTitle>{product?.name}</ProductTitle>
-            //     <StarRating></StarRating>
-            //     <PriceContainer>
-            //         <OldPrice>${product?.price}</OldPrice>
-            //         <NewPrice>${product?.price}</NewPrice>
-            //     </PriceContainer>
-                // <div className="productdisplay_right_descr">
-                //     {product?.desc}
-                // </div> 
-        //         <SizeSelectionTitle>select size</SizeSelectionTitle>
-        //         <SizeOptions>
-        //             <SizeOption>S</SizeOption>
-        //             <SizeOption>M</SizeOption>
-        //             <SizeOption>L</SizeOption>
-        //             <SizeOption>XL</SizeOption>
-        //             <SizeOption>XXL</SizeOption>
-        //         </SizeOptions>
-        //         <AddToCartButton >ADD TO CART</AddToCartButton>
-        //         <CategoryInfo><span>Category :</span> {product?.cat}</CategoryInfo>
-                
-        //     </RightSection>
-        // </ProductDisplayContainer>
+
 
 
         <Container>
@@ -357,7 +414,7 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             
                 {/* Hiển thị danh sách các ảnh */}
          
-                <Image src={product?.image[0].image} />
+                <Image src={productDetails?.image[0].image} />
           
             
                 {/* <div className="productdisplay_img">
@@ -367,14 +424,16 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             <RightSection>
                 
                 <StarRating></StarRating>
+                
+                <ProductTitle>{productDetails?.tittle}</ProductTitle>
                 <PriceContainer>
-                    <OldPrice>${product?.price}</OldPrice>
-                    <NewPrice>${product?.price}</NewPrice>
+                    <OldPrice>${productDetails?.price}</OldPrice>
+                    <NewPrice>${productDetails?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
-                    {product?.description}
+                    {productDetails?.description}
                 </div>
-                <ProductTitle>{product?.tittle}</ProductTitle>
+                
                 {/* {product?.categories?.includes("Apparel")? 
             <FilterContainer>
               <Filter>
@@ -388,13 +447,17 @@ const product = products.apparel_products.find((product) => product._id.$oid ===
             </FilterContainer>
                 :  <hr />
                     } */}
-                 
-                 {/* <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")} /> 
-            </AmountContainer> */}
-                {/* <AddToCartButton onClick={handleClick}>ADD TO CART</AddToCartButton> */}
+                 <SizeOptions >
+                  {productDetails?.size.map((s) => (
+                    <SizeOption >{s}</SizeOption>
+                  ))}
+                </SizeOptions>
+                 <AmountContainer>
+              <Remove  />
+              <Amount>1</Amount>
+              <Add  /> 
+            </AmountContainer>
+                <AddToCartButton >ADD TO CART</AddToCartButton>
                 {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
                 
             </RightSection>

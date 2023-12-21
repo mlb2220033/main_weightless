@@ -108,14 +108,14 @@ const Product = ({item}) => {
     <Container>
     <SmallContainer>
       <Circle />
-      <Image src={item.img[0]}/>
+      <Image src={item?.image[0].image}/>
       
       <Info>
         <Icon>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link to={`/product/${item.id}`}>
+          <Link to={`/product/${item._id}`}>
           <SearchOutlined /></Link>
         </Icon>
         <Icon>
@@ -124,7 +124,7 @@ const Product = ({item}) => {
       </Info>
       
     </SmallContainer>
-    <Name>{item.name}</Name>
+    <Name>{item.tittle}</Name>
     <Price>${item.price}</Price>
     </Container>
   )
