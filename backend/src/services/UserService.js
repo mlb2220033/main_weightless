@@ -1,6 +1,6 @@
-const User = require("../models/UserModel")
-const bcryptjs = require("bcryptjs")
-const { genneralAccessToken, genneralRefreshToken } = require("./JwtService")
+const User = require("../models/UserModel");
+const bcryptjs = require("bcryptjs");
+const { genneralAccessToken, genneralRefreshToken } = require("./JwtService");
 
 const createUser = (newUser) => {
     return new Promise(async (resolve, reject) => {
@@ -50,8 +50,8 @@ const loginUser = (userLogin) => {
                     message: 'The user is not defined'
                 })
             }
-            const comparePassword = bcryptjs.compareSync(password, checkUser.password)
-
+            console.log('checkUser',checkUser)
+            const comparePassword = bcryptjs.compare(password, checkUser.password)
             if (!comparePassword) {
                 resolve({
                     status: 'ERR',
@@ -67,7 +67,7 @@ const loginUser = (userLogin) => {
                 id: checkUser.id,
                 isAdmin: checkUser.isAdmin
             })
-            console.log('access_token', access_token)
+
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
@@ -79,7 +79,6 @@ const loginUser = (userLogin) => {
         }
     })
 }
-
 const updateUser = (id, data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -122,7 +121,6 @@ const deleteUser = (id) => {
             resolve({
                 status: 'OK',
                 message: 'Delete user success',
-                data: updatedUser
             })
         } catch (e) {
             reject(e)
