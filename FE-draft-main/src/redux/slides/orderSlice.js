@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   orderItems: [],
-  orderItemsSlected: [],
+  orderItemsSelected: [],
+  totalQuantity:0,
   shippingAddress: {
   },
   paymentMethod: '',
@@ -26,52 +27,59 @@ export const orderSlice = createSlice({
       const {orderItem} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
       if(itemOrder){
-        if(itemOrder.amount <= itemOrder.countInstock) {
+        // if(itemOrder.amount <= itemOrder.countInstock) {
           itemOrder.amount += orderItem?.amount
           state.isSucessOrder = true
           state.isErrorOrder = false
-        }
+          state.totalQuantity+=orderItem?.amount
+        // }
       }else {
         state.orderItems.push(orderItem)
+        state.totalQuantity+=orderItem?.amount
       }
     },
     resetOrder: (state) => {
       state.isSucessOrder = false
+      state.totalQuantity=0
     },
     increaseAmount: (state, action) => {
       const {idProduct} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === idProduct)
-      const itemOrderSelected = state?.orderItemsSlected?.find((item) => item?.product === idProduct)
+      const itemOrderSelected = state?.orderItemsSelected?.find((item) => item?.product === idProduct)
       itemOrder.amount++;
       if(itemOrderSelected) {
         itemOrderSelected.amount++;
       }
+      state.totalQuantity++
     },
     decreaseAmount: (state, action) => {
       const {idProduct} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === idProduct)
-      const itemOrderSelected = state?.orderItemsSlected?.find((item) => item?.product === idProduct)
+      const itemOrderSelected = state?.orderItemsSelected?.find((item) => item?.product === idProduct)
       itemOrder.amount--;
       if(itemOrderSelected) {
         itemOrderSelected.amount--;
       }
+      state.totalQuantity--
     },
     removeOrderProduct: (state, action) => {
       const {idProduct} = action.payload
-      
-      const itemOrder = state?.orderItems?.filter((item) => item?.product !== idProduct)
-      const itemOrderSeleted = state?.orderItemsSlected?.filter((item) => item?.product !== idProduct)
-
+      const removed = state?.orderItems?.find((item) => item?.product === idProduct)
+      const itemOrder = state?.orderItems?.filter((item) => item.product !== idProduct)
+      const itemOrderSeleted = state?.orderItemsSelected?.filter((item) => item.product !== idProduct)
+      console.log("remove",{idProduct,itemOrder})
       state.orderItems = itemOrder;
-      state.orderItemsSlected = itemOrderSeleted;
+      state.orderItemsSelected = itemOrderSeleted;
+      state.totalQuantity-=removed?.amount
     },
     removeAllOrderProduct: (state, action) => {
-      const {listChecked} = action.payload
+      // const {listChecked} = action.payload
       
-      const itemOrders = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
-      const itemOrdersSelected = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
-      state.orderItems = itemOrders
-      state.orderItemsSlected = itemOrdersSelected
+      // const itemOrders = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
+      // const itemOrdersSelected = state?.orderItems?.filter((item) => !listChecked.includes(item.product))
+      state.totalQuantity=0
+      state.orderItems = []
+      state.orderItemsSelected = []
 
     },
     selectedOrder: (state, action) => {
@@ -82,7 +90,7 @@ export const orderSlice = createSlice({
           orderSelected.push(order)
         };
       });
-      state.orderItemsSlected = orderSelected
+      state.orderItemsSelected = orderSelected
     }
   },
 })

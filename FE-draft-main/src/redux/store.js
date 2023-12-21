@@ -1,6 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import cartReducer from "./cartRedux";
-import userReducer from "./userRedux";
+// import cartReducer from "./cartRedux";
+// import userReducer from "./userRedux";
+
+import productReducer from './slides/productSlice'
+import userReducer from './slides/userSlice'
+import orderReducer from './slides/orderSlice'
 import {
   persistStore,
   persistReducer,
@@ -17,9 +21,10 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist:['product']
 };
 
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+const rootReducer = combineReducers({product:productReducer, user: userReducer, order: orderReducer });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -34,3 +39,11 @@ export const store = configureStore({
 });
 
 export let persistor = persistStore(store);
+
+// export const store = configureStore({
+//   reducer:{
+//     product:productReducer,
+//     user:userReducer,
+//     order:orderReducer
+//   }
+// })
