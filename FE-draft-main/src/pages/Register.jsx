@@ -8,8 +8,14 @@ import fb from '../assets/images/Facebook.png'
 import { useState } from 'react';
 import InputForm from 'components/InputForm/InputForm';
 import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
+<<<<<<< HEAD
 import { useMutation } from '@tanstack/react-query';
 import * as UserService from '../services/UserService'
+=======
+import * as UserService from '.././services/UserService'
+import { useMutationHooks } from 'hooks/userMutationHook';
+import Loading from 'components/LoadingComponent/Loading';
+>>>>>>> c9bd1f7b861ec6bca63955921910732d32d33502
 // import { useMutation } from '@tanstack/react-query';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Container = styled.div`
@@ -161,6 +167,12 @@ const MyCol = styled(Col)`
     width: 100%; // Make the columns take full width on smaller screens
   }
 `;
+const LoadingWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 // const LoginButton = styled.button`
 //     width: 80%;
     
@@ -245,10 +257,28 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+<<<<<<< HEAD
     const mutation = useMutation(
         data => UserService.loginUser(data)
      )
     //  console.log('mutation',mutation)
+=======
+    const [isloading, setLoading] = useState(false);
+    
+    const mutation = useMutationHooks(
+        data => UserService.signupUser(data),
+        {
+          onSuccess: () => {
+            setLoading(false);
+          },
+          onError: () => {
+            setLoading(false);
+          },
+        }
+      );
+    const{data, isLoading} = mutation
+    console.log('mutation',mutation)
+>>>>>>> c9bd1f7b861ec6bca63955921910732d32d33502
     
 
     const handleOnchangeFirstname = (value) => {
@@ -268,11 +298,16 @@ function Register() {
     const handleOnchangeConfirmPassword = (value) => {
         setConfirmPassword(value)
     }
-
     const handleSignUp = () => {
-        mutation.mutate({ email, password, confirmPassword })
+        setLoading(true);
+        mutation.mutate({
+            email, 
+            password, 
+            confirmPassword
+        });
         console.log('sign-up', email, password, confirmPassword )
-      }
+      };
+    
         return (
         <Container>
             <Form>
@@ -316,6 +351,7 @@ function Register() {
                         <Title1>By Clicking Sign-up, you agree to our  <MyLink to='/terms-and-policies'>Terms and Policies</MyLink>
                          . You may receive SMS notifications from us and can opt out at any time.
                          </Title1>
+                         {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)}
                          <ButtonComponent 
                             disabled={!email.length || !password.length || !confirmPassword.length}
                             onClick={handleSignUp}
@@ -333,6 +369,10 @@ function Register() {
                             textbutton={'Register'}
                             styleTextButton={{ color: '#fff', fontSize: '20px', fontWeight: '700' }}
                             ></ButtonComponent>
+                            {isloading && (
+                            <LoadingWrapper>
+                                <Loading isLoading={isloading} />
+                            </LoadingWrapper>)}
                          <Separator>
                         <hr className="line" />
                         <p>or</p>
