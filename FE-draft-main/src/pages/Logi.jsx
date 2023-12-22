@@ -12,6 +12,7 @@ import * as UserService from '../../src/services/UserService'
 
 import { useMutation } from '@tanstack/react-query';
 import { useMutationHooks } from 'hooks/userMutationHook';
+import Loading from 'components/LoadingComponent/Loading';
 
 
 const Container = styled.div`
@@ -203,6 +204,13 @@ const Register = styled.div`
         }
     }
 `;
+const LoadingWrapper = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 
 // const Wrapper = styled.div`
 //   width: 25%;
@@ -265,10 +273,20 @@ function Logi() {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     
     const mutation = useMutationHooks(
-        data => UserService.loginUser(data)
-    )
+        data => UserService.loginUser(data),
+        {
+          onSuccess: () => {
+            setLoading(false);
+          },
+          onError: () => {
+            setLoading(false);
+          },
+        }
+      );
+    const {data, isLoading} = mutation
     console.log('mutation', mutation)
     console.log('mutation status:', mutation.status)
     console.log('mutation error:', mutation.error)
@@ -284,12 +302,13 @@ function Logi() {
     }
 
     const handleSignIn = () => {
+        setLoading(true);
         mutation.mutate({
-            email,
-            password
-        })
-        console.log('login', email, password )
-    }
+          email,
+          password,
+        });
+        console.log('login', email, password);
+      };
   return (
     <Container>
       {/* <Wrapper>
@@ -320,24 +339,29 @@ function Logi() {
                     </CheckBox>
                     <Forgot href="#" className="forgot">Forgot Password?</Forgot>
                 </Check>
+                {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)}
                 
-                <ButtonComponent
-                    disabled={!email.length || !password.length}
-                    onClick={handleSignIn}
-                    type="submit"
-                    size={40}
-                    styleButton={{
-                    background: 'rgb(255, 57, 69)',
-                    height: '48px',
-                    width: '100%',
-                    border: 'none',
-                    borderRadius: '4px',
-                    margin: '26px 0 10px',
+                    <ButtonComponent
+                        disabled={!email.length || !password.length}
+                        onClick={handleSignIn}
                     
-                    }}
-                    textbutton={'Login'}
-                    styleTextButton={{ color: '#fff', fontSize: '20px', fontWeight: '700' }}
-                ></ButtonComponent>
+                        size={40}
+                        styleButton={{
+                        background: 'rgb(255, 57, 69)',
+                        height: '48px',
+                        width: '100%',
+                        border: 'none',
+                        borderRadius: '4px',
+                        margin: '26px 0 10px',
+                        
+                        }}
+                        textbutton={'Login'}
+                        styleTextButton={{ color: '#fff', fontSize: '20px', fontWeight: '700' }}
+                    ></ButtonComponent>
+                    {loading && (
+                        <LoadingWrapper>
+                            <Loading isLoading={loading} />
+                        </LoadingWrapper>)}
                 <Separator>
                     <hr className="line" />
                     <p>or</p>
