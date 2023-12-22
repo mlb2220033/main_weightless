@@ -21,14 +21,14 @@ import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import Register from 'pages/Register';
 
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
   console.log('Navigating to Checkout Success');
 
   return (
-    <QueryClientProvider client={queryClient}>
+    // <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
@@ -46,8 +46,8 @@ function App() {
           <Route path="/payment" element={<PaymentPage />} />
         </Routes>
       </Router>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    //   <ReactQueryDevtools initialIsOpen={false} />
+    // </QueryClientProvider>
   );
 }
 

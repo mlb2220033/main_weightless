@@ -392,7 +392,7 @@ const Product = () => {
             // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
                 dispatch(addOrderProduct({
                     orderItem: {
-                      tittle: productDetails?.tittle,
+                      tittle: productDetails?.name,
                         amount: numProduct,
                         image: productDetails?.image[0].image,
                         price: productDetails?.price,
@@ -432,9 +432,9 @@ const Product = () => {
                 
                 <StarRating></StarRating>
                 
-                <ProductTitle>{productDetails?.tittle}</ProductTitle>
+                <ProductTitle>{productDetails?.name}</ProductTitle>
                 <PriceContainer>
-                    <OldPrice>${productDetails?.price}</OldPrice>
+                    {/* <OldPrice>${productDetails?.price}</OldPrice> */}
                     <NewPrice>${productDetails?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
@@ -456,7 +456,7 @@ const Product = () => {
                     } */}
                  <SizeOptions >
                   {productDetails?.size.map((s) => (
-                    <SizeOption >{s}</SizeOption>
+                    <SizeOption >{s.size}</SizeOption>
                   ))}
                 </SizeOptions>
                  <AmountContainer>

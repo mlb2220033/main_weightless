@@ -61,8 +61,8 @@ const ProductList = () => {
         <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" onChange={handleFilters}>
-                
-                <Option>Apparel</Option>
+              <Option >All</Option>
+                <Option>Wear</Option>
                 <Option>Accessories</Option>
                 <Option>Equipment</Option>
                 
@@ -78,7 +78,7 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
         <Products cat={cat} filters={filters} sort={sort} limit={limit}></Products>
-        <button onClick={()=>setLimit((prev)=>prev*2)}>load more</button>
+        <button onClick={()=>setLimit((prev)=>prev+10)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
         <Footer></Footer>

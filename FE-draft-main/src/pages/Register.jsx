@@ -8,7 +8,8 @@ import fb from '../assets/images/Facebook.png'
 import { useState } from 'react';
 import InputForm from 'components/InputForm/InputForm';
 import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
-// import * as UserService from '../../src/services/UserService'
+import { useMutation } from '@tanstack/react-query';
+import * as UserService from '../services/UserService'
 // import { useMutation } from '@tanstack/react-query';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Container = styled.div`
@@ -244,9 +245,9 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    // const mutation = useMutation(
-    //     data => UserService.loginUser(data)
-    //  )
+    const mutation = useMutation(
+        data => UserService.loginUser(data)
+     )
     //  console.log('mutation',mutation)
     
 

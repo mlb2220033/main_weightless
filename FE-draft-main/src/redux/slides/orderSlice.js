@@ -32,35 +32,42 @@ export const orderSlice = createSlice({
           state.isSucessOrder = true
           state.isErrorOrder = false
           state.totalQuantity+=orderItem?.amount
+          state.itemsPrice+=orderItem?.amount*orderItem?.price
         // }
       }else {
         state.orderItems.push(orderItem)
         state.totalQuantity+=orderItem?.amount
+        state.itemsPrice+=orderItem?.amount*orderItem?.price
       }
     },
     resetOrder: (state) => {
       state.isSucessOrder = false
       state.totalQuantity=0
+      state.itemsPrice=0
     },
     increaseAmount: (state, action) => {
       const {idProduct} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === idProduct)
       const itemOrderSelected = state?.orderItemsSelected?.find((item) => item?.product === idProduct)
+      const oldamount=itemOrder.amount
       itemOrder.amount++;
       if(itemOrderSelected) {
         itemOrderSelected.amount++;
       }
       state.totalQuantity++
+      state.itemsPrice+=(itemOrder.amount-oldamount)*itemOrder.price
     },
     decreaseAmount: (state, action) => {
       const {idProduct} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === idProduct)
       const itemOrderSelected = state?.orderItemsSelected?.find((item) => item?.product === idProduct)
+      const oldamount=itemOrder.amount
       itemOrder.amount--;
       if(itemOrderSelected) {
         itemOrderSelected.amount--;
       }
       state.totalQuantity--
+      state.itemsPrice-=(oldamount-itemOrder.amount)*itemOrder.price
     },
     removeOrderProduct: (state, action) => {
       const {idProduct} = action.payload
@@ -71,6 +78,7 @@ export const orderSlice = createSlice({
       state.orderItems = itemOrder;
       state.orderItemsSelected = itemOrderSeleted;
       state.totalQuantity-=removed?.amount
+      state.itemsPrice-=removed?.amount*removed.price
     },
     removeAllOrderProduct: (state, action) => {
       // const {listChecked} = action.payload
@@ -80,7 +88,7 @@ export const orderSlice = createSlice({
       state.totalQuantity=0
       state.orderItems = []
       state.orderItemsSelected = []
-
+      state.itemsPrice=0
     },
     selectedOrder: (state, action) => {
       const {listChecked} = action.payload

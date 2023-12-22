@@ -124,7 +124,7 @@ const Product = ({item}) => {
       </Info>
       
     </SmallContainer>
-    <Name>{item.tittle}</Name>
+    <Name>{item.name}</Name>
     <Price>${item.price}</Price>
     </Container>
   )
