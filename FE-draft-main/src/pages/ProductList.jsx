@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 import { useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
+import Navbarnotrans from "components/Navbarnotrans";
 
 const Container = styled.div``;
 
@@ -42,6 +43,7 @@ const Option = styled.option``;
 const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
+  const [limit, setLimit] = useState(6)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
   const handleFilters = (e) => {
@@ -53,15 +55,16 @@ const ProductList = () => {
   };
   return (
     <Container>
-        <Announcement></Announcement>
-        <Navbar></Navbar>
+        {/* <Announcement></Announcement> */}
+        {/* <Navbar></Navbar> */}
+        <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
         <Title>{cat}</Title>
         <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" onChange={handleFilters}>
-                
-                <Option>Apparel</Option>
+              <Option >All</Option>
+                <Option>Wear</Option>
                 <Option>Accessories</Option>
                 <Option>Equipment</Option>
                 
@@ -76,7 +79,8 @@ const ProductList = () => {
             </Select>
             </Filter>
         </FilterContainer>
-        <Products cat={cat} filters={filters} sort={sort}></Products>
+        <Products cat={cat} filters={filters} sort={sort} limit={limit}></Products>
+        <button onClick={()=>setLimit((prev)=>prev+10)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
         <Footer></Footer>

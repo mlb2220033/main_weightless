@@ -22,9 +22,9 @@ const Card = () => {
                 
                 <p>{item.desc.slice(0, 180)}...</p>
                 <div className='date'>
-                  <AiOutlineClockCircle className='icon' /> <label htmlFor=''>{item.date}</label>
-                  <AiOutlineComment className='icon' /> <label htmlFor=''>27</label>
-                  <AiOutlineShareAlt className='icon' /> <label htmlFor=''>SHARE</label>
+                  <AiOutlineClockCircle className='icon' /> <label For=''>{item.date}</label>
+                  <AiOutlineComment className='icon' /> <label For=''>27</label>
+                  <AiOutlineShareAlt className='icon' /> <label For=''>SHARE</label>
                 </div>
               </div>
             </div>

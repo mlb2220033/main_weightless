@@ -5,12 +5,12 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { normal } from "../data";
 import { useNavigate } from 'react-router-dom';
 import Navbarnoscroll from 'components/Navbarnoscroll';
+import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct, selectedOrder } from '../redux/slides/orderSlice';
 
-import remove_icon from '../assets/images/cart_cross_icon.png';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -174,7 +174,27 @@ const Button = styled.button`
 `;
 const Cart = () => {
   const navigate = useNavigate();
-  
+  const cart= useSelector(state=>state.order)
+  const dispatch = useDispatch()
+  const handleRemoveAllOrder = () => {
+    // if(listChecked?.length > 1){
+      dispatch(removeAllOrderProduct())
+    // }
+  }
+  const handleChangeCount = (type, idProduct, limited) => {
+    if(type === 'increase') {
+      if(!limited) {
+        dispatch(increaseAmount({idProduct}))
+      }
+    }else {
+      if(!limited) {
+        dispatch(decreaseAmount({idProduct}))
+      }
+    }
+  }
+  const handleDelete = (idProduct) => {
+    dispatch(removeOrderProduct({idProduct}))
+  }
   return (
     <Container>
       
@@ -187,101 +207,50 @@ const Cart = () => {
           
           <TopTexts>
             <TopText>Your Bag</TopText>
-            
+            <RemoveButton onClick={handleRemoveAllOrder}>Remove</RemoveButton>
           </TopTexts>
           <TopButton type="filled">CONTINUE SHOPPING</TopButton>
         </Top>
         <Bottom>
           <Info>
-          
+            {cart.orderItems.map((product)=>(
               <Product>
-                <ProductDetail>
-                  <Image src={normal[0].img[0]} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> {normal[0].name}
-                    </ProductName>
-                    <ProductId>
-                      <b>Unit Price:</b> {normal[0].price}
-                    </ProductId>
-                    <RemoveButton>Remove</RemoveButton>
-                    {/* <ProductColor color={normal[0].color} /> */}
-                    {/* <ProductSize>
-                      <b>Size:</b> {normal[0].size}
-                    </ProductSize> */}
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>1</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {normal[0].price }
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
-
-              <Product>
-                <ProductDetail>
-                  <Image src={normal[4].img[0]} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> {normal[4].name}
-                    </ProductName>
-                    <ProductId>
-                      <b>Unit Price:</b> {normal[4].price}
-                    </ProductId>
-                    <RemoveButton>Remove</RemoveButton>
-                    {/* <ProductColor color={normal[0].color} /> */}
-                    {/* <ProductSize>
-                      <b>Size:</b> {normal[0].size}
-                    </ProductSize> */}
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>1</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {normal[4].price }
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
-
-              <Product>
-                <ProductDetail>
-                  <Image src={normal[7].img[0]} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> {normal[7].name}
-                    </ProductName>
-                    
-                    <ProductId>
-                      <b>Unit Price:</b> {normal[7].price}
-                    </ProductId>
-                    <RemoveButton>Remove</RemoveButton>
-                    {/* <ProductColor color={normal[0].color} /> */}
-                    {/* <ProductSize>
-                      <b>Size:</b> {normal[0].size}
-                    </ProductSize> */}
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>2</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {normal[7].price *2}
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
-            <Hr />
+              <ProductDetail>
+                <Image src={product.image} />
+                <Details>
+                  <ProductName>
+                    <b>Product:</b> {product.tittle}
+                  </ProductName>
+                  <ProductId>
+                    <b>Unit Price:</b> {product.price}
+                  </ProductId>
+                  {/* <ProductId>
+                    <b>Unit Price:</b> {product.size}
+                  </ProductId> */}
+                  <RemoveButton onClick={() => handleDelete(product.product)}>Remove</RemoveButton>
+                  {/* onClick={() => handleRemoveProduct(product._id)} */}
+                  {/* <ProductColor color={normal[0].color} /> */}
+                  {/* <ProductSize>
+                    <b>Size:</b> {normal[0].size}
+                  </ProductSize> */}
+                </Details>
+              </ProductDetail>
+              <PriceDetail>
+                <ProductAmountContainer>
+                  <Add onClick={() => handleChangeCount('increase', product.product,product?.amount === 100)}/>
+                  <ProductAmount>{product.amount}</ProductAmount>
+                  <Remove onClick={() => handleChangeCount('decrease', product.product,product?.amount === 1)}/>
+                </ProductAmountContainer>
+                <ProductPrice>
+                  $ {(product.price * product.amount).toFixed(2)}
+                </ProductPrice>
+                
+              </PriceDetail>
+              <hr />
+            </Product>
+            
+            ))}
+              
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

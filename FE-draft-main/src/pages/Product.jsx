@@ -5,128 +5,127 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { normal } from "../data";
-
-
-
-// const Container = styled.div``;
-
-// const Wrapper = styled.div`
-//   padding: 50px;
-//   display: flex;
-//   ${mobile({ padding: "10px", flexDirection: "column" })}
+import axios from "axios"
+import { useQuery } from "react-query";
+import * as ProductService from '../services/ProductService'
+import { addOrderProduct,resetOrder } from '../redux/slides/orderSlice'
+// const ProductDisplayContainer = styled.div`
+//     display: flex;
+//     margin: 0px 170px;
+    
 // `;
 
-// const ImgContainer = styled.div`
-//   flex: 1;
+// const LeftSection = styled.div`
+//     display: flex;
+//     gap: 17px;
+// `;
+
+// const ImageList = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     gap: 16px;
 // `;
 
 // const Image = styled.img`
-//   width: 100%;
-//   height: 90vh;
-//   object-fit: cover;
-//   ${mobile({ height: "40vh" })}
+//     height: 163px;
 // `;
 
-// const InfoContainer = styled.div`
-//   flex: 1;
-//   padding: 0px 50px;
-//   ${mobile({ padding: "10px" })}
+// const MainImage = styled.img`
+//     width: 596px;
+//     height: 700px;
 // `;
 
-// const Title = styled.h1`
-//   font-weight: 200;
+// const RightSection = styled.div`
+//     margin: 0px 70px;
+//     display: flex;
+//     flex-direction: column;
 // `;
 
-// const Desc = styled.p`
-//   margin: 20px 0px;
+// const ProductTitle = styled.h1`
+//     color: #3d3d3d;
+//     font-size: 40px;
+//     font-weight: 700;
 // `;
 
-// const Price = styled.span`
-//   font-weight: 100;
-//   font-size: 40px;
+// const StarRating = styled.div`
+//     display: flex;
+//     align-items: center;
+//     margin-top: 13px;
+//     gap: 5px;
+//     color: #1c1c1c;
+//     font-size: 16px;
 // `;
 
-// const FilterContainer = styled.div`
-//   width: 50%;
-//   margin: 30px 0px;
-//   display: flex;
-//   justify-content: space-between;
-//   ${mobile({ width: "100%" })}
+// const PriceContainer = styled.div`
+//     display: flex;
+//     margin: 40px 0px;
+//     gap: 30px;
+//     font-size: 24px;
+//     font-weight: 700;
 // `;
 
-// const Filter = styled.div`
-//   display: flex;
-//   align-items: center;
+// const OldPrice = styled.div`
+//     color: #818181;
+//     text-decoration: line-through;
 // `;
 
-// const FilterTitle = styled.span`
-//   font-size: 20px;
-//   font-weight: 200;
+// const NewPrice = styled.div`
+//     color: #ff4141;
 // `;
 
-// const FilterColor = styled.div`
-//   width: 20px;
-//   height: 20px;
-//   border-radius: 50%;
-//   background-color: ${(props) => props.color};
-//   margin: 0px 5px;
-//   cursor: pointer;
+// const SizeSelectionTitle = styled.h1`
+//     margin-top: 55px;
+//     color: #656565;
+//     font-size: 20px;
+//     font-weight: 600;
 // `;
 
-// const FilterSize = styled.select`
-//   margin-left: 10px;
-//   padding: 5px;
+// const SizeOptions = styled.div`
+//     display: flex;
+//     margin: 30px 0px;
+//     gap: 20px;
 // `;
 
-// const FilterSizeOption = styled.option``;
-
-// const AddContainer = styled.div`
-//   width: 50%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   ${mobile({ width: "100%" })}
+// const SizeOption = styled.div`
+//     padding: 18px 24px;
+//     background: #fbfbfb;
+//     border: 1px solid #ebebeb;
+//     border-radius: 3px;
+//     cursor: pointer;
 // `;
 
-// const AmountContainer = styled.div`
-//   display: flex;
-//   align-items: center;
-//   font-weight: 700;
+// const AddToCartButton = styled.button`
+//     padding: 20px 40px;
+//     width: 200px;
+//     font-size: 16px;
+//     font-weight: 600;
+//     color: white;
+//     background: #ff4141;
+//     margin-bottom: 40px;
+//     border: none;
+//     outline: none;
+//     cursor: pointer;
 // `;
 
-// const Amount = styled.span`
-//   width: 30px;
-//   height: 30px;
-//   border-radius: 10px;
-//   border: 1px solid teal;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin: 0px 5px;
+// const CategoryInfo = styled.p`
+//     margin-top: 10px;
+//     font-weight: 600;
 // `;
+//new
+const Container = styled.div`
 
-// const Button = styled.button`
-//   padding: 15px;
-//   border: 2px solid teal;
-//   background-color: white;
-//   cursor: pointer;
-//   font-weight: 500;
-
-//   &:hover {
-//     background-color: #f8f4f4;
-//   }
-// `;
-
+    
+`;
 const ProductDisplayContainer = styled.div`
     display: flex;
-    margin: 0px 170px;
+    margin: 0px 0px;
     
 `;
 
@@ -141,13 +140,14 @@ const ImageList = styled.div`
     gap: 16px;
 `;
 
-const Image = styled.img`
+const ProductImage = styled.img`
     height: 163px;
 `;
 
-const MainImage = styled.img`
+const Image = styled.img`
     width: 596px;
     height: 700px;
+    ${mobile({ width:"50px"})}
 `;
 
 const RightSection = styled.div`
@@ -187,7 +187,31 @@ const OldPrice = styled.div`
 const NewPrice = styled.div`
     color: #ff4141;
 `;
-
+const FilterContainer = styled.div`
+  width: 50%;
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+  
+`;
+const Filter = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const FilterTitle = styled.span`
+  font-size: 20px;
+  font-weight: 200;
+`;
+const FilterSizeOption = styled.option`
+padding: 18px 24px;
+    background: #fbfbfb;
+    border: 1px solid #ebebeb;
+    border-radius: 3px;
+    cursor: pointer;`;
+const FilterSize = styled.select`
+  margin-left: 10px;
+  padding: 5px;
+`;
 const SizeSelectionTitle = styled.h1`
     margin-top: 55px;
     color: #656565;
@@ -207,8 +231,17 @@ const SizeOption = styled.div`
     border: 1px solid #ebebeb;
     border-radius: 3px;
     cursor: pointer;
+    background-color: ${({ selected }) => (selected ? 'teal' : 'white')};
+  color: ${({ selected }) => (selected ? 'white' : 'black')};
+  font-weight: ${({ selected }) => (selected ? 'bold' : 'normal')};
+  
 `;
-
+const AmountContainer = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  padding-bottom: 15px;
+`;
 const AddToCartButton = styled.button`
     padding: 20px 40px;
     width: 200px;
@@ -221,31 +254,46 @@ const AddToCartButton = styled.button`
     outline: none;
     cursor: pointer;
 `;
-
+const Amount = styled.span`
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+`;
 const CategoryInfo = styled.p`
     margin-top: 10px;
     font-weight: 600;
 `;
 
 const Product = () => {
-//   const location = useLocation();
-//   const id = location.pathname.split("/")[2];
-//   const [product, setProduct] = useState({});
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+//   const product = normal.find((b) => b.id === id)
+// const products = require('../assets/data/apparel/weightless.products.json');
+
+// const product = products.apparel_products.find((product) => product._id.$oid === id);
+
+
+  // const [product, setProduct] = useState([]);
 //   const [quantity, setQuantity] = useState(1);
 //   const [color, setColor] = useState("");
 //   const [size, setSize] = useState("");
 //   const dispatch = useDispatch();
   
-//   useEffect(() => {
-//     const getProduct = async () => {
-//       try {
-//         const res = await publicRequest.get("/products/find/" + id);
-//         setProduct(res.data);
-//       } catch {}
-//     };
-//     getProduct();
-//   }, [id]);
-
+  // useEffect(() => {
+  //   const getProduct = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
+  //       setProduct(res.data);
+  //     } catch {}
+  //   };
+  //   getProduct();
+  // }, [id]);
+// console.log(product)
 //   const handleQuantity = (type) => {
 //     if (type === "dec") {
 //       quantity > 1 && setQuantity(quantity - 1);
@@ -260,83 +308,169 @@ const Product = () => {
 //     );
 //   };
 
-const { id } = useParams();
-  const product = normal.find((b) => b._id === id)
-  return (
-//     <Container>
+// const { id } = useParams();
+
+
+
+//new
+  const [numProduct, setNumProduct] = useState(1)
+    // const user = useSelector((state) => state.user)
+    const user=true
+    const order = useSelector((state) => state.order)
+    const [errorLimitOrder,setErrorLimitOrder] = useState(false)
+    const navigate = useNavigate()
+    
+    const dispatch = useDispatch()
+
+    const onChange = (value) => { 
+        setNumProduct(Number(value))
+    }
+
+    const fetchGetDetailsProduct = async (context) => {
+      console.log(context)
+      const id = context?.queryKey && context?.queryKey[1]
+      if(id) {
+          const res = await ProductService.getDetailsProduct(id)
+          return res.data
+      }
       
-//       <Wrapper>
-//         <ImgContainer>
-//           <Image src={product.img} />
-//         </ImgContainer>
-//         <InfoContainer>
-//           <Title>{product.title}</Title>
-//           <Desc>{product.desc}</Desc>
-//           <Price>$ {product.price}</Price>
-//           <FilterContainer>
-//             <Filter>
-//               <FilterTitle>Color</FilterTitle>
-//               {product.color?.map((c) => (
-//                 <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-//               ))}
-//             </Filter>
-//             <Filter>
-//               <FilterTitle>Size</FilterTitle>
-//               <FilterSize onChange={(e) => setSize(e.target.value)}>
-//                 {product.size?.map((s) => (
-//                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
-//                 ))}
-//               </FilterSize>
-//             </Filter>
-//           </FilterContainer>
-//           <AddContainer>
-//             <AmountContainer>
-//               <Remove onClick={() => handleQuantity("dec")} />
-//               <Amount>{quantity}</Amount>
-//               <Add onClick={() => handleQuantity("inc")} />
-//             </AmountContainer>
-//             <Button onClick={handleClick}>ADD TO CART</Button>
-//           </AddContainer>
-//         </InfoContainer>
-//       </Wrapper>
-//       <Newsletter />
-//       <Footer />
-//     </Container>
-<ProductDisplayContainer>
+  }
+
+    // useEffect(() => {
+    //     initFacebookSDK()
+    // }, [])
+
+    // useEffect(() => {
+    //     const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id) 
+    //     if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+    //         setErrorLimitOrder(false)
+    //     } else if(productDetails?.countInStock === 0){
+    //         setErrorLimitOrder(true)
+    //     }
+    // },[numProduct])
+
+    // useEffect(() => {
+    //     if(order.isSucessOrder) {
+    //         message.success('Đã thêm vào giỏ hàng')
+    //     }
+    //     return () => {
+    //         dispatch(resetOrder())
+    //     }
+    // }, [order.isSucessOrder])
+
+    const handleChangeCount = (type,limited) => {
+        if(type === 'increase') {
+            if(!limited) {
+                setNumProduct(numProduct + 1)
+            }
+        }else {
+            if(!limited) {
+                setNumProduct(numProduct - 1)
+            }
+        }
+    }
+
+    
+    const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
+    console.log(productDetails)
+    const handleAddOrderProduct = () => {
+        // if(!user?.id) {
+        //     navigate('/sign-in', {state: location?.pathname})
+        // }else {
+            // {
+            //     tittle: { type: String, required: true },
+            //     amount: { type: Number, required: true },
+            //     image: { type: String, required: true },
+            //     price: { type: Number, required: true },
+            //     product: {
+            //         type: mongoose.Schema.Types.ObjectId,
+            //         ref: 'Product',
+            //         required: true,
+            //     },
+            // },
+            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+            // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+                dispatch(addOrderProduct({
+                    orderItem: {
+                      tittle: productDetails?.name,
+                        amount: numProduct,
+                        image: productDetails?.image[0].image,
+                        price: productDetails?.price,
+                        product: productDetails?._id,
+                        // discount: productDetails?.discount,
+                        // countInstock: productDetails?.countInStock
+                    },
+                    
+                }))
+            // } else {
+                // setErrorLimitOrder(true)
+            // }
+        
+    }
+    console.log("ord",order)
+  return (
+
+
+
+
+        <Container>
+    <Navbar></Navbar>
+    
+    <ProductDisplayContainer>
             <LeftSection>
-            <ImageList>
+            
                 {/* Hiển thị danh sách các ảnh */}
          
-                <Image src={product?.img[0]} />
+                <Image src={productDetails?.image[0].image} />
           
-            </ImageList>
+            
                 {/* <div className="productdisplay_img">
                     <MainImage src={mainImageSrc} alt="" />
                 </div> */}
             </LeftSection>
             <RightSection>
-                <ProductTitle>{product?.name}</ProductTitle>
+                
                 <StarRating></StarRating>
+                
+                <ProductTitle>{productDetails?.name}</ProductTitle>
                 <PriceContainer>
-                    <OldPrice>${product?.price}</OldPrice>
-                    <NewPrice>${product?.price}</NewPrice>
+                    {/* <OldPrice>${productDetails?.price}</OldPrice> */}
+                    <NewPrice>${productDetails?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
-                    {product?.desc}
+                    {productDetails?.description}
                 </div>
-                <SizeSelectionTitle>select size</SizeSelectionTitle>
-                <SizeOptions>
-                    <SizeOption>S</SizeOption>
-                    <SizeOption>M</SizeOption>
-                    <SizeOption>L</SizeOption>
-                    <SizeOption>XL</SizeOption>
-                    <SizeOption>XXL</SizeOption>
+                
+                {/* {product?.categories?.includes("Apparel")? 
+            <FilterContainer>
+              <Filter>
+                <SizeSelectionTitle>Size</SizeSelectionTitle>
+                <SizeOptions >
+                  {product.size?.map((s) => (
+                    <SizeOption onClick={() => {setSize(s),handleSizeClick(s)}} key={s} selected={selectedSize === s}>{s}</SizeOption>
+                  ))}
                 </SizeOptions>
-                <AddToCartButton >ADD TO CART</AddToCartButton>
-                <CategoryInfo><span>Category :</span> {product?.cat}</CategoryInfo>
+              </Filter>
+            </FilterContainer>
+                :  <hr />
+                    } */}
+                 <SizeOptions >
+                  {productDetails?.size.map((s) => (
+                    <SizeOption >{s.size}</SizeOption>
+                  ))}
+                </SizeOptions>
+                 <AmountContainer>
+              <Remove  onClick={() => handleChangeCount('decrease',numProduct === 1)}/>
+              <Amount>{numProduct}</Amount>
+              <Add  onClick={() => handleChangeCount('increase',numProduct === 100)}/>
+              {/* ,  numProduct === productDetails?.countInStock  */}
+            </AmountContainer>  
+                <AddToCartButton onClick={handleAddOrderProduct}>ADD TO CART</AddToCartButton>
+                {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
                 
             </RightSection>
         </ProductDisplayContainer>
+        </Container>
   );
 };
 

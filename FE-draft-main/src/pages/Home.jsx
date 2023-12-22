@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Announcement from '../components/Announcement'
 import Slider from '../components/Slider'
@@ -36,6 +36,7 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
+  const [limit, setLimit] = useState(6)
   return (
     <div>
       
@@ -45,7 +46,7 @@ const Home = () => {
       <Slider></Slider>
       {/* <Categories></Categories> */}
       <Title>BEST SELLERS</Title>
-      <Products></Products>
+      <Products limit={limit}></Products>
       <Feedback></Feedback>
       <Newsletter></Newsletter>
       

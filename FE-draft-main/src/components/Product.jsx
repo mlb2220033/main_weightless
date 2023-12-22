@@ -24,7 +24,7 @@ import {
   `;
   const Container = styled.div`
     max-width:280px;
-    }
+    
   `;
   const SmallContainer = styled.div`
     flex: 1;
@@ -108,14 +108,14 @@ const Product = ({item}) => {
     <Container>
     <SmallContainer>
       <Circle />
-      <Image src={item.img[0]}/>
+      <Image src={item?.image[0].image}/>
       
       <Info>
         <Icon>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link to={`/product/${item.id}`}>
+          <Link to={`/product/${item._id}`}>
           <SearchOutlined /></Link>
         </Icon>
         <Icon>

@@ -80,7 +80,7 @@ const Logo = styled.img`
   ${mobile({ fontSize: "24px" })}
 `;
 const Navbar2 = () => {
-  const quantity = useSelector(state=>state.cart.quantity)
+  const quantity = useSelector(state=>state.order.totalQuantity)
   return (
     <Container>
         <Wrapper>
