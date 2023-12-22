@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+<<<<<<< HEAD
 
 import { Provider } from 'react-redux'
 import { persistor, store } from './redux/store'
@@ -24,6 +25,33 @@ root.render(
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   // </React.StrictMode>
+=======
+import { Provider } from "react-redux";
+import { store, persistor } from "./redux/store";
+import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { QueryClientProvider,QueryClient } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools'
+// ReactDOM.render(
+//   <Provider store={store}>
+//     <PersistGate loading={null} persistor={persistor}>
+//       <App />
+//     </PersistGate>
+//   </Provider>,
+//   document.getElementById("root")
+const queryClient = new QueryClient()
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <QueryClientProvider client={queryClient}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
+  <ReactQueryDevtools initialIsOpen={false} />
+  </QueryClientProvider>,
+  document.getElementById("root")
+ 
+>>>>>>> 70692e9e401ca208f29b11b5af34351ff16c508c
 );
 
 // If you want to start measuring performance in your app, pass a function

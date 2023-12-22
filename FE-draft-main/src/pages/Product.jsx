@@ -5,17 +5,17 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { mobile } from "../responsive";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { normal } from "../data";
 import axios from "axios"
 import { useQuery } from "react-query";
 import * as ProductService from '../services/ProductService'
-
+import { addOrderProduct,resetOrder } from '../redux/slides/orderSlice'
 // const ProductDisplayContainer = styled.div`
 //     display: flex;
 //     margin: 0px 170px;
@@ -313,24 +313,27 @@ const Product = () => {
 
 
 //new
-// const [numProduct, setNumProduct] = useState(1)
-//     const user = useSelector((state) => state.user)
-//     const order = useSelector((state) => state.order)
-//     const [errorLimitOrder,setErrorLimitOrder] = useState(false)
-//     const navigate = useNavigate()
+  const [numProduct, setNumProduct] = useState(1)
+    // const user = useSelector((state) => state.user)
+    const user=true
+    const order = useSelector((state) => state.order)
+    const [errorLimitOrder,setErrorLimitOrder] = useState(false)
+    const navigate = useNavigate()
     
     const dispatch = useDispatch()
 
-    // const onChange = (value) => { 
-    //     setNumProduct(Number(value))
-    // }
+    const onChange = (value) => { 
+        setNumProduct(Number(value))
+    }
 
     const fetchGetDetailsProduct = async (context) => {
+      console.log(context)
       const id = context?.queryKey && context?.queryKey[1]
       if(id) {
           const res = await ProductService.getDetailsProduct(id)
           return res.data
       }
+      
   }
 
     // useEffect(() => {
@@ -355,25 +358,27 @@ const Product = () => {
     //     }
     // }, [order.isSucessOrder])
 
-    // const handleChangeCount = (type, limited) => {
-    //     if(type === 'increase') {
-    //         if(!limited) {
-    //             setNumProduct(numProduct + 1)
-    //         }
-    //     }else {
-    //         if(!limited) {
-    //             setNumProduct(numProduct - 1)
-    //         }
-    //     }
-    // }
+    const handleChangeCount = (type,limited) => {
+        if(type === 'increase') {
+            if(!limited) {
+                setNumProduct(numProduct + 1)
+            }
+        }else {
+            if(!limited) {
+                setNumProduct(numProduct - 1)
+            }
+        }
+    }
 
+    
     const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
-    // const handleAddOrderProduct = () => {
-    //     if(!user?.id) {
-    //         navigate('/sign-in', {state: location?.pathname})
-    //     }else {
+    console.log(productDetails)
+    const handleAddOrderProduct = () => {
+        // if(!user?.id) {
+        //     navigate('/sign-in', {state: location?.pathname})
+        // }else {
             // {
-            //     name: { type: String, required: true },
+            //     tittle: { type: String, required: true },
             //     amount: { type: Number, required: true },
             //     image: { type: String, required: true },
             //     price: { type: Number, required: true },
@@ -383,24 +388,26 @@ const Product = () => {
             //         required: true,
             //     },
             // },
-    //         const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
-    //         if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
-    //             dispatch(addOrderProduct({
-    //                 orderItem: {
-    //                     name: productDetails?.name,
-    //                     amount: numProduct,
-    //                     image: productDetails?.image,
-    //                     price: productDetails?.price,
-    //                     product: productDetails?._id,
-    //                     discount: productDetails?.discount,
-    //                     countInstock: productDetails?.countInStock
-    //                 }
-    //             }))
-    //         } else {
-    //             setErrorLimitOrder(true)
-    //         }
-    //     }
-    // }
+            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+            // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
+                dispatch(addOrderProduct({
+                    orderItem: {
+                      tittle: productDetails?.tittle,
+                        amount: numProduct,
+                        image: productDetails?.image[0].image,
+                        price: productDetails?.price,
+                        product: productDetails?._id,
+                        // discount: productDetails?.discount,
+                        // countInstock: productDetails?.countInStock
+                    },
+                    
+                }))
+            // } else {
+                // setErrorLimitOrder(true)
+            // }
+        
+    }
+    console.log("ord",order)
   return (
 
 
@@ -453,11 +460,12 @@ const Product = () => {
                   ))}
                 </SizeOptions>
                  <AmountContainer>
-              <Remove  />
-              <Amount>1</Amount>
-              <Add  /> 
-            </AmountContainer>
-                <AddToCartButton >ADD TO CART</AddToCartButton>
+              <Remove  onClick={() => handleChangeCount('decrease',numProduct === 1)}/>
+              <Amount>{numProduct}</Amount>
+              <Add  onClick={() => handleChangeCount('increase',numProduct === 100)}/>
+              {/* ,  numProduct === productDetails?.countInStock  */}
+            </AmountContainer>  
+                <AddToCartButton onClick={handleAddOrderProduct}>ADD TO CART</AddToCartButton>
                 {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
                 
             </RightSection>

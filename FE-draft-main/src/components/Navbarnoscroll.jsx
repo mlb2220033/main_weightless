@@ -170,7 +170,7 @@ const MyLinkcart = styled(Link)`
 `;
 
 const Navbarnoscroll = () => {
-  const quantity = useSelector(state=>state.cart.quantity)
+  const quantity = useSelector(state=>state.order.totalQuantity)
   const [click, setClick] = useState(false);
   // const [dropdown, setDropdown] = useState(false);
   const [productDropdown, setProductDropdown] = useState(false);
