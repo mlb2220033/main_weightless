@@ -10,9 +10,14 @@ import Mission from '../assets/images/Mission.jpg'
 import Vision from '../assets/images/Vision.jpg';
 import Wallpaper from '../assets/images/Wallpaper.jpg';
 import Fitness from '../assets/images/Fitness.jpg';
+import b3 from  '../assets/images/b3.png';
 
 
 const Container = styled.div`
+  display:flex;
+  flex-direction:column;
+  margin:auto;
+  ${mobile({ flexDirection: "column" })}
 `;
 const Wrapper = styled.div`
 // padding: 0px 0px 0px 0px;
@@ -20,72 +25,78 @@ const Wrapper = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  width:100%;
-  height: 100%;
+
   flex: 1;
+  box-sizing: border-box
 `;
 
 const Image = styled.img`
-  height: 70vh;
-  width:100vw;
+max-width: 100%;
+object-fit:contain;
+height: auto;
 `;
 
 const Container1 = styled.div`
-  display: flex;
-  height: 70vh;
-  flex-wrap: wrap;
-  // background: linear-gradient(to top right, #1b1f23 10%, #000000 100%);
-  // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Điều chỉnh giá trị box shadow tại đây */
-  margin-bottom: 5px;
-  margin-right:10vw;
-  margin-left:10vw;
-  max-width: 1200px; /* Kích thước tối đa của container */
-  margin: 0 auto; /* Căn giữa container */
-  
-  ${mobile({ flexDirection: "column" })}
+display: flex;
+flex-wrap: wrap;
+height: 70vh;
+padding-top: 3rem;
+padding-bottom: 3rem;
+@media (max-width: 768px) {
+  height: auto;
+}
+
 `;
 
 const Container2 = styled.div`
   display: flex;
-  height: 50vh;
-  flex-wrap: wrap;
+  // height: 70vh;
+  // flex-wrap: wrap;
+  // box-sizing: border-box
+  
   // background: linear-gradient(to top right, #1b1f23 10%, #000000 100%);
   // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Điều chỉnh giá trị box shadow tại đây */
   margin-bottom: 5px;
   margin-right:10vw;
   margin-left:10vw;
-  max-width: 1200px; /* Kích thước tối đa của container */
+  // max-width: 1200px; /* Kích thước tối đa của container */
   margin: 0 auto; /* Căn giữa container */
   
-  ${mobile({ flexDirection: "column" })}
+
+  ${mobile({ flexDirection: "row" })}
 `;
 
 const Column = styled.div`
-  flex: 1;
-  // margin: 10px;
-  display: flex; /* Đặt thành flexbox để sử dụng align-items và justify-content */
-  // align-items: center; /* Căn giữa theo chiều dọc */
-  // justify-content: center; /* Căn giữa theo chiều ngang */
-  width: 50%;
-  height: 100%;
+  display: flex;
   
+  flex: 1;
   position: relative; /* Cần để position: absolute; trong Imgbg hoạt động đúng */
+  min-width: 0;
+  padding-right: 3rem;
+  
+  
+`;
+const Columnleft = styled.div`
+  display: flex;
+  
+  padding-left: 10rem;
+  flex: 1;
+  position: relative; /* Cần để position: absolute; trong Imgbg hoạt động đúng */
+  min-width: 0;
+  
   
 `;
 
 const Column1 = styled.div`
+  display: flex;
+  justify-content: center;
   flex: 1;
-  // margin: 10px;
-  display: flex; /* Đặt thành flexbox để sử dụng align-items và justify-content */
-  // align-items: center; /* Căn giữa theo chiều dọc */
-  // justify-content: center; /* Căn giữa theo chiều ngang */
-  width: 50%;
-  height: 90%;
+  min-width: 0;
   background:rgba(27,31,35,1);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
   margin: 20px;
   transition: transform 0.5s;
-  position: relative; /* Cần để position: absolute; trong Imgbg hoạt động đúng */
+  position: relative; 
   &:hover {
     transform: translateY(-10px);
   }
@@ -93,46 +104,43 @@ const Column1 = styled.div`
 `;
 
 const Imgbg = styled.div`
-  width: 400px;
-  height: 430px;
+  width: 25vw;
+  height: 55vh;
   background: #f3702a;
-  align-items: center;
-  justify-content: center;
   position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-60%, -50%);
+  @media (max-width: 100px) {
+    height: auto;
+  }
+  padding-left:1rem;
+  padding-top: 1rem;
+
 `;
 
 
 const Image1 = styled.img`
-position: absolute;
-    top: 10;
-    bottom: 20px;
-    left: 20px;
-    width: 450px;
-    height: 500px;
+  position: absolute;
+    width: 30vw;
+    height: 60vh;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
     z-index: 1;
+    @media (max-width: 100px) {
+      height: auto;
+    }
 `;
 
 const Textcontain = styled.div`
-  width: 500px;
-  height: 500px;
-  // background: #f3702a;
-  align-items: center;
+width: 35vw;
   text-align:justify;
   position: absolute;
-  bottom:70px;
-  left: 0;
   font-size: 20px;
-  // transform: translate(-80%, -10%);
+  
 `;
 const Title = styled.h1`
 position: relative;
 font-family: 'Fjalla One', sans-serif;
 letter-spacing: 0.05em;
 margin-block-start: 0em;
+
 `;
 const Title1 = styled.h1`
 position: relative;
@@ -142,16 +150,12 @@ margin-block-start: 0em;
 color:#f3702a;
 `;
 const Textcontain1 = styled.div`
-  width: 500px;
-  height: 500px;
-  // background: #f3702a;
-  align-items: center;
-  text-align:justify;
-  position: absolute;
-  top:10%;
-  right: 6%;
-  font-size: 20px;
-  // transform: translate(-80%, -10%);
+width: 450px;
+
+text-align:justify;
+position: absolute;
+font-size: 20px;
+
 `;
 
 const Textcontain2 = styled.div`
@@ -170,27 +174,27 @@ margin: 33px 20px 10px 29px;
 `;
 
 const Imgbg1 = styled.div`
-width: 400px;
-    height: 430px;
-    background: #f3702a;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 70%;
-    left: 70%;
-    transform: translate(-70%, -70%);
+  width: 25vw;
+  height: 55vh;
+  background: #f3702a;
+  position: absolute;
+  @media (max-width: 100px) {
+    height: auto;
+  }
+  padding-right:6rem;
+  padding-bottom: 4rem;
 `;
 
 
 const Image2 = styled.img`
 position: absolute;
-top: 10;
-bottom: 20px;
-left: -70px;
-width: 450px;
-height: 500px;
+width: 30vw;
+height: 60vh;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
 z-index: 1;
+@media (max-width: 100px) {
+  height: auto;
+}
 `;
 
 
@@ -201,15 +205,15 @@ const Aboutus = () => {
       <Navbar/>
       
       <ImgContainer>
-        <Image src={banner1}/>
+        <Image src={b3}/>
       </ImgContainer>
       
         <Container1>
-          <Column>
+          <Columnleft>
             <Imgbg>
               <Image1 src={Fitness}/>
             </Imgbg>
-          </Column>
+          </Columnleft>
 
           <Column>
           <Textcontain>
@@ -222,17 +226,18 @@ const Aboutus = () => {
         </Container1>
 
         <Container1>
-          <Column>
-          <Textcontain1>
+          <Columnleft>
+          <Textcontain>
             <Title>WHY CHOOSING WEIGHTLESS</Title>
             Calisthenics is a workout style that focuses on using body weight to train strength, flexibility, and balance. With the name Weightless, we believe that practicing calisthenics will bring a sense of lightness, freedom, and no limitation by gravity.            <br/><br/>
-            The brand's goal is to create conditions for people to train their bodies independently and flexibly. By focusing on calisthenics, Weightless allows you to perform exercises without the need for complex workout equipment or going to the gym. Calisthenics training helps you develop muscle strength, body control, and improve flexibility.          </Textcontain1>
-          </Column>
+            The brand's goal is to create conditions for people to train their bodies independently and flexibly. By focusing on calisthenics, Weightless allows you to perform exercises without the need for complex workout equipment or going to the gym. Calisthenics training helps you develop muscle strength, body control, and improve flexibility.          
+            </Textcontain>
+          </Columnleft>
 
           <Column>
-            <Imgbg1>
+            <Imgbg>
               <Image2 src={Vision}/>
-            </Imgbg1>
+            </Imgbg>
           </Column>
         </Container1>
 

@@ -16,6 +16,10 @@ import axios from "axios"
 import { useQuery } from "react-query";
 import * as ProductService from '../services/ProductService'
 import { addOrderProduct,resetOrder } from '../redux/slides/orderSlice'
+import Navbarnoscroll from "components/Navbarnoscroll";
+import Navbarnotrans from "components/Navbarnotrans";
+import '../styles/Dropdown.css';
+import Products from "../components/Products";
 // const ProductDisplayContainer = styled.div`
 //     display: flex;
 //     margin: 0px 170px;
@@ -120,18 +124,32 @@ import { addOrderProduct,resetOrder } from '../redux/slides/orderSlice'
 // `;
 //new
 const Container = styled.div`
-
-    
+`;
+const Slider = styled.div`
+align-items:center;
+margin: 40px 0px 20px;
+padding-left:10rem;
+padding-right:5rem;
+display: flex;
+flex-direction: column;
+  
+${mobile({ margin: "10px 0px" })}
 `;
 const ProductDisplayContainer = styled.div`
+    height:80vh;
     display: flex;
-    margin: 0px 0px;
+    margin-top: 5rem;
+    padding-left:10rem;
+  padding-right:5rem;
+  
+${mobile({ margin: "10px 0px" })}
     
 `;
 
 const LeftSection = styled.div`
     display: flex;
     gap: 17px;
+
 `;
 
 const ImageList = styled.div`
@@ -145,8 +163,9 @@ const ProductImage = styled.img`
 `;
 
 const Image = styled.img`
-    width: 596px;
-    height: 700px;
+
+width:40vw;
+height: 80vh;
     ${mobile({ width:"50px"})}
 `;
 
@@ -157,9 +176,23 @@ const RightSection = styled.div`
 `;
 
 const ProductTitle = styled.h1`
-    color: #3d3d3d;
+    color: black;
     font-size: 40px;
-    font-weight: 700;
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: .03em;
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom:-20px;
+      left: 0;
+      width: 100%;
+      height: 0.5px;
+      background-color: black; /* black color */
+  }
+    
 `;
 
 const StarRating = styled.div`
@@ -173,10 +206,11 @@ const StarRating = styled.div`
 
 const PriceContainer = styled.div`
     display: flex;
-    margin: 40px 0px;
+    margin: 20px 0px;
     gap: 30px;
     font-size: 24px;
     font-weight: 700;
+    
 `;
 
 const OldPrice = styled.div`
@@ -185,7 +219,9 @@ const OldPrice = styled.div`
 `;
 
 const NewPrice = styled.div`
-    color: #ff4141;
+    color: #fe5f00;
+    font-size:30px;
+   
 `;
 const FilterContainer = styled.div`
   width: 50%;
@@ -231,7 +267,7 @@ const SizeOption = styled.div`
     border: 1px solid #ebebeb;
     border-radius: 3px;
     cursor: pointer;
-    background-color: ${({ selected }) => (selected ? 'teal' : 'white')};
+    background-color: ${({ selected }) => (selected ? '#fe5f00' : 'white')};
   color: ${({ selected }) => (selected ? 'white' : 'black')};
   font-weight: ${({ selected }) => (selected ? 'bold' : 'normal')};
   
@@ -247,18 +283,24 @@ const AddToCartButton = styled.button`
     width: 200px;
     font-size: 16px;
     font-weight: 600;
-    color: white;
-    background: #ff4141;
-    margin-bottom: 40px;
+    color: ${({ addedToCart }) => (addedToCart ? "white" : "white")};
+    background: ${({ addedToCart }) => (addedToCart ? "#218838" : "black")};
+    margin: 20px 0px 40px 0px;
     border: none;
     outline: none;
     cursor: pointer;
+    &:hover {
+      
+      background-color: ${({ addedToCart }) => (addedToCart ? "#218838" : "#fe5f00")};
+      transition: 0.3s ease-in-out;
+    }
+    
 `;
 const Amount = styled.span`
   width: 30px;
   height: 30px;
   border-radius: 10px;
-  border: 1px solid teal;
+  border: 1px solid #B6B7B2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,8 +310,24 @@ const CategoryInfo = styled.p`
     margin-top: 10px;
     font-weight: 600;
 `;
+const MyAdd = styled(Add)`
+  cursor: pointer;
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.2s ease-in-out;
+  }
+`;
+const MyRemove = styled(Remove)`
+cursor: pointer;
+&:hover {
+  color: #fe5f00; // Màu của văn bản khi hover
+  transition: 0.2s ease-in-out;
+}
+
+`;;
 
 const Product = () => {
+  
   const location = useLocation();
   const id = location.pathname.split("/")[2];
 //   const product = normal.find((b) => b.id === id)
@@ -357,7 +415,7 @@ const Product = () => {
     //         dispatch(resetOrder())
     //     }
     // }, [order.isSucessOrder])
-
+    
     const handleChangeCount = (type,limited) => {
         if(type === 'increase') {
             if(!limited) {
@@ -373,7 +431,12 @@ const Product = () => {
     
     const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
     console.log(productDetails)
+    const [isAddedToCart, setIsAddedToCart] = useState(false);
+    const [limit] = useState(8)
     const handleAddOrderProduct = () => {
+
+      
+      
         // if(!user?.id) {
         //     navigate('/sign-in', {state: location?.pathname})
         // }else {
@@ -405,6 +468,13 @@ const Product = () => {
             // } else {
                 // setErrorLimitOrder(true)
             // }
+            setIsAddedToCart(true);
+
+            // Optionally, reset the state after a delay
+            setTimeout(() => {
+              setIsAddedToCart(false);
+            }, 1000); // Adjust the duration as needed
+
         
     }
     console.log("ord",order)
@@ -414,7 +484,7 @@ const Product = () => {
 
 
         <Container>
-    <Navbar></Navbar>
+    <Navbarnotrans></Navbarnotrans>
     
     <ProductDisplayContainer>
             <LeftSection>
@@ -430,9 +500,10 @@ const Product = () => {
             </LeftSection>
             <RightSection>
                 
-                <StarRating></StarRating>
+                
                 
                 <ProductTitle>{productDetails?.name}</ProductTitle>
+                <StarRating></StarRating>
                 <PriceContainer>
                     {/* <OldPrice>${productDetails?.price}</OldPrice> */}
                     <NewPrice>${productDetails?.price}</NewPrice>
@@ -460,16 +531,28 @@ const Product = () => {
                   ))}
                 </SizeOptions>
                  <AmountContainer>
-              <Remove  onClick={() => handleChangeCount('decrease',numProduct === 1)}/>
+              <MyRemove  onClick={() => handleChangeCount('decrease',numProduct === 1)}/>
               <Amount>{numProduct}</Amount>
-              <Add  onClick={() => handleChangeCount('increase',numProduct === 100)}/>
+              <MyAdd  onClick={() => handleChangeCount('increase',numProduct === 100)}/>
               {/* ,  numProduct === productDetails?.countInStock  */}
             </AmountContainer>  
-                <AddToCartButton onClick={handleAddOrderProduct}>ADD TO CART</AddToCartButton>
+                <AddToCartButton onClick={handleAddOrderProduct} addedToCart={isAddedToCart}>
+                {isAddedToCart ? "ADDED TO CART!" : "ADD TO CART"}
+                  </AddToCartButton>
                 {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
+
                 
             </RightSection>
         </ProductDisplayContainer>
+        <Slider>
+          <ProductTitle>YOU MAY ALSO LIKE</ProductTitle>
+          <Products limit={limit}/>
+          
+        
+
+
+        </Slider>
+        <Footer></Footer>
         </Container>
   );
 };

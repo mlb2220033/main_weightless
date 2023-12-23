@@ -36,7 +36,7 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
-  const [limit, setLimit] = useState(6)
+  const [limit, setLimit] = useState(4)
   return (
     <div>
       

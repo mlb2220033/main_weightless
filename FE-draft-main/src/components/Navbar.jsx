@@ -22,7 +22,7 @@ position: fixed;
   background: transparent;
   // padding: 10px 10px;
   top:0;
-  ${mobile({ height: "50px" })}
+  ${mobile({ height: "50px" , width: "100px"})}
 `;
 
 const Wrapper = styled.div`
@@ -31,8 +31,8 @@ const Wrapper = styled.div`
   // margin-bottom:10px;
   // margin-left:10%;
   // background-color: #ffffff;
-  padding-right:10%;
-  padding-left:10%;
+  padding-right:5%;
+  padding-left:5%;
   height: 80px;
   display: flex;
   align-items: center;
