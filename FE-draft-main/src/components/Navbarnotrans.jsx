@@ -177,7 +177,8 @@ const Navbarnotrans = () => {
   const [blogDropdown, setBlogDropdown] = useState(false);
 
   const [navbar, setNavbar] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState([]);
   // const handleProductEnter = () => setProductDropdown(true);
   // const handleProductLeave = () => setProductDropdown(false);
 
@@ -251,6 +252,11 @@ const Navbarnotrans = () => {
     };
   }, []);
   
+  const onSearch = (e) => {
+    console.log('e',e.target.value)
+  };
+
+
   return (
     <Container>
         <Wrapper className={navbar ? 'navbar navbar-scroll' : 'navbar'}>
@@ -294,9 +300,10 @@ const Navbarnotrans = () => {
 
             <Right>
             <SearchContainer>
-                  <Input/>
+                  <Input  onChange={onSearch}/>
                   <Search style={{color:'gray',fontSize:'16px'}}/>
               </SearchContainer>
+              
             <MyLinkcart to="/cart">
                 <Badge badgeContent={quantity} color="secondary">
                   <ShoppingCartOutlined />

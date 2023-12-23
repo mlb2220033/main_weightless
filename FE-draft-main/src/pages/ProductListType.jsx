@@ -39,9 +39,10 @@ const Select = styled.select`
   ${mobile({ margin: "10px 0px" })}
 `;
 const Option = styled.option``;
-const ProductList = () => {
+const ProductListType = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
+  const [products, setProducts] = useState([])
   const [limit, setLimit] = useState(12)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
@@ -53,15 +54,23 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
-  const fetchAllTypeProduct = async () => {
-    const res = await ProductService.getAllTypeProduct()
-    if(res?.status === 'OK') {
-      setTypeProducts(res?.data)
+  const fetchProductType = async (type,page=0,limit=10) => {
+    // setLoading(true)
+    const res = await ProductService.getProductType(type,page,limit)
+    if(res?.status == 'OK') {
+        
+        setProducts(res?.data)
+        
+    }else {
+        // setLoading(false)
     }
-  }
-  useEffect(() => {
-    fetchAllTypeProduct()
-  }, [])
+}
+
+useEffect(() => {
+    if(cat){
+        fetchProductType(cat)
+    }
+}, [cat])
   return (
     <Container>
         <Announcement></Announcement>
@@ -91,7 +100,7 @@ const ProductList = () => {
             </Select>
             </Filter>
         </FilterContainer>
-        <Products  search={sort} limit={limit}></Products>
+        <Products cat={cat}  search={sort} limit={limit}></Products>
         <button onClick={()=>setLimit((prev)=>prev+10)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
@@ -100,4 +109,4 @@ const ProductList = () => {
   )
 }
 
-export default ProductList
+export default ProductListType

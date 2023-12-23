@@ -1,23 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { clearCart, getTotals } from "../slices/cartSlice";
+
 
 const CheckoutSuccess = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
 
-  useEffect(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+  const order = useSelector((state) => state.order);
 
-  useEffect(() => {
-    dispatch(getTotals());
-  }, [cart, dispatch]);
+
 
   return (
     <Container>
-      <h2>Checkout Successful</h2>
+      <h2>Checkout Successful {order.itemsPrice}</h2>
       <p>Your order might take some time to process.</p>
       <p>Check your order status at your profile after about 10mins.</p>
       <p>

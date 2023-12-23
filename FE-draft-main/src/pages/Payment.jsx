@@ -1,7 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar2 from 'components/Navbar2';
+import { useMemo } from 'react';
 import { Radio } from 'antd'; // Import Radio from Ant Design
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
@@ -15,16 +16,18 @@ import {
 import { Label } from './style';
 import { PayPalButton } from "react-paypal-button-v2";
 import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
-
+import { removeAllOrderProduct } from '../redux/slides/orderSlice';
 import i_money from '../assets/images/icon_money.png'
 import i_paypal from '../assets/images/icon_paypal.png'
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useMutationHooks } from '../hooks/userMutationHook';
+import * as OrderService from '../services/OrderService'
 
 
 const PaymentPage = () => {
   const navigate = useNavigate();
-  
-
+  const cart= useSelector(state=>state.order)
+  const user = useSelector((state) => state.user)
   const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
@@ -48,8 +51,42 @@ const PaymentPage = () => {
 
   const handleAddOrder = () => {
     console.log('Selected payment method:', payment);
-    // Redirect to CheckoutSuccess page
-    navigate('/checkout-success');
+    console.log({ 
+      // token: user?.access_token, 
+      orderItems: cart?.orderItems, 
+      // fullName: user?.name,
+      // address:user?.address, 
+      // phone:user?.phone,
+      // city: user?.city,
+      paymentMethod: payment,
+      itemsPrice: cart?.itemsPrice,
+      shippingPrice: deliveryPriceMemo,
+      totalPrice: totalPriceMemo,
+      // user: user?.id,
+      // email: user?.email
+    })
+    // if(user?.access_token && order?.orderItemsSlected && user?.name
+    //   && user?.address && user?.phone && user?.city && priceMemo && user?.id) {
+        // eslint-disable-next-line no-unused-expressions
+        OrderService.createOrder(
+          { 
+            // token: user?.access_token, 
+            orderItems: cart?.orderItems?.product, 
+            // fullName: user?.name,
+            // address:user?.address, 
+            // phone:user?.phone,
+            // city: user?.city,
+            paymentMethod: payment,
+            itemsPrice: cart?.itemsPrice,
+            shippingPrice: deliveryPriceMemo,
+            totalPrice: totalPriceMemo,
+            // user: user?.id,
+            // email: user?.email
+          }
+        )
+      navigate(`/checkout-success`)
+      // }
+
   };
   
   const onSuccessCOD = (details, data) => {
@@ -78,8 +115,59 @@ const PaymentPage = () => {
 
   const [delivery, setDelivery] = useState('fast');
   const [payment, setPayment] = useState('paypal');
+  const dispatch = useDispatch()
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false); // Assuming this state is used for modal visibility
+  const deliveryPriceMemo = useMemo(() => {
+    if(cart.itemsPrice > 200){
+      return 0
+    }else if(cart.itemsPrice === 0 ){
+      return 0
+    }else {
+      return 2
+    }
+  },[cart.itemsPrice])
 
+  const totalPriceMemo = useMemo(() => {
+    return (Number(cart.itemsPrice) + Number(deliveryPriceMemo))*1.1
+  },[cart.itemsPrice, deliveryPriceMemo])
+
+
+
+
+  // const mutationAddOrder = useMutationHooks(
+  //   (data) => {
+  //     const {
+  //       token,
+  //       ...rests } = data
+  //     const res = OrderService.createOrder(
+  //       { ...rests }, token)
+  //     return res
+  //   },
+  // )
+
+  // const {data: dataAdd, isSuccess, isError} = mutationAddOrder
+
+  // useEffect(() => {
+  //   if (isSuccess && dataAdd?.status === 'OK') {
+  //     const arrayOrdered = []
+  //     cart?.orderItems?.forEach(element => {
+  //       arrayOrdered.push(element.product)
+  //     });
+  //     dispatch(removeAllOrderProduct())
+      // message.success('Đặt hàng thành công')
+      // navigate('/checkout-success', {
+      //   state: {
+      //     delivery,
+      //     payment,
+      //     orders: order?.orderItems,
+      //     totalPriceMemo: totalPriceMemo
+      //   }
+      // })
+    // } else if (isError) {
+      // message.error()
+  //     alert("isError")
+  //   }
+  // }, [isSuccess,isError])
   return (
     <>
     <Navbar2/>
@@ -126,22 +214,22 @@ const PaymentPage = () => {
               </WrapperInfo>
               <WrapperInfo>
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <span>Total Prices: </span>
+                    <span>Items Prices: $ {cart.itemsPrice}</span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
                   </div>
-                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                  {/* <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                     <span>Discount: </span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
-                  </div>
+                  </div> */}
                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                    <span>Ship: </span>
+                    <span>Ship: $ {deliveryPriceMemo}</span>
                     <span style={{color: '#000', fontSize: '14px', fontWeight: 'bold'}}></span>
                   </div>
                 </WrapperInfo>
               <WrapperTotal>
                 <span>Total: </span>
                 <span style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}></span>
+                  <span style={{ color: 'rgb(254, 56, 52)', fontSize: '24px', fontWeight: 'bold' }}> $ {totalPriceMemo}</span>
                   <span style={{ color: '#000', fontSize: '11px' }}>(Included VAT 10%)</span>
                 </span>
               </WrapperTotal>

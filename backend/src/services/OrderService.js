@@ -4,46 +4,48 @@ const EmailService = require("../services/EmailService")
 
 const createOrder = (newOrder) => {
     return new Promise(async (resolve, reject) => {
-        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone,user, isPaid, paidAt,email } = newOrder
+        console.log('ser')
+        const { orderItems,paymentMethod, itemsPrice, shippingPrice, totalPrice, fullName, address, city, phone, isPaid, paidAt,email } = newOrder
         try {
-            const promises = orderItems.map(async (order) => {
-                const productData = await Product.findOneAndUpdate(
-                    {
-                    _id: order.product,
-                    countInStock: {$gte: order.amount}
-                    },
-                    {$inc: {
-                        countInStock: -order.amount,
-                        selled: +order.amount
-                    }},
-                    {new: true}
-                )
-                if(productData) {
-                    return {
-                        status: 'OK',
-                        message: 'SUCCESS'
-                    }
-                }
-                 else {
-                    return{
-                        status: 'OK',
-                        message: 'ERR',
-                        id: order.product
-                    }
-                }
-            })
-            const results = await Promise.all(promises)
-            const newData = results && results.filter((item) => item.id)
-            if(newData.length) {
-                const arrId = []
-                newData.forEach((item) => {
-                    arrId.push(item.id)
-                })
-                resolve({
-                    status: 'ERR',
-                    message: `San pham voi id: ${arrId.join(',')} khong du hang`
-                })
-            } else {
+            // const promises = orderItems.map(async (order) => {
+            //     const productData = await Product.findOneAndUpdate(
+            //         {
+            //         _id: order.product,
+                    // countInStock: {$gte: order.amount}
+                    // },
+                    // {$inc: {
+                    //     countInStock: -order.amount,
+                    //     selled: +order.amount
+                    // }
+            //         },
+            //         {new: true}
+            //     )
+            //     if(productData) {
+            //         return {
+            //             status: 'OK',
+            //             message: 'SUCCESS'
+            //         }
+            //     }
+            //      else {
+            //         return{
+            //             status: 'OK',
+            //             message: 'ERR',
+            //             id: order.product
+            //         }
+            //     }
+            // })
+            // const results = await Promise.all(promises)
+            // const newData = results && results.filter((item) => item.id)
+            // if(newData.length) {
+            //     const arrId = []
+            //     newData.forEach((item) => {
+            //         arrId.push(item.id)
+            //     })
+            //     resolve({
+            //         status: 'ERR',
+            //         message: `San pham voi id: ${arrId.join(',')} khong du hang`
+            //     })
+            // } else {
                 const createdOrder = await Order.create({
                     orderItems,
                     shippingAddress: {
@@ -55,37 +57,25 @@ const createOrder = (newOrder) => {
                     itemsPrice,
                     shippingPrice,
                     totalPrice,
-                    user: user,
+                    // user: user,
                     isPaid, paidAt
                 })
-                if (createdOrder) {
-                    await EmailService.sendEmailCreateOrder(email,orderItems)
-                    resolve({
-                        status: 'OK',
-                        message: 'success'
-                    })
-                }
-            }
+                // if (createdOrder) {
+                //     await EmailService.sendEmailCreateOrder(email,orderItems)
+                //     resolve({
+                //         status: 'OK',
+                //         message: 'success'
+                //     })
+                // }
+            // }
         } catch (e) {
-        //   console.log('e', e)
+        console.log('e', e)
             reject(e)
         }
     })
 }
 
-// const deleteManyProduct = (ids) => {
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             await Product.deleteMany({ _id: ids })
-//             resolve({
-//                 status: 'OK',
-//                 message: 'Delete product success',
-//             })
-//         } catch (e) {
-//             reject(e)
-//         }
-//     })
-// }
+
 
 const getAllOrderDetails = (id) => {
     return new Promise(async (resolve, reject) => {

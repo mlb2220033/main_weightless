@@ -46,7 +46,7 @@ const Home = () => {
       <Slider></Slider>
       {/* <Categories></Categories> */}
       <Title>BEST SELLERS</Title>
-      <Products limit={limit}></Products>
+      <Products limit={limit} cat="Best"></Products>
       <Feedback></Feedback>
       <Newsletter></Newsletter>
       

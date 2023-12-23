@@ -26,19 +26,20 @@ export const orderSlice = createSlice({
     addOrderProduct: (state, action) => {
       const {orderItem} = action.payload
       const itemOrder = state?.orderItems?.find((item) => item?.product === orderItem.product)
-      if(itemOrder){
+      // if(itemOrder){
         // if(itemOrder.amount <= itemOrder.countInstock) {
-          itemOrder.amount += orderItem?.amount
-          state.isSucessOrder = true
-          state.isErrorOrder = false
-          state.totalQuantity+=orderItem?.amount
-          state.itemsPrice+=orderItem?.amount*orderItem?.price
+          // itemOrder.amount += orderItem?.amount
+          // itemOrder.size.push(orderItem?.size) 
+          // state.isSucessOrder = true
+          // state.isErrorOrder = false
+          // state.totalQuantity+=orderItem?.amount
+          // state.itemsPrice+=orderItem?.amount*orderItem?.price
         // }
-      }else {
+      // }else {
         state.orderItems.push(orderItem)
         state.totalQuantity+=orderItem?.amount
         state.itemsPrice+=orderItem?.amount*orderItem?.price
-      }
+      // }
     },
     resetOrder: (state) => {
       state.isSucessOrder = false
@@ -70,9 +71,9 @@ export const orderSlice = createSlice({
       state.itemsPrice-=(oldamount-itemOrder.amount)*itemOrder.price
     },
     removeOrderProduct: (state, action) => {
-      const {idProduct} = action.payload
+      const {idProduct,size} = action.payload
       const removed = state?.orderItems?.find((item) => item?.product === idProduct)
-      const itemOrder = state?.orderItems?.filter((item) => item.product !== idProduct)
+      const itemOrder = state?.orderItems?.filter((item) => item.product !== idProduct&&item.size !== size)
       const itemOrderSeleted = state?.orderItemsSelected?.filter((item) => item.product !== idProduct)
       console.log("remove",{idProduct,itemOrder})
       state.orderItems = itemOrder;

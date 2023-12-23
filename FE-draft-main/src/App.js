@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
+import ProductListType from 'pages/ProductListType';
 import Product from './pages/Product';
 import Logi from './pages/Logi';
 import Cart from './pages/Cart';
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/products/" element={<ProductList />} />
+          <Route path="/products/:type" element={<ProductListType/>} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />

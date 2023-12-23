@@ -15,9 +15,9 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
-  height:25vh;
+  /* height:25vh; */
   flex-wrap: wrap;
-  padding-top:2%;
+  
   padding-right:10%;
   padding-left:10%;
   background: linear-gradient(rgba(27, 31, 30, 0.9), rgba(27, 31, 30, 0.9)),
@@ -30,6 +30,8 @@ const Column = styled.div`
   margin: 10px;
   // text-align: center;
   width:50px;
+  padding-top:2%;
+  padding-bottom:2%;
 `;
 
 const Logo = styled.img`

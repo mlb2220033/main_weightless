@@ -11,7 +11,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
-const Products = ({ cat, filters, sort, limit }) => {
+const Products = ({cat, search, limit }) => {
   // const [products, setProducts] = useState([]);
   // const [limit,setLimit]=useState(4)
   // const [filteredProducts, setFilteredProducts] = useState([]);
@@ -73,24 +73,26 @@ const Products = ({ cat, filters, sort, limit }) => {
   const fetchProductAll = async (context) => {
     // const limit = context?.queryKey && context?.queryKey[1]
     const search = context?.queryKey && context?.queryKey[2]
+    if(cat){
+      console.log(cat)
+      const res = await ProductService.getProductType(cat)
+      return res
+    }else{
     const res = await ProductService.getAllProduct(search, limit)
-
+    console.log('res',res,limit)
     return res
+    }
+    }
 
-  }
+    
+    
+    
+  
 
-  // const fetchAllTypeProduct = async () => {
-  //   const res = await ProductService.getAllTypeProduct()
-  //   if(res?.status === 'OK') {
-  //     setTypeProducts(res?.data)
-  //   }
-  // }
+
 
   const { isLoading, data: products, isPreviousData } = useQuery(['products', limit], fetchProductAll, { retry: 3, retryDelay: 1000, keepPreviousData: true })
 console.log(products)
-  // useEffect(() => {
-  //   fetchAllTypeProduct()
-  // }, [])
 
 
 
@@ -105,9 +107,11 @@ console.log(products)
     // </Container>
 
     <Container>
-      {products?.data?.map((item) => (
+      {products?.data?.map((item) => 
+      (
         <Product item={item} key={item._id} />
-      ))}
+      )
+      )}
       
     </Container>
   )

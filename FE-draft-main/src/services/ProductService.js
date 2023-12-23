@@ -6,20 +6,37 @@ export const getAllProduct = async (search, limit) => {
     if (search?.length > 0) {
         res = await axios.get(`http://localhost:3001/api/product/get-all?filter=name&filter=${search}&limit=${limit}`)
     } else {
+        
         res = await axios.get(`http://localhost:3001/api/product/get-all?limit=${limit}`)
+        console.log('ser',res.data)
+    
     }
+    
     return res.data
 }
+// export const getTypeProduct = async (cat,search, limit) => {
+//     let res = {}
+//     if (search?.length > 0) {
+//         res = await axios.get(`http://localhost:3001/api/product/get-all?filter=name&filter=${search}&limit=${limit}`)
+//     } else {
+//         res = await axios.get(`http://localhost:3001/api/product/get-all?limit=${limit}&type=${cat}`)
+        
+        
+//     }
+//     return res.data
+// }
 
 export const getProductType = async (type, page, limit) => {
     if (type) {
-        const res = await axios.get(`${process.env.API_URL}/product/get-all?filter=type&filter=${type}&limit=${limit}&page=${page}`)
+        const res = await axios.get(`http://localhost:3001/api/product/get-all?filter=type&filter=${type}&limit=${limit}&page=${page}`)
+        console.log('type',type,`http://localhost:3001/api/product/get-all?filter=type=${type}&limit=${limit}&page=${page}`)
         return res.data
+
     }
 }
 
 export const createProduct = async (data) => {
-    const res = await axios.post(`${process.env.API_URL}/product/create`, data)
+    const res = await axios.post(`http://localhost:3001/api/product/create`, data)
     return res.data
 }
 
@@ -29,7 +46,7 @@ export const getDetailsProduct = async (id) => {
 }
 
 export const updateProduct = async (id, access_token, data) => {
-    const res = await axiosJWT.put(`${process.env.API_URL}/product/update/${id}`, data, {
+    const res = await axiosJWT.put(`http://localhost:3001/api/product/update/${id}`, data, {
         headers: {
             token: `Bearer ${access_token}`,
         }
@@ -38,7 +55,7 @@ export const updateProduct = async (id, access_token, data) => {
 }
 
 export const deleteProduct = async (id, access_token) => {
-    const res = await axiosJWT.delete(`${process.env.REACT_APP_API_URL}/product/delete/${id}`, {
+    const res = await axiosJWT.delete(`http://localhost:3001/api/product/delete/${id}`, {
         headers: {
             token: `Bearer ${access_token}`,
         }
@@ -47,7 +64,7 @@ export const deleteProduct = async (id, access_token) => {
 }
 
 export const deleteManyProduct = async (data, access_token,) => {
-    const res = await axiosJWT.post(`${process.env.REACT_APP_API_URL}/product/delete-many`, data, {
+    const res = await axiosJWT.post(`http://localhost:3001/api/product/delete-many`, data, {
         headers: {
             token: `Bearer ${access_token}`,
         }

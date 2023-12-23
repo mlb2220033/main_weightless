@@ -1,17 +1,17 @@
 export const MenuItems = [
     {
       title: 'Accessories',
-      path: '/accessories',
+      path: 'Accessories',
       cName: 'dropdown-link'
     },
     {
       title: 'Equipments',
-      path: '/equipments',
+      path: 'Equipment',
       cName: 'dropdown-link'
     },
     {
       title: 'Apparels',
-      path: '/apparels',
+      path: 'Wear',
       cName: 'dropdown-link'
     },
 

@@ -8,14 +8,9 @@ import fb from '../assets/images/Facebook.png'
 import { useState } from 'react';
 import InputForm from 'components/InputForm/InputForm';
 import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
-<<<<<<< HEAD
-import { useMutation } from '@tanstack/react-query';
-import * as UserService from '../services/UserService'
-=======
 import * as UserService from '.././services/UserService'
 import { useMutationHooks } from 'hooks/userMutationHook';
 import Loading from 'components/LoadingComponent/Loading';
->>>>>>> c9bd1f7b861ec6bca63955921910732d32d33502
 // import { useMutation } from '@tanstack/react-query';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Container = styled.div`
@@ -257,12 +252,6 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-<<<<<<< HEAD
-    const mutation = useMutation(
-        data => UserService.loginUser(data)
-     )
-    //  console.log('mutation',mutation)
-=======
     const [isloading, setLoading] = useState(false);
     
     const mutation = useMutationHooks(
@@ -278,7 +267,6 @@ function Register() {
       );
     const{data, isLoading} = mutation
     console.log('mutation',mutation)
->>>>>>> c9bd1f7b861ec6bca63955921910732d32d33502
     
 
     const handleOnchangeFirstname = (value) => {
