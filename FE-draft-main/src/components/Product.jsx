@@ -23,13 +23,16 @@ import {
     cursor: pointer;
   `;
   const Container = styled.div`
-    max-width:280px;
+    // max-width:300px;
+    min-width:0;
+    text-align:center;
+    justify-content:center;
     
   `;
   const SmallContainer = styled.div`
     flex: 1;
     margin: 5px;
-    min-width: 280px;
+    min-width: 300px;
     height: 350px;
     display: flex;
     align-items: center;
@@ -51,9 +54,9 @@ import {
   `;
   
   const Image = styled.img`
-    height: 75%;
+    height: 300px;
     z-index: 2;
-    width:280px;
+    width:300px;
   `;
   const Name = styled.h3`
     color:black;
@@ -76,11 +79,17 @@ const Price = styled.h4`
     margin: 10px;
     transition: all 0.5s ease;
     &:hover {
-      background-color: #e9f5f5;
+      color: #fe5f00;
       transform: scale(1.1);
     }
   `;
-
+const MyLink = styled(Link)`
+text-decoration:none;
+&:hover {
+  color: #fe5f00;
+  transform: scale(1.1);
+}
+`;
 
 
 
@@ -115,8 +124,8 @@ const Product = ({item}) => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link to={`/product/${item._id}`}>
-          <SearchOutlined /></Link>
+          <MyLink to={`/product/${item._id}`}>
+          <SearchOutlined /></MyLink>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />
