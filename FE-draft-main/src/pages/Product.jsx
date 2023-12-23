@@ -185,7 +185,7 @@ const OldPrice = styled.div`
 `;
 
 const NewPrice = styled.div`
-    color: #ff4141;
+    color:#ff4141;
 `;
 const FilterContainer = styled.div`
   width: 50%;

@@ -2,14 +2,16 @@ const express = require("express");
 const dotenv = require('dotenv');
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const cors = require('cors'); // Import the cors middleware
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
-const cors = require('cors'); // Import the cors middleware
+
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3001;
+
 
 app.use(bodyParser.json());
 app.use(cookieParser());

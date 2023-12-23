@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from "styled-components";
 import { Link, Navigate } from "react-router-dom"
 import {mobile} from "../responsive";
 import gg from '../assets/images/google.png'
 import fb from '../assets/images/Facebook.png'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import InputForm from 'components/InputForm/InputForm';
 import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
@@ -13,6 +13,7 @@ import * as UserService from '../../src/services/UserService'
 import { useMutation } from '@tanstack/react-query';
 import { useMutationHooks } from 'hooks/userMutationHook';
 import Loading from 'components/LoadingComponent/Loading';
+import { jwtDecode } from 'jwt-decode';
 
 
 const Container = styled.div`
@@ -277,21 +278,28 @@ function Logi() {
     
     const mutation = useMutationHooks(
         data => UserService.loginUser(data),
-        {
-          onSuccess: () => {
-            setLoading(false);
-          },
-          onError: () => {
-            setLoading(false);
-          },
-        }
-      );
-    const {data, isLoading} = mutation
+    )
+
+    const {data, isLoading,isSuccess} = mutation
     console.log('mutation', mutation)
     console.log('mutation status:', mutation.status)
     console.log('mutation error:', mutation.error)
     console.log('mutation data:', mutation.data)
 
+    useEffect(() => {
+        if (isSuccess) {
+        Navigate('/')
+        console.log('data',data)
+        localStorage.setItem('access_token', data?.access_token)
+        if (data?.access_token) {
+            const decoded = jwtDecode(data?.access_token)
+            console.log('decode',decoded)
+            // if (decoded?.id) {
+            //   handleGetDetailsUser(decoded?.id, data?.access_token)
+            // }
+          }
+    }
+    }, [isSuccess])
 
     const handleOnchangeEmail = (value) => {
         setEmail(value)

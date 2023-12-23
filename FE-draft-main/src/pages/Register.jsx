@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from "styled-components";
 import { Col, Row } from 'react-bootstrap'
 import { Link, Navigate, useNavigate } from "react-router-dom"
@@ -13,6 +13,10 @@ import { useMutationHooks } from 'hooks/userMutationHook';
 import Loading from 'components/LoadingComponent/Loading';
 // import { useMutation } from '@tanstack/react-query';
 // import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import * as message from '.././components/Message/Message'
+
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -265,9 +269,17 @@ function Register() {
           },
         }
       );
-    const{data, isLoading} = mutation
+    const{data, isLoading, isSuccess, isError} = mutation
     console.log('mutation',mutation)
     
+    useEffect(() => {
+        if (isSuccess) {
+          message.success()
+          handleNavigateSignIn()
+        } else if (isError) {
+          message.error()
+        }
+      }, [isSuccess, isError])
 
     const handleOnchangeFirstname = (value) => {
         setFirstname(value)

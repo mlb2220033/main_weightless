@@ -8,11 +8,10 @@ const authMiddleWare = (req, res, next) => {
         if (err) {
             return res.status(404).json({
                 message: 'The authemtication',
-                status: 'ERROR'
+                status: 'ERROR rrrr'
             })
         }
-        const {payload} = user
-        if (payload.isAdmin) {
+        if (user?.isAdmin) {
             next()
         } else {
             return res.status(404).json({
@@ -20,7 +19,6 @@ const authMiddleWare = (req, res, next) => {
                 status: 'ERROR'
             })
         }
-        console.log('user', User)
     });
 }
 
