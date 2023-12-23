@@ -1,24 +1,24 @@
 export const sliderItems = [
   {
     id: 1,
-    img: "https://wallpapercave.com/wp/wp4716027.jpg",
-    title: "BIG SALE",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "f5fafd",
+    img: "https://int.gravity.fitness/cdn/shop/products/04-GravityFitnessDipBelt_5000x.jpg?v=1675781807",
+    title: "SALE UP TO 50%",
+    desc: "This Big Sale is more than savings – it's an opportunity to upgrade your home gym and commit to your fitness goals. Invest in equipment that will support your journey for years to come.",
+    bg: "ffffff",
   },
   {
     id: 2,
-    img: "https://i.ibb.co/DG69bQ4/2.png",
-    title: "AUTUMN COLLECTION",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "fcf1ed",
+    img: "https://shop.thenx.com/cdn/shop/products/35LBWeightVest-Iridescent6_900x.jpg?v=1676735061",
+    title: "DISCOVER OUR LATEST COLLECTION",
+    desc: "Embark on a journey of style and innovation with our newest collection of fitness and calisthenics equipment. We've curated a range of cutting-edge items to elevate your workout experience and inspire your fitness goals.",
+    bg: "ffffff",
   },
   {
     id: 3,
-    img: "https://i.ibb.co/cXFnLLV/3.png",
-    title: "LOUNGEWEAR LOVE",
-    desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-    bg: "fbf0f4",
+    img: "https://shop.thenx.com/cdn/shop/products/thenx_socks2_2_900x.png?v=1525826494",
+    title: "CHRISTMAS FITNESS GIFT",
+    desc: "Give the gift of fitness this Christmas. Consider gifting calisthenics equipment such as pull-up bars, resistance bands, or gymnastic rings. These thoughtful presents not only promote a healthy lifestyle but also inspire your loved ones to embark on their fitness journey.",
+    bg: "ffffff",
   },
 ];
 

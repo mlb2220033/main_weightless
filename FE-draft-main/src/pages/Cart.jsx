@@ -242,7 +242,7 @@ const Cart = () => {
                   <Remove onClick={() => handleChangeCount('decrease', product.product,product?.amount === 1)}/>
                 </ProductAmountContainer>
                 <ProductPrice>
-                  $ {product.price * product.amount}
+                  $ {(product.price * product.amount).toFixed(2)}
                 </ProductPrice>
                 
               </PriceDetail>

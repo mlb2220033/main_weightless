@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 import { useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
+import Navbarnotrans from "components/Navbarnotrans";
 
 const Container = styled.div``;
 
@@ -54,15 +55,16 @@ const ProductList = () => {
   };
   return (
     <Container>
-        <Announcement></Announcement>
-        <Navbar></Navbar>
+        {/* <Announcement></Announcement> */}
+        {/* <Navbar></Navbar> */}
+        <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
         <Title>{cat}</Title>
         <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" onChange={handleFilters}>
-                
-                <Option>Apparel</Option>
+              <Option >All</Option>
+                <Option>Wear</Option>
                 <Option>Accessories</Option>
                 <Option>Equipment</Option>
                 
@@ -78,7 +80,7 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
         <Products cat={cat} filters={filters} sort={sort} limit={limit}></Products>
-        <button onClick={()=>setLimit((prev)=>prev*2)}>load more</button>
+        <button onClick={()=>setLimit((prev)=>prev+10)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
         <Footer></Footer>

@@ -53,12 +53,12 @@ const loginUser = async (req, res) => {
         }
         const response = await UserService.loginUser(req.body)
         const { refresh_token, ...newReponse } = response
-        // console.log('response',response)
+        console.log('response',response)
         res.cookie('refresh_token', refresh_token, {
-            httpOnly: true,
-            secure: true,
-            // sameSite: 'strict',
-            // path: '/',
+            HttpOnly: true,
+            Secure: true,
+        //     // sameSite: 'strict',
+        //     // path: '/',
         })
         return res.status(200).json(newReponse)
     } catch (e) {
@@ -140,18 +140,23 @@ const getDetailsUser = async (req, res) => {
 }
 
 const refreshToken = async (req, res) => {
-    console.log('req.cookies', req.cookies)
+    //console.log('req.cookies', req.cookies)
     try {
-        const token = req.headers.refresh_token
+        console.log ('aaaa',req.cookies.token)
+        const token = req.cookies.token.split(' ')[1]
+        //console.log('tokessn',token)
         if (!token) {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'The token is required'
             })
         }
-        const response = await JwtService.refreshTokenJwtService(token)
+        const response = await JwtService.refreshTokenJwtService (token)
         return res.status(200).json(response)
+
+       
     } catch (e) {
+        
         return res.status(404).json({
             message: e
         })

@@ -6,29 +6,30 @@ import productReducer from './slides/productSlice'
 import counterReducer from './slides/userSlide'
 import userReducer from './slides/userSlide'
 import orderReducer from './slides/orderSlice'
-// import {
-//   persistStore,
-//   persistReducer,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
+// import persistStore from "redux-persist/es/persistStore";
+import {
+  persistStore,
+  persistReducer,
+  // FLUSH,
+  // REHYDRATE,
+  // PAUSE,
+  // PERSIST,
+  // PURGE,
+  // REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-// const persistConfig = {
-//   key: "root",
-//   version: 1,
-//   storage,
-//   serialize: false,
-//   // blacklist:['product']
-// };
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  serialize: false,
+  // blacklist:['product']
+};
 
-// const rootReducer = combineReducers({product:productReducer, user: userReducer, order: orderReducer });
+const rootReducer = combineReducers({product:productReducer, user: userReducer, order: orderReducer });
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 // // export const store = configureStore({
 // //   reducer: persistedReducer,
@@ -43,10 +44,10 @@ import orderReducer from './slides/orderSlice'
 export const store = configureStore({
   reducer:{
     counter: counterReducer,
-    //reducer: persistedReducer,
-    // product:productReducer,
+    reducer: persistedReducer,
+    //product:productReducer,
     user: userReducer,
-    // order:orderReducer
+    //order:orderReducer
   }
 })
 

@@ -58,14 +58,16 @@ const loginUser = (userLogin) => {
                     message: 'The password or user is incorrect'
                 })
             }
+            // console.log('checkUser',checkUser)
             const access_token = await genneralAccessToken({
-                id: checkUser.id,
-                isAdmin: checkUser.isAdmin
+                
+                _id: checkUser?.id,
+                isAdmin: checkUser?.isAdmin
             })
 
             const refresh_token = await genneralRefreshToken({
-                id: checkUser.id,
-                isAdmin: checkUser.isAdmin
+                _id: checkUser?.id,
+                isAdmin: checkUser?.isAdmin
             })
 
             resolve({
@@ -167,11 +169,13 @@ const getDetailsUser = (id) => {
     })
 }
 
+
 module.exports = {
     createUser,
     loginUser,
     updateUser,
     deleteUser,
     getAllUser,
-    getDetailsUser
+    getDetailsUser,
+
 }

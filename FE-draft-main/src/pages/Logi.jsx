@@ -14,6 +14,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useMutationHooks } from 'hooks/userMutationHook';
 import Loading from 'components/LoadingComponent/Loading';
 import { jwtDecode } from 'jwt-decode';
+import { message } from 'antd';
+import { isError } from 'react-query';
 
 
 const Container = styled.div`
@@ -280,7 +282,7 @@ function Logi() {
         data => UserService.loginUser(data),
     )
 
-    const {data, isLoading,isSuccess} = mutation
+    const {data, isLoading,isSuccess, isError} = mutation
     console.log('mutation', mutation)
     console.log('mutation status:', mutation.status)
     console.log('mutation error:', mutation.error)
@@ -288,18 +290,21 @@ function Logi() {
 
     useEffect(() => {
         if (isSuccess) {
-        Navigate('/')
-        console.log('data',data)
-        localStorage.setItem('access_token', data?.access_token)
-        if (data?.access_token) {
-            const decoded = jwtDecode(data?.access_token)
-            console.log('decode',decoded)
+            message.success()
+            //   navigate('/')
+            //localStorage.setItem('access_token', JSON.stringify(data?.access_token))
+            // localStorage.setItem('refresh_token', JSON.stringify(data?.refresh_token))
+        // if (data?.access_token) {
+        //     const decoded = jwtDecode(data?.access_token)
+        //     console.log('decode',decoded)
             // if (decoded?.id) {
             //   handleGetDetailsUser(decoded?.id, data?.access_token)
             // }
           }
-    }
-    }, [isSuccess])
+    
+    }, [isSuccess, isError])
+
+    
 
     const handleOnchangeEmail = (value) => {
         setEmail(value)
