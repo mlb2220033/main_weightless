@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from 'react-redux';
 import { normal } from "../data";
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Navbarnoscroll from 'components/Navbarnoscroll';
 import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct, selectedOrder } from '../redux/slides/orderSlice';
@@ -14,7 +15,10 @@ import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProdu
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  padding: 20px;
+  // padding: 20px;
+  padding-left:5rem;
+  padding-right:5rem;
+  margin-bottom: 2rem;
   ${mobile({ padding: "10px" })}
 `;
 
@@ -28,6 +32,7 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
+
 `;
 
 const TopButton = styled.button`
@@ -38,18 +43,31 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  &:hover {
+    background-color: #fe5f00; // Màu của văn bản khi hover
+    border-color:#fe5f00;
+    transition: 0.3s ease-in-out;
+  }
 `;
 const RemoveButton = styled.button`
   padding: 10px;
   font-weight: 600;
+  width:100px;
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  &:hover {
+    background-color: #fe5f00; // Màu của văn bản khi hover
+    border-color: #fe5f00;
+    color: #ffffff;
+    transition: 0.2s ease-in-out;
+  }
 `;
 
 const TopTexts = styled.div`
+
   ${mobile({ display: "none" })}
 `;
 const TopText = styled.span`
@@ -66,28 +84,36 @@ const RemoveIcon = styled.img`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top:1rem;
+
   ${mobile({ flexDirection: "column" })}
 
 `;
 
 const Info = styled.div`
   flex: 3;
+  padding: 0px 20px;
+  
 `;
 
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 20px 0 20px 0;
   ${mobile({ flexDirection: "column" })}
 `;
 
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  
 `;
 
 const Image = styled.img`
   width: 200px;
   cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  
 `;
 
 const Details = styled.div`
@@ -174,7 +200,41 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
+  &:hover {
+    background-color: #fe5f00; // Màu của văn bản khi hover
+    border-color:#fe5f00;
+    transition: 0.3s ease-in-out;
+  }
 `;
+const MyAdd = styled(Add)`
+  cursor: pointer;
+  &:hover {
+    color: #fe5f00; // Màu của văn bản khi hover
+    transition: 0.2s ease-in-out;
+  }
+`;
+const MyRemove = styled(Remove)`
+cursor: pointer;
+&:hover {
+  color: #fe5f00; // Màu của văn bản khi hover
+  transition: 0.2s ease-in-out;
+}
+
+`;
+const MyLink = styled(Link)`
+  text-decoration: none;
+  color: #ffffff;
+  &:hover {
+    background-color: #fe5f00; // Màu của văn bản khi hover
+    border-color:#fe5f00;
+    transition: 0.3s ease-in-out;
+  }
+`;
+
 const Cart = () => {
   const navigate = useNavigate();
   const cart= useSelector(state=>state.order)
@@ -218,10 +278,10 @@ const Cart = () => {
           {/* <TopButton>CONTINUE SHOPPING</TopButton> */}
           
           <TopTexts>
-            <TopText>Your Bag</TopText>
-            <RemoveButton onClick={handleRemoveAllOrder}>Remove</RemoveButton>
+            
+            <RemoveButton onClick={handleRemoveAllOrder}>REMOVE ALL</RemoveButton>
           </TopTexts>
-          <TopButton type="filled">CONTINUE SHOPPING</TopButton>
+          <TopButton type="filled" onClick={() => navigate('/products')}>CONTINUE SHOPPING</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -249,9 +309,9 @@ const Cart = () => {
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add onClick={() => handleChangeCount('increase', product.product,product?.amount === 100)}/>
+                  <MyAdd onClick={() => handleChangeCount('increase', product.product,product?.amount === 100)}/>
                   <ProductAmount>{product.amount}</ProductAmount>
-                  <Remove onClick={() => handleChangeCount('decrease', product.product,product?.amount === 1)}/>
+                  <MyRemove onClick={() => handleChangeCount('decrease', product.product,product?.amount === 1)}/>
                 </ProductAmountContainer>
                 <ProductPrice>
                   $ {(product.price * product.amount).toFixed(2)}

@@ -39,3 +39,7 @@
       display: none;
     }
   }
+
+.productdisplay_right_descr{
+  letter-spacing: .04rem;
+}
