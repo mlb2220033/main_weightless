@@ -142,9 +142,9 @@ const getDetailsUser = async (req, res) => {
 const refreshToken = async (req, res) => {
     //console.log('req.cookies', req.cookies)
     try {
-        console.log ('aaaa',req.cookies.token)
-        const token = req.cookies.token.split(' ')[1]
-        //console.log('tokessn',token)
+        console.log ('aaaa',req.cookies)
+        const token = req.cookies.refresh_token.split(' ')[1]
+        console.log('tokessn',token)
         if (!token) {
             return res.status(200).json({
                 status: 'ERR',
@@ -153,10 +153,7 @@ const refreshToken = async (req, res) => {
         }
         const response = await JwtService.refreshTokenJwtService (token)
         return res.status(200).json(response)
-
-       
     } catch (e) {
-        
         return res.status(404).json({
             message: e
         })

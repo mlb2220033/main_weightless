@@ -12,12 +12,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-
+app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 
 // Use cors middleware to enable CORS
-app.use(cors());
+
 
 app.get("/", (req, res) => {
     res.send("Hello Restful API");
