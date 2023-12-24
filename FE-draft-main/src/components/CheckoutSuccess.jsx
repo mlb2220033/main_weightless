@@ -1,19 +1,33 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { clearCart, getTotals } from "../slices/cartSlice";
+import { decreaseAmount, increaseAmount, removeAllOrderProduct, removeOrderProduct, selectedOrder } from '../redux/slides/orderSlice';
+import { useNavigate } from "react-router-dom";
+
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+`;
 
 const CheckoutSuccess = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  // const order = useSelector((state) => state.order)
+  const dispatch = useDispatch()
+useEffect(()=>{
+  dispatch(removeAllOrderProduct())
+})
 
-  useEffect(() => {
-    dispatch(clearCart());
-  }, [dispatch]);
+  const handleFinish=()=>{
+    
+    navigate('/')
+  }
+    
+    
 
-  useEffect(() => {
-    dispatch(getTotals());
-  }, [cart, dispatch]);
+
 
   return (
     <Container>
@@ -24,6 +38,7 @@ const CheckoutSuccess = () => {
         Incase of any inqueries contact the support at{" "}
         <strong>support@onlineshop.com</strong>
       </p>
+      <Button onClick={handleFinish}>Finish and Return Homepage</Button>
     </Container>
   );
 };

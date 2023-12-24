@@ -377,8 +377,16 @@ const Product = () => {
     const order = useSelector((state) => state.order)
     const [errorLimitOrder,setErrorLimitOrder] = useState(false)
     const navigate = useNavigate()
-    
+    const [size, setSize] = useState('');
     const dispatch = useDispatch()
+    const [selectedSize, setSelectedSize] = useState('');
+    const sai=[]
+    const handleSizeClick = (size) => {
+      setSelectedSize(size);
+      
+      console.log('size',selectedSize)
+    }
+
 
     const onChange = (value) => { 
         setNumProduct(Number(value))
@@ -451,22 +459,43 @@ const Product = () => {
             //         required: true,
             //     },
             // },
-            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+
+            // const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
             // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
-                dispatch(addOrderProduct({
+
+
+            // if(productDetails?.size) { 
+            //   console.log('sai',productDetails?.size)
+            //   if(selectedSize)  {
+                 dispatch(addOrderProduct({
                     orderItem: {
                       tittle: productDetails?.name,
                         amount: numProduct,
                         image: productDetails?.image[0].image,
                         price: productDetails?.price,
+                        size:[selectedSize],
                         product: productDetails?._id,
                         // discount: productDetails?.discount,
                         // countInstock: productDetails?.countInStock
                     },
                     
                 }))
-            // } else {
-                // setErrorLimitOrder(true)
+            //   }else{
+            //     alert("saiz đâu")
+            //   }
+           
+            // }
+            //  else {
+            //   dispatch(addOrderProduct({
+            //     orderItem: {
+            //       tittle: productDetails?.name,
+            //       amount: numProduct,
+            //       image: productDetails?.image[0].image,
+            //       price: productDetails?.price,
+            //       size:[selectedSize],
+            //       product: productDetails?._id,
+            //     },
+            //   }))
             // }
             setIsAddedToCart(true);
 
@@ -478,6 +507,12 @@ const Product = () => {
         
     }
     console.log("ord",order)
+    const pushSize = () => {
+      setSelectedSize();
+      sai.push(selectedSize);
+      console.log('sai',sai)
+    };
+    
   return (
 
 
@@ -505,7 +540,7 @@ const Product = () => {
                 <ProductTitle>{productDetails?.name}</ProductTitle>
                 <StarRating></StarRating>
                 <PriceContainer>
-                    {/* <OldPrice>${productDetails?.price}</OldPrice> */}
+                    <OldPrice>${(productDetails?.price*1.2).toFixed(2)}</OldPrice>
                     <NewPrice>${productDetails?.price}</NewPrice>
                 </PriceContainer>
                 <div className="productdisplay_right_descr">
@@ -527,7 +562,7 @@ const Product = () => {
                     } */}
                  <SizeOptions >
                   {productDetails?.size.map((s) => (
-                    <SizeOption >{s.size}</SizeOption>
+                    <SizeOption onClick={() => {setSize(s.size);handleSizeClick(s.size)}} key={s.size} selected={selectedSize === s.size} >{s.size}</SizeOption>
                   ))}
                 </SizeOptions>
                  <AmountContainer>

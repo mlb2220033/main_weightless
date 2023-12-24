@@ -29,6 +29,7 @@ export const orderSlice = createSlice({
       if(itemOrder){
         // if(itemOrder.amount <= itemOrder.countInstock) {
           itemOrder.amount += orderItem?.amount
+          itemOrder.size.push(orderItem?.size) 
           state.isSucessOrder = true
           state.isErrorOrder = false
           state.totalQuantity+=orderItem?.amount
@@ -63,9 +64,9 @@ export const orderSlice = createSlice({
       const itemOrderSelected = state?.orderItemsSelected?.find((item) => item?.product === idProduct)
       const oldamount=itemOrder.amount
       itemOrder.amount--;
-      if(itemOrderSelected) {
-        itemOrderSelected.amount--;
-      }
+      // if(itemOrderSelected) {
+      //   itemOrderSelected.amount--;
+      // }
       state.totalQuantity--
       state.itemsPrice-=(oldamount-itemOrder.amount)*itemOrder.price
     },

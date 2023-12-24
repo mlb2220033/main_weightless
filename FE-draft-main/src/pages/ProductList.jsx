@@ -6,13 +6,11 @@ import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
 import Navbarnotrans from "components/Navbarnotrans";
-import * as ProductService from '../services/ProductService'
-
-
+import * as ProductService from "../services/ProductService"
 const Container = styled.div`
 
 `;
@@ -94,9 +92,10 @@ const ButtonContainer = styled.div`
 const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
-  const [limit, setLimit] = useState(4)
+  const [limit, setLimit] = useState(20)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
+  const [typeProducts, setTypeProducts] = useState([])
   const handleFilters = (e) => {
     const value = e.target.value;
     setFilters({
@@ -104,6 +103,15 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
+  const fetchAllTypeProduct = async () => {
+    const res = await ProductService.getAllTypeProduct()
+    if(res?.status === 'OK') {
+      setTypeProducts(res?.data)
+    }
+  }
+  useEffect(() => {
+    fetchAllTypeProduct()
+  }, [])
   return (
     <Container>
 
@@ -119,10 +127,14 @@ const ProductList = () => {
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" onChange={handleFilters}>
               <Option >All</Option>
+              {/* 
                 <Option>Wear</Option>
                 <Option>Accessories</Option>
-                <Option>Equipment</Option>
-                
+                <Option>Equipment</Option> */}
+              {typeProducts.map((t)=>(
+                <Option>{t}</Option>
+              ))
+              }
             </Select>
             
             </Filter>

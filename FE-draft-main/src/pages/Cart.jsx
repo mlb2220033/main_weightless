@@ -111,6 +111,7 @@ const ProductDetail = styled.div`
 
 const Image = styled.img`
   width: 200px;
+  cursor: pointer;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
   
 `;
@@ -122,7 +123,9 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+  cursor: pointer;
+`;
 
 const ProductId = styled.span``;
 
@@ -236,6 +239,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const cart= useSelector(state=>state.order)
   const dispatch = useDispatch()
+
   const handleRemoveAllOrder = () => {
     // if(listChecked?.length > 1){
       dispatch(removeAllOrderProduct())
@@ -254,6 +258,14 @@ const Cart = () => {
   }
   const handleDelete = (idProduct) => {
     dispatch(removeOrderProduct({idProduct}))
+  }
+  const handleCheckout=()=>{
+    if(cart.orderItems.product){
+      navigate('/payment')
+    }else{
+      console.log('mt')
+      alert('Your Cart is Empty!')
+    }
   }
   return (
     <Container>
@@ -276,18 +288,18 @@ const Cart = () => {
             {cart.orderItems.map((product)=>(
               <Product>
               <ProductDetail>
-                <Image src={product.image} />
+                <Image src={product.image} onClick={(event) => {navigate(`/product/${product.product}` )}}/>
                 <Details>
-                  <ProductName>
+                  <ProductName onClick={(event) => {navigate(`/product/${product.product}` )}}>
                     <b>Product:</b> {product.tittle}
                   </ProductName>
                   <ProductId>
                     <b>Unit Price:</b> {product.price}
                   </ProductId>
-                  {/* <ProductId>
-                    <b>Unit Price:</b> {product.size}
-                  </ProductId> */}
-                  <RemoveButton onClick={() => handleDelete(product.product)}>Remove</RemoveButton>
+                  <ProductId>
+                     <b>Size: {product.size.map((s)=>(s+" "))}</b>
+                  </ProductId>
+                  <RemoveButton onClick={() => handleDelete(product.product,product.size)}>Remove</RemoveButton>
                   {/* onClick={() => handleRemoveProduct(product._id)} */}
                   {/* <ProductColor color={normal[0].color} /> */}
                   {/* <ProductSize>
@@ -321,7 +333,7 @@ const Cart = () => {
            
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 70</SummaryItemPrice>
+              <SummaryItemPrice>{cart.itemsPrice.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             {/* <StripeCheckout
               name="Lama Shop"
@@ -333,7 +345,7 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY} */}
             {/* > */}
-              <Button onClick={() => navigate('/payment')}>CHECKOUT NOW</Button>
+              <Button onClick={handleCheckout}>CHECKOUT NOW</Button>
             {/* </StripeCheckout> */}
           </Summary>
         </Bottom>

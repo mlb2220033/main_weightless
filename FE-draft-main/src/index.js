@@ -16,6 +16,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 //     </PersistGate>
 //   </Provider>,
 //   document.getElementById("root")
+
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
@@ -25,8 +26,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </PersistGate>
   </Provider>
   <ReactQueryDevtools initialIsOpen={false} />
-  </QueryClientProvider>,
-  document.getElementById("root")
+  </QueryClientProvider>
+  ,document.getElementById("root")
  
 );
 
