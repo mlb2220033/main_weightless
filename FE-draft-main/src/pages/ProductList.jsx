@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
 import Navbarnotrans from "components/Navbarnotrans";
-
+import * as ProductService from "../services/ProductService"
 const Container = styled.div`
 
 `;
