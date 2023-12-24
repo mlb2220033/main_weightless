@@ -179,6 +179,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const cart= useSelector(state=>state.order)
   const dispatch = useDispatch()
+
   const handleRemoveAllOrder = () => {
     // if(listChecked?.length > 1){
       dispatch(removeAllOrderProduct())
@@ -195,8 +196,16 @@ const Cart = () => {
       }
     }
   }
-  const handleDelete = (idProduct,size) => {
-    dispatch(removeOrderProduct({idProduct,size}))
+  const handleDelete = (idProduct) => {
+    dispatch(removeOrderProduct({idProduct}))
+  }
+  const handleCheckout=()=>{
+    if(cart.orderItems.product){
+      navigate('/payment')
+    }else{
+      console.log('mt')
+      alert('Your Cart is Empty!')
+    }
   }
   return (
     <Container>
@@ -228,7 +237,7 @@ const Cart = () => {
                     <b>Unit Price:</b> {product.price}
                   </ProductId>
                   <ProductId>
-                     {product.size.map((s)=>(<b>Size: {s}</b>))}
+                     <b>Size: {product.size.map((s)=>(s+" "))}</b>
                   </ProductId>
                   <RemoveButton onClick={() => handleDelete(product.product,product.size)}>Remove</RemoveButton>
                   {/* onClick={() => handleRemoveProduct(product._id)} */}
@@ -276,7 +285,7 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY} */}
             {/* > */}
-              <Button onClick={() => navigate('/payment')}>CHECKOUT NOW</Button>
+              <Button onClick={handleCheckout}>CHECKOUT NOW</Button>
             {/* </StripeCheckout> */}
           </Summary>
         </Bottom>

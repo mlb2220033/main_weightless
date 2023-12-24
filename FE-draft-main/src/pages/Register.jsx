@@ -11,8 +11,8 @@ import ButtonComponent from 'components/ButtonComponent/ButtonComponent';
 import * as UserService from '.././services/UserService'
 import { useMutationHooks } from 'hooks/userMutationHook';
 import Loading from 'components/LoadingComponent/Loading';
-// import { useMutation } from '@tanstack/react-query';
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -303,17 +303,22 @@ function Register() {
                 
                 <Title>CREATE ACCOUNT HERE</Title>
                         <MyRow> 
-                            <MyCol><InputForm placeholder="First Name" type="text" value={Firstname} onChange={handleOnchangeFirstname} required/></MyCol>
-                            <MyCol><InputForm placeholder="Last Name" type="text" value={Lastname} onChange={handleOnchangeLastname} required/></MyCol>
+                            <MyCol><InputForm placeholder="First Name" type="text" value={Firstname} onChange={handleOnchangeFirstname} required /></MyCol>
+                            {/* */}
+                            <MyCol><InputForm placeholder="Last Name" type="text" value={Lastname}  onChange={handleOnchangeLastname} required/></MyCol>
+                            {/* */}
                         </MyRow>
                         <MyRow>
                             <MyCol><InputForm placeholder="Email" type="email" value={email} onChange={handleOnchangeEmail} required/></MyCol>
+{/*  */}
                         </MyRow>
                         <MyRow>
                             <MyCol><InputForm placeholder="Password" type="password" value={password} onChange={handleOnchangePassword} required/></MyCol>
+                            {/*  */}
                         </MyRow>
                         <MyRow>
                             <MyCol><InputForm placeholder="Confirm Password" type="password" value={confirmPassword} onChange={handleOnchangeConfirmPassword} required/></MyCol>
+                            {/*  */}
                         </MyRow>
 
                         <MyRow xs="auto">
@@ -357,6 +362,7 @@ function Register() {
                             textbutton={'Register'}
                             styleTextButton={{ color: '#fff', fontSize: '20px', fontWeight: '700' }}
                             ></ButtonComponent>
+                            
                             {isloading && (
                             <LoadingWrapper>
                                 <Loading isLoading={isloading} />

@@ -9,6 +9,7 @@ import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
+import Navbarnotrans from "components/Navbarnotrans";
 import * as ProductService from '../services/ProductService'
 const Container = styled.div``;
 
@@ -42,7 +43,7 @@ const Option = styled.option``;
 const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
-  const [limit, setLimit] = useState(12)
+  const [limit, setLimit] = useState(20)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
   const [typeProducts, setTypeProducts] = useState([])
@@ -64,8 +65,9 @@ const ProductList = () => {
   }, [])
   return (
     <Container>
-        <Announcement></Announcement>
-        <Navbar></Navbar>
+        {/* <Announcement></Announcement> */}
+        {/* <Navbar></Navbar> */}
+        <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
         <Title>{cat}</Title>
         <FilterContainer>
@@ -92,7 +94,7 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
         <Products  search={sort} limit={limit}></Products>
-        <button onClick={()=>setLimit((prev)=>prev+10)}>load more</button>
+        <button onClick={()=>setLimit((prev)=>prev+20)}>load more</button>
         <Bottomnews></Bottomnews>
         <Newsletter></Newsletter>
         <Footer></Footer>

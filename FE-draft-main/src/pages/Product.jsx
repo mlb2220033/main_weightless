@@ -397,9 +397,12 @@ const Product = () => {
             //     },
             // },
 
-            const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
+            // const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
             // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
-            // if(productDetails.size) { 
+
+
+            // if(productDetails?.size) { 
+            //   console.log('sai',productDetails?.size)
             //   if(selectedSize)  {
                  dispatch(addOrderProduct({
                     orderItem: {
@@ -414,13 +417,22 @@ const Product = () => {
                     },
                     
                 }))
-              // }else{
-              //   alert("saiz đâu")
-              // }
+            //   }else{
+            //     alert("saiz đâu")
+            //   }
            
-              // }
-            // } else {
-                // setErrorLimitOrder(true)
+            // }
+            //  else {
+            //   dispatch(addOrderProduct({
+            //     orderItem: {
+            //       tittle: productDetails?.name,
+            //       amount: numProduct,
+            //       image: productDetails?.image[0].image,
+            //       price: productDetails?.price,
+            //       size:[selectedSize],
+            //       product: productDetails?._id,
+            //     },
+            //   }))
             // }
         
     }

@@ -28,6 +28,7 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const cart= useSelector(state=>state.order)
   const user = useSelector((state) => state.user)
+  const id=[]
   const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
@@ -53,7 +54,7 @@ const PaymentPage = () => {
     console.log('Selected payment method:', payment);
     console.log({ 
       // token: user?.access_token, 
-      orderItems: cart?.orderItems, 
+      orderItems: [cart?.orderItems], 
       // fullName: user?.name,
       // address:user?.address, 
       // phone:user?.phone,
@@ -71,7 +72,7 @@ const PaymentPage = () => {
         OrderService.createOrder(
           { 
             // token: user?.access_token, 
-            orderItems: cart?.orderItems?.product, 
+            orderItems: [cart?.orderItems?.product], 
             // fullName: user?.name,
             // address:user?.address, 
             // phone:user?.phone,
@@ -128,7 +129,7 @@ const PaymentPage = () => {
   },[cart.itemsPrice])
 
   const totalPriceMemo = useMemo(() => {
-    return (Number(cart.itemsPrice) + Number(deliveryPriceMemo))*1.1
+    return ((Number(cart.itemsPrice) + Number(deliveryPriceMemo))*1.1).toFixed(2)
   },[cart.itemsPrice, deliveryPriceMemo])
 
 
