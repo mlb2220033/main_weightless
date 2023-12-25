@@ -1,25 +1,18 @@
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
-import Announcement from "../components/Announcement";
+// import Navbar from "../components/Navbar";
+// import Announcement from "../components/Announcement";
 import Products from "../components/Products";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
+// import Newsletter from "../components/Newsletter";
+// import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
-import Topbanner from "../components/Topbanner";
-import Bottomnews from "../components/Bottomnews";
-import Navbarnotrans from "components/Navbarnotrans";
-import * as ProductService from '../services/ProductService'
-import Navbarnotrans from "components/Navbarnotrans";
-const Container = styled.div``;
+// import Topbanner from "../components/Topbanner";
+// import Bottomnews from "../components/Bottomnews";
+// import Navbarnotrans from "components/Navbarnotrans";
+import * as ProductService from "../services/ProductService"
+const Container = styled.div`
 
-const Title = styled.h1`
-  font-family: 'Fjalla One', sans-serif;
-  letter-spacing: 0.05em;
-  position: relative;
-  margin:20px;
-  text-align:center;
 `;
 const Wrapper = styled.div`
 padding-left:5rem;
@@ -29,13 +22,17 @@ align-items: center; /* Căn giữa theo chiều dọc */
 ${mobile({ margin: "10px 0px" })}
 `;
 
+
+
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  
 `;
 
 const Filter = styled.div`
   margin: 20px;
+  padding:10px;
   ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
 `;
 
@@ -43,9 +40,26 @@ const FilterText = styled.span`
   font-size: 20px;
   font-weight: 600;
   margin-right: 20px;
+  
   ${mobile({ marginRight: "0px" })}
 `;
 
+const Select = styled.select`
+  
+  padding:10px 10px 10px 0px;
+  // margin-right: 20px;
+  cursor:pointer;
+  background-color: #ffffff;
+  font-size: 16px;
+  border:2px solid black;
+  ${mobile({ margin: "10px 0px" })}
+`;
+
+const Option = styled.option`
+cursor:pointer;
+background-color: #ffffff;
+font-size: 16px;
+`;
 const Button = styled.button`
 cursor:pointer;
 display: flex;
@@ -71,22 +85,14 @@ const ButtonContainer = styled.div`
   object-fit:contain;
   margin-bottom:20px;
   justify-content:center;
+  
+
 `;
-const Select = styled.select`
-  padding:10px 10px 10px 0px;
-  // margin-right: 20px;
-  cursor:pointer;
-  background-color: #ffffff;
-  font-size: 16px;
-  border:2px solid black;
-  ${mobile({ margin: "10px 0px" })}
-`;
-const Option = styled.option``;
-const ProductListType = () => {
+
+const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
-  const [products, setProducts] = useState([])
-  const [limit, setLimit] = useState(12)
+  const [limit, setLimit] = useState(20)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
   const [typeProducts, setTypeProducts] = useState([])
@@ -97,34 +103,27 @@ const ProductListType = () => {
       [e.target.name]: value,
     });
   };
-  const fetchProductType = async (type,page=0,limit=10) => {
-    // setLoading(true)
-    const res = await ProductService.getProductType(type,page,limit)
-    if(res?.status == 'OK') {
-        
-      setProducts(res?.data)
-        
-    }else {
-        // setLoading(false)
+  const fetchAllTypeProduct = async () => {
+    const res = await ProductService.getAllTypeProduct()
+    if(res?.status === 'OK') {
+      setTypeProducts(res?.data)
+      console.log(res?.data)
     }
-}
-
-useEffect(() => {
-    if(cat){
-        fetchProductType(cat)
-    }
-}, [cat])
+  }
+  useEffect(() => {
+    fetchAllTypeProduct()
+  }, [])
   return (
     <Container>
-<<<<<<< HEAD
+
         {/* <Announcement></Announcement> */}
-=======
-        
->>>>>>> 0e6918abbac37da33293466d49160d4733533c83
-        <Navbarnotrans></Navbarnotrans>
-        <Topbanner></Topbanner>
+        {/* <Navbar></Navbar> */}
+        {/* <Navbarnotrans></Navbarnotrans>
+        <Topbanner></Topbanner> */}
+
+        {/* <Title>{cat}</Title> */}
         <Wrapper>
-        <Title>{cat}</Title>
+          
         <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" onChange={handleFilters}>
@@ -148,16 +147,19 @@ useEffect(() => {
             </Select>
             </Filter>
         </FilterContainer>
-        <Products cat={cat}  search={sort} limit={limit}></Products>
+
+        <Products  filters={filters} sort={sort} limit={limit}></Products>
         <ButtonContainer>
-        <Button onClick={()=>setLimit((prev)=>prev+10)}>LOAD MORE</Button>
+          <Button  onClick={()=>setLimit((prev)=>prev+12)}>LOAD MORE</Button>
         </ButtonContainer>
-        {/* <Bottomnews></Bottomnews>
-        <Newsletter></Newsletter> */}
+
+        
+        {/* <Bottomnews></Bottomnews> */}
+        {/* <Newsletter></Newsletter> */}
         </Wrapper>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
     </Container>
   )
 }
 
-export default ProductListType
+export default ProductList

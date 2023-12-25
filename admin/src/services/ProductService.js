@@ -37,7 +37,9 @@ export const getProductType = async (type, page, limit) => {
 
 export const createProduct = async (data) => {
     const res = await axios.post(`http://localhost:3001/api/product/create`, data)
+    console.log('fe-res',res)
     return res.data
+    
 }
 
 export const getDetailsProduct = async (id) => {
@@ -53,10 +55,11 @@ export const updateProduct = async (id, data) => {
     //     }
     // }
     )
+    console.log('fe-res',res)
     return res.data
 }
 
-export const deleteProduct = async (id, access_token) => {
+export const deleteProduct = async (id) => {
     const res = await axios.delete(`http://localhost:3001/api/product/delete/${id}`
     // , {
     //     headers: {
@@ -64,6 +67,7 @@ export const deleteProduct = async (id, access_token) => {
     //     }
     // }
     )
+    console.log('fe-res',res)
     return res.data
 }
 
