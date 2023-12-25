@@ -12,12 +12,13 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<AdminHomePage />}></Route>
-        <Route path="/products/" element={<ProductList />} />
+        {/* <Route exact path="/" element={<AdminHomePage />}></Route> */}
+        <Route path="/" element={<Navigate to="/products/" replace />} />
+        <Route exact path="/products/" element={<ProductList />} />
         <Route path="/create/" element={<AdminCreate></AdminCreate>} />
         <Route path="/update/:id" element={<AdminUpdate />} />
         <Route path="/product/:id" element={<Product></Product>} />
-      </Routes>
+      </Routes>s
     </Router>
   );
 }
