@@ -8,7 +8,12 @@ import styled from "styled-components";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
-
+const Container = styled.div`
+  display:flex;
+  flex-direction:column;
+  margin:auto;
+ 
+`;
 const ImgContainer = styled.div`
 
   flex: 1;
@@ -33,7 +38,7 @@ const Training = () => {
   
 
   return (
-    <>
+    <Container>
     <Navbar/>
     <ImgContainer>
         <Image src={trainbanner}/>
@@ -96,7 +101,7 @@ const Training = () => {
         </div>
       </section>
       <Footer/>
-    </>
+    </Container>
   );
 };
 

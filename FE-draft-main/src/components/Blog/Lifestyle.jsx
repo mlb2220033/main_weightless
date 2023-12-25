@@ -8,8 +8,13 @@ import styled from "styled-components";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 
+const Container = styled.div`
+  display:flex;
+  flex-direction:column;
+  margin:auto;
+ 
+`;
 const ImgContainer = styled.div`
-
   flex: 1;
   box-sizing: border-box
 `;
@@ -31,7 +36,7 @@ const Lifestyle = () => {
   console.log("Lifestyle Data:", lifestyle);
 
   return (
-    <>
+    <Container>
     <Navbar/>
     <ImgContainer>
         <Image src={lifbanner}/>
@@ -90,7 +95,7 @@ const Lifestyle = () => {
         </div>
       </section>
       <Footer/>
-    </>
+    </Container>
   );
 };
 
