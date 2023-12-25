@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
 import * as ProductService from '../services/ProductService'
+import Navbarnotrans from "components/Navbarnotrans";
 const Container = styled.div``;
 
 const Title = styled.h1`
@@ -59,7 +60,7 @@ const ProductListType = () => {
     const res = await ProductService.getProductType(type,page,limit)
     if(res?.status == 'OK') {
         
-        setProducts(res?.data)
+      setProducts(res?.data)
         
     }else {
         // setLoading(false)
@@ -73,8 +74,8 @@ useEffect(() => {
 }, [cat])
   return (
     <Container>
-        <Announcement></Announcement>
-        <Navbar></Navbar>
+        
+        <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
         <Title>{cat}</Title>
         <FilterContainer>

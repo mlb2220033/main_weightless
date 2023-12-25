@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { normal } from "../data";
+
 import Product from "./Product";
 import * as ProductService from '../services/ProductService'
 import { useQuery } from 'react-query';
@@ -24,7 +24,7 @@ const Products = ({cat, search, limit }) => {
     // const limit = context?.queryKey && context?.queryKey[1]
     const search = context?.queryKey && context?.queryKey[2]
     if(cat){
-      console.log(cat)
+      console.log('cat',cat)
       const res = await ProductService.getProductType(cat)
       return res
     }else{

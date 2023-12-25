@@ -260,7 +260,7 @@ const Cart = () => {
     dispatch(removeOrderProduct({idProduct}))
   }
   const handleCheckout=()=>{
-    if(cart.orderItems.product){
+    if(cart.orderItems){
       navigate('/payment')
     }else{
       console.log('mt')

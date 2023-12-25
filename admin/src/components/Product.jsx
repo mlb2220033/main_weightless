@@ -1,12 +1,14 @@
-import React from 'react'
-import {
-    FavoriteBorderOutlined,
-    SearchOutlined,
-    ShoppingCartOutlined,
-  } from "@material-ui/icons";
+import React, { useState } from 'react'
+import { Button, Modal } from 'antd';
+// import {
+//     FavoriteBorderOutlined,
+//     SearchOutlined,
+//     ShoppingCartOutlined,
+//   } from "@material-ui/icons";
   import styled from "styled-components";
-  import { Link } from "react-router-dom"
-  
+  import { Link, useNavigate } from "react-router-dom"
+
+ import * as ProductService from "../services/ProductService" 
   const Info = styled.div`
     opacity: 0;
     width: 100%;
@@ -69,8 +71,8 @@ const Price = styled.h4`
     font-weight: lighter;
 `;
   const Icon = styled.div`
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: white;
     display: flex;
@@ -94,6 +96,19 @@ text-decoration:none;
 
 
 const Product = ({item}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate=useNavigate()
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    ProductService.deleteProduct(item._id)
+    navigate(`/products`)
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
 
     <Container>
@@ -102,21 +117,27 @@ const Product = ({item}) => {
       <Image src={item?.image[0].image}/>
       
       <Info>
-        <Icon>
-          <ShoppingCartOutlined />
-        </Icon>
-        <Icon>
-          <MyLink to={`/product/${item._id}`}>
-          <SearchOutlined /></MyLink>
-        </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
-        </Icon>
+        <Icon onClick={showModal}>Delete</Icon>
+        <Icon onClick={()=>navigate(`/product/${item._id}`)}>Detail</Icon>
+        <Icon onClick={()=>navigate(`/update/${item._id}`)}>Update</Icon>
+        
       </Info>
       
     </SmallContainer>
     <Name>{item.name}</Name>
-    <Price>${item.price}</Price>
+    
+    <Price>ID: {item._id}</Price>
+    
+    <Modal title="Delete Product" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <Button onClick={()=>navigate(`/product/${item._id}`)}>Product Detail</Button>
+            <CancelBtn />
+            <OkBtn />
+          </>
+        )}>
+        <p>Are you sure to delete <strong>{item.name}</strong> (ID: {item._id})?</p>
+        
+      </Modal>
     </Container>
   )
 }
