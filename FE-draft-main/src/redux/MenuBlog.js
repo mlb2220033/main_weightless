@@ -1,12 +1,12 @@
 export const MenuBlog = [
     {
       title: 'Trainings',
-      path: '/trainings',
+      path: 'training',
       cName: 'dropdown-link'
     },
     {
       title: 'Lifestyles',
-      path: '/life-styles',
+      path: 'lifestyle',
       cName: 'dropdown-link'
     },
   ];

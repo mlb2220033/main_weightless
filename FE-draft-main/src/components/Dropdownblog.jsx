@@ -19,13 +19,14 @@ function Dropdownblog() {
             <li key={index}>
               <Link
                 className={item.cName}
-                to={item.path}
+                to={`/blogs/${item.path}`}
                 onClick={() => setClick(false)}
               >
                 {item.title}
               </Link>
             </li>
           );
+          
         })}
       </ul>
     </>

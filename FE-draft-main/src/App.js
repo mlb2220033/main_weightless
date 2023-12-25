@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate,  Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -21,7 +21,11 @@ import CartItems from './pages/Newcart';
 import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import Register from 'pages/Register';
-
+import Card from 'components/Blog/Lifestyle';
+import Training from 'components/Blog/Training';
+import Lifestyle from 'components/Blog/Lifestyle';
+import TrainingDetail from 'pages/Blog/Training';
+import Lifestyledetail from 'pages/Blog/Lifestyle';
 // const queryClient = new QueryClient();
 
 function App() {
@@ -40,6 +44,10 @@ function App() {
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/newcart" element={<CartItems />} />
           <Route path="/blogs" element={<BlogHome />} />
+          <Route path="/blogs/training" element={<Training/>} />
+          <Route path="/blogs/training/:itemName" element={<TrainingDetail/>} />
+          <Route path="/blogs/lifestyle" element={<Lifestyle/>} />
+          <Route path="/blogs/lifestyle/:itemName" element={<Lifestyledetail/>} />
           <Route path="/customer-service" element={<CustomerServices />} />
           <Route path="/terms-and-policies" element={<TermsandPolicies />} />
           <Route path="/aboutus" element={<Aboutus />} />

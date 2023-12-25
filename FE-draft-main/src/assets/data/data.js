@@ -78,7 +78,7 @@ export const nav = [
   export const blog = [
     {
       id: 1,
-      title: "POST NO.1 CONTAINING A YOUTUBE VIDEO",
+      title: "MAXIMISE WINTER TRAINING TO GET STRONGER FOR SUMMER",
       desc: "Quisque at tellus nec magna viverra euismod. Maecenas lobortis, nisl et sodales blandit, neque mi ullamcorper eros, id efficitur ex velit in ante. Suspendisse elementum congue lacus quis gravida. Nunc eu hendrerit risus. Quisque blandit, orci non maximus vulputate, ligula ante ornare enim, ac interdum lorem leo varius mauris. Aliquam non sem vel orci malesuada sagittis. Vivamus id ullamcorper tellus. In hac habitasse platea dictumst. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras et sapien a arcu feugiat mattis. Suspendisse sed magna quis turpis rhoncus venenatis.",
       category: "Nature",
       img: "https://wallpapercave.com/dwp2x/wp4716001.jpg",

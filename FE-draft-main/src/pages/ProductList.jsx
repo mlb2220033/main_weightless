@@ -88,6 +88,22 @@ const ButtonContainer = styled.div`
   
 
 `;
+const Title = styled.h1`
+  font-family: 'Fjalla One', sans-serif;
+  letter-spacing: 0.05em;
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom:-20px;
+    left: 0;
+    width: 100%;
+    height: 0.5px;
+    background-color: black; /* black color */
+}
+ 
+`;
 
 const ProductList = () => {
   const location = useLocation()
@@ -120,7 +136,7 @@ const ProductList = () => {
         <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
 
-        {/* <Title>{cat}</Title> */}
+        {/* <Title>PRODUCTS</Title> */}
         <Wrapper>
           
         <FilterContainer>

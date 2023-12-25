@@ -173,6 +173,7 @@ const RightSection = styled.div`
     margin: 0px 70px;
     display: flex;
     flex-direction: column;
+    height:70vh;
 `;
 
 const ProductTitle = styled.h1`

@@ -275,7 +275,7 @@ const Navbar = () => {
                 {introDropdown && <Dropdownintro/>}
               </MyLink> 
 
-              <MyLink to='/blog' onMouseEnter={onMouseEnterBlog}
+              <MyLink to='/blogs' onMouseEnter={onMouseEnterBlog}
                 onMouseLeave={onMouseLeaveBlog}>
                 <Title>Blogs <i className='icon ri-arrow-down-s-line'/></Title>
                 {blogDropdown && <Dropdownblog/>}

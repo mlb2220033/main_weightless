@@ -22,6 +22,7 @@ import i_paypal from '../assets/images/icon_paypal.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { useMutationHooks } from '../hooks/userMutationHook';
 import * as OrderService from '../services/OrderService'
+import Navbarnoscroll from 'components/Navbarnoscroll';
 
 
 const PaymentPage = () => {
@@ -171,7 +172,7 @@ const PaymentPage = () => {
   // }, [isSuccess,isError])
   return (
     <>
-    <Navbar2/>
+    <Navbarnoscroll/>
     <div style={{ background: '#f5f5fa', width: '100%', height: '100vh' }}>
       <div style={{ height: '100%', width: '1270px', margin: '0 auto' }}>
         <h3>Check Out</h3>

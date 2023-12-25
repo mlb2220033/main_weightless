@@ -260,12 +260,12 @@ const Cart = () => {
     dispatch(removeOrderProduct({idProduct}))
   }
   const handleCheckout=()=>{
-    if(cart.orderItems.product){
+    // if(cart.orderItems.product){
       navigate('/payment')
-    }else{
-      console.log('mt')
-      alert('Your Cart is Empty!')
-    }
+    // }else{
+    //   // console.log('mt')
+    //   // alert('Your Cart is Empty!')
+    // }
   }
   return (
     <Container>
