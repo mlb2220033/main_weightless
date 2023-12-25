@@ -20,7 +20,7 @@
     flex-direction: column;
     padding-left: 20px; /* Thêm padding bên trái */
     padding-right: 20px; /* Thêm padding bên phải */
-    
+    height:380px;
     background-color: #f2f2f2; /* Gray background color */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add transition for smoother effect */
