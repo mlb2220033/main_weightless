@@ -260,11 +260,7 @@ const Cart = () => {
     dispatch(removeOrderProduct({idProduct}))
   }
   const handleCheckout=()=>{
-<<<<<<< HEAD
     // if(cart.orderItems.product){
-=======
-    if(cart.orderItems){
->>>>>>> 0e6918abbac37da33293466d49160d4733533c83
       navigate('/payment')
     // }else{
     //   // console.log('mt')

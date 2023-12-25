@@ -11,7 +11,7 @@ import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
 import Navbarnotrans from "components/Navbarnotrans";
 import * as ProductService from '../services/ProductService'
-import Navbarnotrans from "components/Navbarnotrans";
+
 const Container = styled.div``;
 
 const Title = styled.h1`
@@ -116,11 +116,7 @@ useEffect(() => {
 }, [cat])
   return (
     <Container>
-<<<<<<< HEAD
-        {/* <Announcement></Announcement> */}
-=======
         
->>>>>>> 0e6918abbac37da33293466d49160d4733533c83
         <Navbarnotrans></Navbarnotrans>
         <Topbanner></Topbanner>
         <Wrapper>

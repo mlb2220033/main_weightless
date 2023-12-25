@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
-
+import "../../components/Blog/blog.css";
 import { useParams } from "react-router-dom";
+import Navbarnotrans from "components/Navbarnotrans";
+
 const MyLink = styled(Link)`
   text-decoration: none;
   color: black;
@@ -21,51 +23,56 @@ const TrainingDetail = () => {
   if (itemName && selectedItem) {
     return (
       <div>
-        <Navbar/>
+        <Navbarnotrans/>
         <img src={selectedItem.image} alt='' />
-        <h2>{selectedItem.name}</h2>
+        <div className="detail">
+        <AiOutlineClockCircle className='icon' />{" "}
+        <label htmlFor=''>{selectedItem.published}</label>
+        <div className='text' dangerouslySetInnerHTML={{ __html: selectedItem.detail }} />
+
+        </div>
         
-         {selectedItem.detail}
         {/* Add more details as needed */}
         <Footer/>
       </div>
     );
   }
+      
 
-  // Otherwise, render the list of items
-  return (
-    <>
-      <Navbar />
-      <section className='blog'>
-        <div className='container'>
-          {training && training.map((item) => (
-            <MyLink to={`/blogs/training/${encodeURIComponent(item.name)}`} key={item.name}>
-              <div className='box boxItems'>
-                <div style={{width:"100px", height:"100px"}}>
-                  <img src={item.image} alt='' />
-                </div>
-                <div className='details'>
+//   // Otherwise, render the list of items
+//   return (
+//     <>
+//       <Navbar />
+//       <section className='blog'>
+//         <div className='container'>
+//           {training && training.map((item) => (
+//             <MyLink to={`/blogs/training/${encodeURIComponent(item.name)}`} key={item.name}>
+//               <div className='box boxItems'>
+//                 <div style={{width:"100px", height:"100px"}}>
+//                   <img src={item.image} alt='' />
+//                 </div>
+//                 <div className='details'>
                
-                  <h3>{item.name}</h3>
-                  <div className='tag'>
-                    <AiOutlineTags className='icon' />
-                    {item.type}
-                  </div>
-                  <div className='date'>
-                    <AiOutlineClockCircle className='icon' />{" "}
-                    <label htmlFor=''>{item.published}</label>
-                    <AiOutlineShareAlt className='icon' />{" "}
-                    <label htmlFor=''>SHARE</label>
-                  </div>
-                </div>
-              </div>
-            </MyLink>
-          ))}
-        </div>
-      </section>
-      <Footer />
-    </>
-  );
+//                   <h3>{item.name}</h3>
+//                   <div className='tag'>
+//                     <AiOutlineTags className='icon' />
+//                     {item.type}
+//                   </div>
+//                   <div className='date'>
+//                     <AiOutlineClockCircle className='icon' />{" "}
+//                     <label htmlFor=''>{item.published}</label>
+//                     <AiOutlineShareAlt className='icon' />{" "}
+//                     <label htmlFor=''>SHARE</label>
+//                   </div>
+//                 </div>
+//               </div>
+//             </MyLink>
+//           ))}
+//         </div>
+//       </section>
+//       <Footer />
+//     </>
+//   );
 };
 
 export default TrainingDetail;

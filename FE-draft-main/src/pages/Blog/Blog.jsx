@@ -5,13 +5,15 @@ import Card from "components/Blog/Lifestyle"
 import Footer from "components/Footer"
 import styled from "styled-components"
 import { AiOutlineTags, AiOutlineClockCircle, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai";
-import b3 from  '../../assets/images/b3.png';
+import blogs from  '../../assets/images/blogs.png';
 import { mobile } from '../../responsive';
 import "../../components/Blog/blog.css";
 import blog from "../../assets/data/blog.json";
 import { Link } from "react-router-dom";
 import Lifestyle from "components/Blog/Lifestyle"
 import Training from "components/Blog/Training"
+import { useParams } from "react-router-dom"
+
 const Container = styled.div`
   display:flex;
   flex-direction:column;
@@ -83,10 +85,30 @@ const BlogHome = () => {
   console.log("Training Data:", training);
   console.log("Lifestyle Data:", lifestyle);
 
+  const { itemName } = useParams();
+  const selectedItem =
+  (training.find((item) => item.name === decodeURIComponent(itemName)) ||
+    lifestyle.find((item) => item.name === decodeURIComponent(itemName))) || null;
+
+  // If itemName is present, render the detail view for the selected item
+  if (itemName && selectedItem) {
+    return (
+      <div>
+        <Navbar/>
+        <img src={selectedItem.image} alt='' />
+        <h2>{selectedItem.name}</h2>
+        
+        <div dangerouslySetInnerHTML={{ __html: selectedItem.detail }} />
+        {/* Add more details as needed */}
+        <Footer/>
+      </div>
+    );
+  }
+
     return (
       <Container>
       <ImgContainer>
-        <Image src={b3}/>
+        <Image src={blogs}/>
       </ImgContainer>
         {/* <Announcement></Announcement> */}
         <Navbar></Navbar>
