@@ -1,15 +1,14 @@
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
-import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
+
 import { mobile } from "../responsive";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartRedux";
+
+
 import { useDispatch, useSelector } from "react-redux";
 import { normal } from "../data";
 import axios from "axios"
@@ -230,47 +229,7 @@ const Product = () => {
   
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-//   const product = normal.find((b) => b.id === id)
-// const products = require('../assets/data/apparel/weightless.products.json');
 
-// const product = products.apparel_products.find((product) => product._id.$oid === id);
-
-
-  // const [product, setProduct] = useState([]);
-//   const [quantity, setQuantity] = useState(1);
-//   const [color, setColor] = useState("");
-//   const [size, setSize] = useState("");
-//   const dispatch = useDispatch();
-  
-  // useEffect(() => {
-  //   const getProduct = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:3001/api/product/get-details/" + id);
-  //       setProduct(res.data);
-  //     } catch {}
-  //   };
-  //   getProduct();
-  // }, [id]);
-// console.log(product)
-//   const handleQuantity = (type) => {
-//     if (type === "dec") {
-//       quantity > 1 && setQuantity(quantity - 1);
-//     } else {
-//       setQuantity(quantity + 1);
-//     }
-//   };
-
-//   const handleClick = () => {
-//     dispatch(
-//       addProduct({ ...product, quantity, color, size })
-//     );
-//   };
-
-// const { id } = useParams();
-
-
-
-//new
   const [numProduct, setNumProduct] = useState(1)
     // const user = useSelector((state) => state.user)
     const user=true
@@ -302,27 +261,6 @@ const Product = () => {
       
   }
 
-    // useEffect(() => {
-    //     initFacebookSDK()
-    // }, [])
-
-    // useEffect(() => {
-    //     const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id) 
-    //     if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
-    //         setErrorLimitOrder(false)
-    //     } else if(productDetails?.countInStock === 0){
-    //         setErrorLimitOrder(true)
-    //     }
-    // },[numProduct])
-
-    // useEffect(() => {
-    //     if(order.isSucessOrder) {
-    //         message.success('Đã thêm vào giỏ hàng')
-    //     }
-    //     return () => {
-    //         dispatch(resetOrder())
-    //     }
-    // }, [order.isSucessOrder])
     
     const handleChangeCount = (type,limited) => {
         if(type === 'increase') {
@@ -343,30 +281,6 @@ const Product = () => {
     const [limit] = useState(8)
     const handleAddOrderProduct = () => {
 
-      
-      
-        // if(!user?.id) {
-        //     navigate('/sign-in', {state: location?.pathname})
-        // }else {
-            // {
-            //     tittle: { type: String, required: true },
-            //     amount: { type: Number, required: true },
-            //     image: { type: String, required: true },
-            //     price: { type: Number, required: true },
-            //     product: {
-            //         type: mongoose.Schema.Types.ObjectId,
-            //         ref: 'Product',
-            //         required: true,
-            //     },
-            // },
-
-            // const orderRedux = order?.orderItems?.find((item) => item.product === productDetails?._id)
-            // if((orderRedux?.amount + numProduct) <= orderRedux?.countInstock || (!orderRedux && productDetails?.countInStock > 0)) {
-
-
-            // if(productDetails?.size) { 
-            //   console.log('sai',productDetails?.size)
-            //   if(selectedSize)  {
                  dispatch(addOrderProduct({
                     orderItem: {
                       tittle: productDetails?.name,
@@ -380,23 +294,7 @@ const Product = () => {
                     },
                     
                 }))
-            //   }else{
-            //     alert("saiz đâu")
-            //   }
-           
-            // }
-            //  else {
-            //   dispatch(addOrderProduct({
-            //     orderItem: {
-            //       tittle: productDetails?.name,
-            //       amount: numProduct,
-            //       image: productDetails?.image[0].image,
-            //       price: productDetails?.price,
-            //       size:[selectedSize],
-            //       product: productDetails?._id,
-            //     },
-            //   }))
-            // }
+
             setIsAddedToCart(true);
 
             // Optionally, reset the state after a delay
@@ -447,19 +345,6 @@ const Product = () => {
                     {productDetails?.description}
                 </div>
                 
-                {/* {product?.categories?.includes("Apparel")? 
-            <FilterContainer>
-              <Filter>
-                <SizeSelectionTitle>Size</SizeSelectionTitle>
-                <SizeOptions >
-                  {product.size?.map((s) => (
-                    <SizeOption onClick={() => {setSize(s),handleSizeClick(s)}} key={s} selected={selectedSize === s}>{s}</SizeOption>
-                  ))}
-                </SizeOptions>
-              </Filter>
-            </FilterContainer>
-                :  <hr />
-                    } */}
                  <SizeOptions >
                   {productDetails?.size.map((s) => (
                     <SizeOption onClick={() => {setSize(s?.size);handleSizeClick(s?.size)}} key={s?.size} selected={selectedSize === s?.size} >{s?.size}</SizeOption>
@@ -474,7 +359,7 @@ const Product = () => {
                 <AddToCartButton onClick={handleAddOrderProduct} addedToCart={isAddedToCart}>
                 {isAddedToCart ? "ADDED TO CART!" : "ADD TO CART"}
                   </AddToCartButton>
-                <CategoryInfo><span>Category :</span> {productDetails?.type?.map((t)=>(t))}</CategoryInfo>
+                {/* <CategoryInfo><span>Category :</span> {productDetails?.type?.map((t)=>(t))}</CategoryInfo> */}
             
                 
             </RightSection>

@@ -4,9 +4,6 @@ import { Button, Form, Input, InputNumber } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import Loading from '../components/Loading';
-
-    
- 
 const AdminUpdate = () => {
     const location = useLocation();
     const id = location.pathname.split("/")[2];
@@ -28,44 +25,8 @@ const AdminUpdate = () => {
         }
         
     }
-  
-  
-    
-  
-      
-      const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
+const { isLoading, data: productDetails } = useQuery(['product-details', id], fetchGetDetailsProduct, { enabled : !!id})
 
-
-//    const [fields, setFields] = useState([
-//         {
-//           name: ['product', 'name'],
-//           value: `${productDetails?.name}`,
-//         },
-//         {
-//             name: ['product', 'rating'],
-//             value: `${productDetails?.rating}`,
-//           },
-//         {
-//             name: ['product', 'price'],
-//         value: `${productDetails?.price}`,
-//         },
-//         {
-//             name: ['product', 'size'],
-//         value: `${productDetails?.size?.map((s)=>s?.size)}`,
-//         },
-//         {
-//             name: ['product', 'image'],
-//         value: `${productDetails?.image?.map((s)=>s?.image)}`,
-//         },
-//         {
-//             name: ['product', 'type'],
-//         value: `${productDetails?.type?.map((s)=>s?.type)}`,
-//         },
-//         {
-//             name: ['product', 'description'],
-//         value: `${productDetails?.description}`,
-//         },
-//       ]);
       const onFinish = (value) => {
         console.log(value.product);
         ProductService.updateProduct(id,
@@ -81,7 +42,7 @@ const AdminUpdate = () => {
         )
       };
   return (<>
-  {/* {isLoading && <div>Loading...</div>} */}
+
     <div>AdminUpdate</div>
     <Loading isLoading={isLoading}>
         

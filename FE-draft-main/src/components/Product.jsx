@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     FavoriteBorderOutlined,
     SearchOutlined,
@@ -6,7 +6,8 @@ import {
   } from "@material-ui/icons";
   import styled from "styled-components";
   import { Link } from "react-router-dom"
-  
+  import { addOrderProduct,resetOrder } from '../redux/slides/orderSlice' 
+import { useDispatch } from 'react-redux';
   const Info = styled.div`
     opacity: 0;
     width: 100%;
@@ -94,6 +95,33 @@ text-decoration:none;
 
 
 const Product = ({item}) => {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
+  const dispatch = useDispatch()
+  const handleAddOrderProduct = () => {
+
+    dispatch(addOrderProduct({
+       orderItem: {
+         tittle: item?.name,
+           amount: 1,
+           image: item?.image[0].image,
+           price: item?.price,
+           size:[],
+           product: item?._id,
+           // discount: productDetails?.discount,
+           // countInstock: productDetails?.countInStock
+       },
+       
+   }))
+
+setIsAddedToCart(true);
+
+// Optionally, reset the state after a delay
+setTimeout(() => {
+ setIsAddedToCart(false);
+}, 1000); // Adjust the duration as needed
+
+
+}
   return (
 
     <Container>
@@ -103,7 +131,7 @@ const Product = ({item}) => {
       
       <Info>
         <Icon>
-          <ShoppingCartOutlined />
+          <ShoppingCartOutlined onClick={handleAddOrderProduct}/>
         </Icon>
         <Icon>
           <MyLink to={`/product/${item._id}`}>

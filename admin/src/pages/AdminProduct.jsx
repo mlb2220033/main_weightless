@@ -270,64 +270,58 @@ const handleDelete=()=>{
 
     
   return (
-
-
-
-
-        <Container>
+<Container>
+  <ProductDisplayContainer>
+    <LeftSection>
     
+        {/* Hiển thị danh sách các ảnh */}
+  
+        <Image src={productDetails?.image[0].image} />
+  
     
-    <ProductDisplayContainer>
-            <LeftSection>
+        {/* <div className="productdisplay_img">
+            <MainImage src={mainImageSrc} alt="" />
+        </div> */}
+    </LeftSection>
+    <RightSection>
+        
+        
+        
+        <ProductTitle>{productDetails?.name}</ProductTitle>
+        <StarRating></StarRating>
+        <PriceContainer>
             
-                {/* Hiển thị danh sách các ảnh */}
-         
-                <Image src={productDetails?.image[0].image} />
+            <NewPrice>${productDetails?.price}</NewPrice>
+        </PriceContainer>
+        <div className="productdisplay_right_descr">
+            {productDetails?.description}
+        </div>
+        
+          <CategoryInfo><span>Category :</span> {productDetails?.type?.map((t)=>(t))}</CategoryInfo>
+        <SizeOptions >
+          {productDetails?.size?.map((s) => (
+            <SizeOption >{s?.size}</SizeOption>
+          ))}
+        </SizeOptions>
+
+        <AddToCartButton onClick={()=>navigate(`/update/${productDetails._id}`)}>
+        Edit
+          </AddToCartButton>
+          <AddToCartButton onClick={showModal}>
+        Delete
+          </AddToCartButton>
           
-            
-                {/* <div className="productdisplay_img">
-                    <MainImage src={mainImageSrc} alt="" />
-                </div> */}
-            </LeftSection>
-            <RightSection>
-                
-                
-                
-                <ProductTitle>{productDetails?.name}</ProductTitle>
-                <StarRating></StarRating>
-                <PriceContainer>
-                    
-                    <NewPrice>${productDetails?.price}</NewPrice>
-                </PriceContainer>
-                <div className="productdisplay_right_descr">
-                    {productDetails?.description}
-                </div>
-                
 
-                <SizeOptions >
-                  {productDetails?.size?.map((s) => (
-                    <SizeOption >{s?.size}</SizeOption>
-                  ))}
-                </SizeOptions>
- 
-                <AddToCartButton onClick={()=>navigate(`/update/${productDetails._id}`)}>
-                Edit
-                  </AddToCartButton>
-                  <AddToCartButton onClick={showModal}>
-                Delete
-                  </AddToCartButton>
-                {/* <CategoryInfo><span>Category :</span> {product?.categories?.[0]}</CategoryInfo> */}
-
-                
-            </RightSection>
-        </ProductDisplayContainer>
-
-        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <p>Are you sure to delete <strong>{productDetails?.name}</strong> (ID: {productDetails?._id})?</p>
         
-      </Modal>
+    </RightSection>
+  </ProductDisplayContainer>
+
+    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <p>Are you sure to delete <strong>{productDetails?.name}</strong> (ID: {productDetails?._id})?</p>
+      
+    </Modal>
         
-        </Container>
+</Container>
   );
 };
 

@@ -5,6 +5,8 @@ import Product from "./Product";
 import * as ProductService from '../services/ProductService'
 import { useQuery } from 'react-query';
 import axios from "axios"
+
+import { useSelector } from "react-redux";
 const Container = styled.div`
     
     display: flex;
@@ -14,15 +16,10 @@ const Container = styled.div`
 const Products = ({cat, search, limit }) => {
 
 
-  // const searchProduct = useSelector((state) => state?.product?.search)
-  // const searchDebounce = useDebounce(searchProduct, 500)
-  const [loading, setLoading] = useState(false)
-  // const [limit, setLimit] = useState(6)
-  const [typeProducts, setTypeProducts] = useState([])
   
   const fetchProductAll = async (context) => {
     // const limit = context?.queryKey && context?.queryKey[1]
-    const search = context?.queryKey && context?.queryKey[2]
+    // const search = context?.queryKey && context?.queryKey[2]
     if(cat){
       console.log(cat)
       const res = await ProductService.getProductType(cat)
@@ -41,7 +38,7 @@ console.log(products)
 
   return (
 
-
+    
     <Container>
       {products?.data?.map((item) => 
       (
@@ -50,6 +47,7 @@ console.log(products)
       )}
       
     </Container>
+    
   )
 }
 

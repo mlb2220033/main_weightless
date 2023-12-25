@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import Announcement from "../components/Announcement";
 import Products from "../components/Products";
-import Newsletter from "../components/Newsletter";
+
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
@@ -11,6 +10,7 @@ import Topbanner from "../components/Topbanner";
 import Bottomnews from "../components/Bottomnews";
 import Navbarnotrans from "components/Navbarnotrans";
 import * as ProductService from "../services/ProductService"
+import { useSelector } from "react-redux";
 const Container = styled.div`
 
 `;
@@ -110,6 +110,7 @@ const ProductList = () => {
   const cat = location.pathname.split("/")[2]
   const [limit, setLimit] = useState(20)
   const [filters, setFilters] = useState({})
+  const search = useSelector((state) => state?.product?.search) 
   const [sort, setSort] = useState("newest")
   const [typeProducts, setTypeProducts] = useState([])
   const handleFilters = (e) => {
@@ -162,7 +163,7 @@ const ProductList = () => {
             </Select>
             </Filter>
         </FilterContainer>
-        <Products cat={cat} filters={filters} sort={sort} limit={limit}></Products>
+        <Products cat={cat} search={search} sort={sort} limit={limit}></Products>
         <ButtonContainer>
         <Button onClick={()=>setLimit((prev)=>prev+8)}>LOAD MORE</Button>
         </ButtonContainer>

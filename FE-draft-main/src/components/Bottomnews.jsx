@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components";
 import { mobile } from "../responsive"
 import { news } from '../data';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div``;
 const SmallContainer = styled.div`
   display: flex;
@@ -37,8 +38,8 @@ const NewsContainer = styled.div`
   position: relative;
   transition: transform 0.3s;
   &:hover ${Info} {
-    opacity: 1; // Change opacity to 1 on hover
-    
+    opacity: 1; // Change opacity to 1 on hover}
+  }
 `;
 
 const Image = styled.img`
@@ -83,6 +84,7 @@ const Button = styled.button`
     font-weight: 600;
 `;
 const Bottomnews = () => {
+  const navigate=useNavigate()
   return (
     <Container>
       <FTitle>What's new?</FTitle>
@@ -92,7 +94,7 @@ const Bottomnews = () => {
       <Image src={news[0].banner} />
       <Info>
         <Title>{news[0].title}</Title>
-        <Button>JOIN NOW</Button>
+        <Button onClick={()=>navigate(`/blogs/training`)}>JOIN NOW</Button>
       </Info>
       
     </NewsContainer>
@@ -100,7 +102,7 @@ const Bottomnews = () => {
       <Image src={news[1].banner} />
       <Info>
         <Title>{news[1].title}</Title>
-        <Button>JOIN NOW</Button>
+        <Button onClick={()=>navigate(`/blogs/lifestyle`)}>JOIN NOW</Button>
       </Info>
     </NewsContainer>
     </SmallContainer></Container>

@@ -1,6 +1,6 @@
 const Order = require("../models/OrderProduct")
 const Product = require("../models/ProductModel")
-const EmailService = require("../services/EmailService")
+
 
 const createOrder = (newOrder) => {
     return new Promise(async (resolve, reject) => {

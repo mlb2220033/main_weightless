@@ -16,8 +16,8 @@ import Aboutus from './pages/Aboutus';
 import TermsandPolicies from './pages/Tnp';
 import CustomerServices from './pages/Cs';
 import Navbar from './components/Navbar';
-import Announcement from './components/Announcement';
-import CartItems from './pages/Newcart';
+
+
 import PaymentPage from './pages/Payment';
 import CheckoutSuccess from './components/CheckoutSuccess';
 import Register from 'pages/Register';
@@ -42,7 +42,6 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
-          <Route path="/newcart" element={<CartItems />} />
           <Route path="/blogs" element={<BlogHome />} />
           <Route path="/blogs/training" element={<Training/>} />
           <Route path="/blogs/training/:itemName" element={<TrainingDetail/>} />

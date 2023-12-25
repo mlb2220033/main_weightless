@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <App />
     </PersistGate>
   </Provider>
-  <ReactQueryDevtools initialIsOpen={false} />
+  
   </QueryClientProvider>
   ,document.getElementById("root")
  

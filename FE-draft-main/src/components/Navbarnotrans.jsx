@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Button from 'react-bootstrap';
 import styled from "styled-components"
 import { Badge } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom"
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import logo from '../assets/images/footer-logo.png'
@@ -13,6 +13,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dropdownintro from './Dropdownintro';
 import Dropdownblog from './Dropdownblog';
 import '../styles/Video.css';
+import { Input } from 'antd';
+import { searchProduct } from 'redux/slides/productSlice';
 const Container = styled.div`
 position: fixed;
   width: 100%;
@@ -75,11 +77,11 @@ const SearchContainer = styled.div`
   padding: 5px;
   margin-right: 10px; /* Thêm margin bên phải */
 `;
-const Input = styled.input`
-  border: none;
-  background: #f2f2f2;
-  // padding-right:10px;
-  margin-right: 10px; /* Thêm margin bên phải */
+const Inputfield = styled.input`
+//   border: none;
+//   background: #f2f2f2;
+//   // padding-right:10px;
+//   margin-right: 10px; /* Thêm margin bên phải */
   ${mobile({ width: "50px" })}
 `;
 const Center = styled.div`
@@ -175,7 +177,8 @@ const Navbarnotrans = () => {
   const [productDropdown, setProductDropdown] = useState(false);
   const [introDropdown, setIntroDropdown] = useState(false);
   const [blogDropdown, setBlogDropdown] = useState(false);
-
+  const dispatch = useDispatch()
+  const [search,setSearch] = useState('')
   const [navbar, setNavbar] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -254,6 +257,8 @@ const Navbarnotrans = () => {
   
   const onSearch = (e) => {
     console.log('e',e.target.value)
+    setSearch(e.target.value)
+    dispatch(searchProduct(e.target.value))
   };
 
 
@@ -300,7 +305,7 @@ const Navbarnotrans = () => {
 
             <Right>
             <SearchContainer>
-                  <Input  onChange={onSearch}/>
+                  <Inputfield  onChange={onSearch}/>
                   <Search style={{color:'gray',fontSize:'16px'}}/>
               </SearchContainer>
               

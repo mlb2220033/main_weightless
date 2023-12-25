@@ -1,14 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'antd';
-// import {
-//     FavoriteBorderOutlined,
-//     SearchOutlined,
-//     ShoppingCartOutlined,
-//   } from "@material-ui/icons";
-  import styled from "styled-components";
-  import { Link, useNavigate } from "react-router-dom"
-
- import * as ProductService from "../services/ProductService" 
+import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom"
+import * as ProductService from "../services/ProductService" 
   const Info = styled.div`
     opacity: 0;
     width: 100%;

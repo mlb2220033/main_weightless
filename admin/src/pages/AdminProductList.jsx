@@ -93,16 +93,10 @@ const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
   const [limit, setLimit] = useState(20)
-  const [filters, setFilters] = useState({})
+
   const [sort, setSort] = useState("newest")
   const [typeProducts, setTypeProducts] = useState([])
-  const handleFilters = (e) => {
-    const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
-    });
-  };
+
   const fetchAllTypeProduct = async () => {
     const res = await ProductService.getAllTypeProduct()
     if(res?.status === 'OK') {
@@ -116,22 +110,13 @@ const ProductList = () => {
   return (
     <Container>
 
-        {/* <Announcement></Announcement> */}
-        {/* <Navbar></Navbar> */}
-        {/* <Navbarnotrans></Navbarnotrans>
-        <Topbanner></Topbanner> */}
-
-        {/* <Title>{cat}</Title> */}
         <Wrapper>
           
         <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
-            <Select name="color" onChange={handleFilters}>
+            <Select name="color" >
               <Option >All</Option>
-              {/* 
-                <Option>Wear</Option>
-                <Option>Accessories</Option>
-                <Option>Equipment</Option> */}
+
               {typeProducts.map((t)=>(
                 <Option>{t}</Option>
               ))
@@ -148,16 +133,13 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
 
-        <Products  filters={filters} sort={sort} limit={limit}></Products>
+        <Products   sort={sort} limit={limit}></Products>
         <ButtonContainer>
           <Button  onClick={()=>setLimit((prev)=>prev+12)}>LOAD MORE</Button>
         </ButtonContainer>
 
-        
-        {/* <Bottomnews></Bottomnews> */}
-        {/* <Newsletter></Newsletter> */}
         </Wrapper>
-        {/* <Footer></Footer> */}
+
     </Container>
   )
 }

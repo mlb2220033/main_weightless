@@ -12,17 +12,8 @@ const Container = styled.div`
     justify-content: space-between;
 `;
 const Products = ({cat, search, limit }) => {
-
-
-  // const searchProduct = useSelector((state) => state?.product?.search)
-  // const searchDebounce = useDebounce(searchProduct, 500)
-  const [loading, setLoading] = useState(false)
-  // const [limit, setLimit] = useState(6)
-  const [typeProducts, setTypeProducts] = useState([])
-  
-  const fetchProductAll = async (context) => {
-    // const limit = context?.queryKey && context?.queryKey[1]
-    const search = context?.queryKey && context?.queryKey[2]
+const fetchProductAll = async (context) => {
+const search = context?.queryKey && context?.queryKey[2]
     if(cat){
       console.log('cat',cat)
       const res = await ProductService.getProductType(cat)
@@ -35,10 +26,6 @@ const Products = ({cat, search, limit }) => {
     }
 const { isLoading, data: products, isPreviousData } = useQuery(['products', limit], fetchProductAll, { retry: 3, retryDelay: 1000, keepPreviousData: true })
 console.log(products)
-
-
-
-
   return (
 
 

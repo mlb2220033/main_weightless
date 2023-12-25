@@ -133,43 +133,6 @@ const PaymentPage = () => {
     return ((Number(cart.itemsPrice) + Number(deliveryPriceMemo))*1.1).toFixed(2)
   },[cart.itemsPrice, deliveryPriceMemo])
 
-
-
-
-  // const mutationAddOrder = useMutationHooks(
-  //   (data) => {
-  //     const {
-  //       token,
-  //       ...rests } = data
-  //     const res = OrderService.createOrder(
-  //       { ...rests }, token)
-  //     return res
-  //   },
-  // )
-
-  // const {data: dataAdd, isSuccess, isError} = mutationAddOrder
-
-  // useEffect(() => {
-  //   if (isSuccess && dataAdd?.status === 'OK') {
-  //     const arrayOrdered = []
-  //     cart?.orderItems?.forEach(element => {
-  //       arrayOrdered.push(element.product)
-  //     });
-  //     dispatch(removeAllOrderProduct())
-      // message.success('Đặt hàng thành công')
-      // navigate('/checkout-success', {
-      //   state: {
-      //     delivery,
-      //     payment,
-      //     orders: order?.orderItems,
-      //     totalPriceMemo: totalPriceMemo
-      //   }
-      // })
-    // } else if (isError) {
-      // message.error()
-  //     alert("isError")
-  //   }
-  // }, [isSuccess,isError])
   return (
     <>
     <Navbarnoscroll/>
