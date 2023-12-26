@@ -9,10 +9,6 @@ const productSchema = new mongoose.Schema(
         image: { type: Array},
         type: { type: Array},
         description: { type: String},
-        
-        
-        // discount: { type: Number },
-        // selled: { type: Number }
     },
     {
         timestamps: true,

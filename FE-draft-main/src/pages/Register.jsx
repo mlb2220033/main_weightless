@@ -254,19 +254,19 @@ function Register() {
 
     const [isloading, setLoading] = useState(false);
     
-    const mutation = useMutationHooks(
-        data => UserService.signupUser(data),
-        {
-          onSuccess: () => {
-            setLoading(false);
-          },
-          onError: () => {
-            setLoading(false);
-          },
-        }
-      );
-    const{data, isLoading} = mutation
-    console.log('mutation',mutation)
+    // const mutation = useMutationHooks(
+    //     data => UserService.signupUser(data),
+    //     {
+    //       onSuccess: () => {
+    //         setLoading(false);
+    //       },
+    //       onError: () => {
+    //         setLoading(false);
+    //       },
+    //     }
+    //   );
+    // const{data, isLoading} = mutation
+    // console.log('mutation',mutation)
     
 
     const handleOnchangeFirstname = (value) => {
@@ -286,15 +286,15 @@ function Register() {
     const handleOnchangeConfirmPassword = (value) => {
         setConfirmPassword(value)
     }
-    const handleSignUp = () => {
-        setLoading(true);
-        mutation.mutate({
-            email, 
-            password, 
-            confirmPassword
-        });
-        console.log('sign-up', email, password, confirmPassword )
-      };
+    // const handleSignUp = () => {
+    //     setLoading(true);
+    //     mutation.mutate({
+    //         email, 
+    //         password, 
+    //         confirmPassword
+    //     });
+    //     console.log('sign-up', email, password, confirmPassword )
+    //   };
     
         return (
         <Container>
@@ -303,22 +303,22 @@ function Register() {
                 
                 <Title>CREATE ACCOUNT HERE</Title>
                         <MyRow> 
-                            <MyCol><InputForm placeholder="First Name" type="text" value={Firstname} onChange={handleOnchangeFirstname} required /></MyCol>
-                            {/* */}
-                            <MyCol><InputForm placeholder="Last Name" type="text" value={Lastname}  onChange={handleOnchangeLastname} required/></MyCol>
-                            {/* */}
+                            <MyCol><InputForm placeholder="First Name" type="text" value={Firstname} /></MyCol>
+                            {/*onChange={handleOnchangeFirstname} required  */}
+                            <MyCol><InputForm placeholder="Last Name" type="text" value={Lastname}  /></MyCol>
+                            {/*onChange={handleOnchangeLastname} required */}
                         </MyRow>
                         <MyRow>
-                            <MyCol><InputForm placeholder="Email" type="email" value={email} onChange={handleOnchangeEmail} required/></MyCol>
-{/*  */}
+                            <MyCol><InputForm placeholder="Email" type="email" value={email} /></MyCol>
+{/* onChange={handleOnchangeEmail} required */}
                         </MyRow>
                         <MyRow>
-                            <MyCol><InputForm placeholder="Password" type="password" value={password} onChange={handleOnchangePassword} required/></MyCol>
-                            {/*  */}
+                            <MyCol><InputForm placeholder="Password" type="password" value={password}  required/></MyCol>
+                            {/* onChange={handleOnchangePassword} */}
                         </MyRow>
                         <MyRow>
-                            <MyCol><InputForm placeholder="Confirm Password" type="password" value={confirmPassword} onChange={handleOnchangeConfirmPassword} required/></MyCol>
-                            {/*  */}
+                            <MyCol><InputForm placeholder="Confirm Password" type="password" value={confirmPassword}  required/></MyCol>
+                            {/* onChange={handleOnchangeConfirmPassword} */}
                         </MyRow>
 
                         <MyRow xs="auto">
@@ -344,10 +344,10 @@ function Register() {
                         <Title1>By Clicking Sign-up, you agree to our  <MyLink to='/terms-and-policies'>Terms and Policies</MyLink>
                          . You may receive SMS notifications from us and can opt out at any time.
                          </Title1>
-                         {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)}
+                         {/* {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)} */}
                          <ButtonComponent 
-                            disabled={!email.length || !password.length || !confirmPassword.length}
-                            onClick={handleSignUp}
+                            // disabled={!email.length || !password.length || !confirmPassword.length}
+                            // onClick={handleSignUp}
                             size={40}
                             type="submit"
                             styleButton={{

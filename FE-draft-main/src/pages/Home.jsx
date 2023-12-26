@@ -36,7 +36,7 @@ const Title = styled.h1`
 `;
 
 const Home = () => {
-  const [limit, setLimit] = useState(10)
+ 
   return (
     <div>
       
@@ -46,7 +46,7 @@ const Home = () => {
       <Slider></Slider>
 
       <Title>BEST SELLERS</Title>
-      <Products limit={limit} cat="Best"></Products>
+      <Products limit={8} cat="Best"></Products>
       <Feedback></Feedback>
 
       

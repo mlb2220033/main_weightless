@@ -53,42 +53,16 @@ const PaymentPage = () => {
 
   const handleAddOrder = () => {
     console.log('Selected payment method:', payment);
-    console.log({ 
-      // token: user?.access_token, 
-      orderItems: [cart?.orderItems], 
-      // fullName: user?.name,
-      // address:user?.address, 
-      // phone:user?.phone,
-      // city: user?.city,
-      paymentMethod: payment,
-      itemsPrice: cart?.itemsPrice,
-      shippingPrice: deliveryPriceMemo,
-      totalPrice: totalPriceMemo,
-      // user: user?.id,
-      // email: user?.email
-    })
-    // if(user?.access_token && order?.orderItemsSlected && user?.name
-    //   && user?.address && user?.phone && user?.city && priceMemo && user?.id) {
-        // eslint-disable-next-line no-unused-expressions
         OrderService.createOrder(
           { 
-            // token: user?.access_token, 
             orderItems: [cart?.orderItems?.product], 
-            // fullName: user?.name,
-            // address:user?.address, 
-            // phone:user?.phone,
-            // city: user?.city,
             paymentMethod: payment,
             itemsPrice: cart?.itemsPrice,
             shippingPrice: deliveryPriceMemo,
             totalPrice: totalPriceMemo,
-            // user: user?.id,
-            // email: user?.email
           }
         )
       navigate(`/checkout-success`)
-      // }
-
   };
   
   const onSuccessCOD = (details, data) => {

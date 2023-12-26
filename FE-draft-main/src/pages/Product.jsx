@@ -280,27 +280,23 @@ const Product = () => {
     const [isAddedToCart, setIsAddedToCart] = useState(false);
     const [limit] = useState(8)
     const handleAddOrderProduct = () => {
+      dispatch(addOrderProduct({
+          orderItem: {
+            tittle: productDetails?.name,
+              amount: numProduct,
+              image: productDetails?.image[0].image,
+              price: productDetails?.price,
+              size:[selectedSize],
+              product: productDetails?._id,
 
-                 dispatch(addOrderProduct({
-                    orderItem: {
-                      tittle: productDetails?.name,
-                        amount: numProduct,
-                        image: productDetails?.image[0].image,
-                        price: productDetails?.price,
-                        size:[selectedSize],
-                        product: productDetails?._id,
-                        // discount: productDetails?.discount,
-                        // countInstock: productDetails?.countInStock
-                    },
-                    
-                }))
+          },    
+      }))
+      setIsAddedToCart(true);
 
-            setIsAddedToCart(true);
-
-            // Optionally, reset the state after a delay
-            setTimeout(() => {
-              setIsAddedToCart(false);
-            }, 1000); // Adjust the duration as needed
+      // Optionally, reset the state after a delay
+      setTimeout(() => {
+        setIsAddedToCart(false);
+      }, 1000); // Adjust the duration as needed
 
         
     }

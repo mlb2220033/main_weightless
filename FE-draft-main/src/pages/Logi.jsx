@@ -275,22 +275,22 @@ function Logi() {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     
-    const mutation = useMutationHooks(
-        data => UserService.loginUser(data),
-        {
-          onSuccess: () => {
-            setLoading(false);
-          },
-          onError: () => {
-            setLoading(false);
-          },
-        }
-      );
-    const {data, isLoading} = mutation
-    console.log('mutation', mutation)
-    console.log('mutation status:', mutation.status)
-    console.log('mutation error:', mutation.error)
-    console.log('mutation data:', mutation.data)
+    // const mutation = useMutationHooks(
+    //     data => UserService.loginUser(data),
+    //     {
+    //       onSuccess: () => {
+    //         setLoading(false);
+    //       },
+    //       onError: () => {
+    //         setLoading(false);
+    //       },
+    //     }
+    //   );
+    // const {data, isLoading} = mutation
+    // console.log('mutation', mutation)
+    // console.log('mutation status:', mutation.status)
+    // console.log('mutation error:', mutation.error)
+    // console.log('mutation data:', mutation.data)
 
 
     const handleOnchangeEmail = (value) => {
@@ -301,14 +301,14 @@ function Logi() {
         setPassword(value)
     }
 
-    const handleSignIn = () => {
-        setLoading(true);
-        mutation.mutate({
-          email,
-          password,
-        });
-        console.log('login', email, password);
-      };
+    // const handleSignIn = () => {
+    //     setLoading(true);
+    //     mutation.mutate({
+    //       email,
+    //       password,
+    //     });
+    //     console.log('login', email, password);
+    //   };
   return (
     <Container>
 
@@ -316,11 +316,11 @@ function Logi() {
             <LoginFields>
                 <Title>Login</Title>
                 <LoginBox>
-                    <InputForm type="email" placeholder="Email ID" value={email} onChange={handleOnchangeEmail} required />
+                    <InputForm type="email" placeholder="Email ID" value={email}  required />
                     <IconButton className="ri-mail-fill"></IconButton>
                 </LoginBox>
                 <LoginBox>
-                    <InputForm type="password" placeholder="Password" value={password} onChange={handleOnchangePassword} required />
+                    <InputForm type="password" placeholder="Password" value={password}  required />
                     <IconButton className="ri-lock-fill"></IconButton>
                 </LoginBox>
                 <Check>
@@ -330,11 +330,11 @@ function Logi() {
                     </CheckBox>
                     <Forgot href="#" className="forgot">Forgot Password?</Forgot>
                 </Check>
-                {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)}
+                {/* {mutation.data?.status === 'ERR' && (<span style={{ color: 'red' }}>{mutation.data?.message}</span>)} */}
                 
                     <ButtonComponent
-                        disabled={!email.length || !password.length}
-                        onClick={handleSignIn}
+                        // disabled={!email.length || !password.length}
+                        // onClick={handleSignIn}
                     
                         size={40}
                         styleButton={{

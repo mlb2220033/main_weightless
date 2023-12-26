@@ -65,9 +65,9 @@ const { isLoading, data: productDetails } = useQuery(['product-details', id], fe
                 name:value.product.name,
                 rating:value.product.rating,
                 price: Number(value.product.price) ,
-                size:{size: value.product.size.split(',')[0],size: value.product.size.split(',')[1],size: value.product.size.split(',')[2]},
-                image:{image: value.product.image.split(',')[0]},
-                type: [value.product.type.split(',')],
+                size:{size: value.product.size},
+                image:{image: value.product.image},
+                type: [value.product.type],
                 description:value.product.description,
             }
         )
