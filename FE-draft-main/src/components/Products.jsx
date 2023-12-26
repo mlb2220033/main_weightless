@@ -13,7 +13,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
 `;
-const Products = ({cat, search, limit }) => {
+const Products = ({cat, search, limit, sort }) => {
 
 
   

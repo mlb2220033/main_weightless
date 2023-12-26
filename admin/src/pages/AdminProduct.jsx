@@ -210,21 +210,36 @@ const CategoryInfo = styled.p`
     margin-top: 10px;
     font-weight: 600;
 `;
-// const MyAdd = styled(Add)`
-//   cursor: pointer;
-//   &:hover {
-//     color: #fe5f00; // Màu của văn bản khi hover
-//     transition: 0.2s ease-in-out;
-//   }
-// `;
-// const MyRemove = styled(Remove)`
-// cursor: pointer;
-// &:hover {
-//   color: #fe5f00; // Màu của văn bản khi hover
-//   transition: 0.2s ease-in-out;
-// }
+const ButtonHead = styled.button`
+cursor:pointer;
+display: flex;
+text-align: center; /* Căn giữa theo chiều ngang */
+align-items: center; /* Căn giữa theo chiều dọc */
+font-size: 16px;
+padding: 10px;
+border-color: black;
+background-color: #fff;
+margin: 50px;
+color:#000;
+&:hover {
+  background-color: #fe5f00; // Màu của văn bản khi hover
+  border-color:#fe5f00;
+  color: white;
+  transition: 0.3s ease-in-out;
+}
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  text-align:justify;
+  min-width: 0;
+  max-width: 100%;
+  object-fit:contain;
+  margin-bottom:20px;
+  
+  justify-content:center;
+  
 
-// `;;
+`;
 
 const Product = () => {
   
@@ -271,6 +286,10 @@ const handleDelete=()=>{
     
   return (
 <Container>
+<div>AdminProduct</div>
+<ButtonContainer>
+      <ButtonHead  onClick={()=>navigate(`/products`)}>Product Home Page</ButtonHead>
+    </ButtonContainer>
   <ProductDisplayContainer>
     <LeftSection>
     
@@ -304,18 +323,20 @@ const handleDelete=()=>{
           ))}
         </SizeOptions>
 
-        <AddToCartButton onClick={()=>navigate(`/update/${productDetails._id}`)}>
-        Edit
-          </AddToCartButton>
-          <AddToCartButton onClick={showModal}>
-        Delete
-          </AddToCartButton>
+        
           
 
         
     </RightSection>
   </ProductDisplayContainer>
-
+  <ButtonContainer>
+<ButtonHead onClick={()=>navigate(`/update/${productDetails._id}`)}>
+          Edit
+        </ButtonHead>
+       
+        <ButtonHead onClick={showModal}>
+          Delete
+        </ButtonHead></ButtonContainer>
     <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
     <p>Are you sure to delete <strong>{productDetails?.name}</strong> (ID: {productDetails?._id})?</p>
       

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 
 import Products from "../components/Products";
-
+import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
@@ -85,6 +85,7 @@ const Option = styled.option``;
 const ProductListType = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
+  const navigate=useNavigate()
   const [products, setProducts] = useState([])
   const [limit, setLimit] = useState(12)
   const [filters, setFilters] = useState({})
@@ -92,11 +93,18 @@ const ProductListType = () => {
   const [typeProducts, setTypeProducts] = useState([])
   const handleFilters = (e) => {
     const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
-    });
+    navigate(`/products/${value}`)
+
   };
+  const fetchAllTypeProduct = async () => {
+    const res = await ProductService.getAllTypeProduct()
+    if(res?.status === 'OK') {
+      setTypeProducts(res?.data)
+    }
+  }
+  useEffect(() => {
+    fetchAllTypeProduct()
+  }, [])
   const fetchProductType = async (type,page=0,limit=10) => {
     // setLoading(true)
     const res = await ProductService.getProductType(type,page,limit)

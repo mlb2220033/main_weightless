@@ -335,18 +335,9 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>{cart.itemsPrice.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-            {/* <StripeCheckout
-              name="Lama Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY} */}
-            {/* > */}
+
               <Button onClick={handleCheckout}>CHECKOUT NOW</Button>
-            {/* </StripeCheckout> */}
+
           </Summary>
         </Bottom>
       </Wrapper>

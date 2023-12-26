@@ -1,15 +1,12 @@
 import styled from "styled-components";
-// import Navbar from "../components/Navbar";
-// import Announcement from "../components/Announcement";
+import { useNavigate } from "react-router-dom";
 import Products from "../components/Products";
-// import Newsletter from "../components/Newsletter";
-// import Footer from "../components/Footer";
+
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
-// import Topbanner from "../components/Topbanner";
-// import Bottomnews from "../components/Bottomnews";
-// import Navbarnotrans from "components/Navbarnotrans";
+
+
 import * as ProductService from "../services/ProductService"
 const Container = styled.div`
 
@@ -22,44 +19,6 @@ align-items: center; /* Căn giữa theo chiều dọc */
 ${mobile({ margin: "10px 0px" })}
 `;
 
-
-
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  
-`;
-
-const Filter = styled.div`
-  margin: 20px;
-  padding:10px;
-  ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
-`;
-
-const FilterText = styled.span`
-  font-size: 20px;
-  font-weight: 600;
-  margin-right: 20px;
-  
-  ${mobile({ marginRight: "0px" })}
-`;
-
-const Select = styled.select`
-  
-  padding:10px 10px 10px 0px;
-  // margin-right: 20px;
-  cursor:pointer;
-  background-color: #ffffff;
-  font-size: 16px;
-  border:2px solid black;
-  ${mobile({ margin: "10px 0px" })}
-`;
-
-const Option = styled.option`
-cursor:pointer;
-background-color: #ffffff;
-font-size: 16px;
-`;
 const Button = styled.button`
 cursor:pointer;
 display: flex;
@@ -93,7 +52,7 @@ const ProductList = () => {
   const location = useLocation()
   const cat = location.pathname.split("/")[2]
   const [limit, setLimit] = useState(20)
-
+  const navigate=useNavigate()
   const [sort, setSort] = useState("newest")
   const [typeProducts, setTypeProducts] = useState([])
 
@@ -109,10 +68,10 @@ const ProductList = () => {
   }, [])
   return (
     <Container>
-
+      <div>AdminProducts</div>
         <Wrapper>
           
-        <FilterContainer>
+        {/* <FilterContainer>
             <Filter><FilterText>Filter products:</FilterText>
             <Select name="color" >
               <Option >All</Option>
@@ -131,7 +90,10 @@ const ProductList = () => {
                 <Option>Price (desc)</Option>
             </Select>
             </Filter>
-        </FilterContainer>
+        </FilterContainer> */}
+        <ButtonContainer>
+          <Button  onClick={()=>navigate(`/create`)}>Add new Porduct</Button>
+        </ButtonContainer>
 
         <Products   sort={sort} limit={limit}></Products>
         <ButtonContainer>

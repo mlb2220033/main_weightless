@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Button from 'react-bootstrap';
 import styled from "styled-components"
 import { Badge } from "@material-ui/core";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import logo from '../assets/images/footer-logo.png'
@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dropdownintro from './Dropdownintro';
 import Dropdownblog from './Dropdownblog';
 import '../styles/Video.css';
+import { searchProduct } from 'redux/slides/productSlice';
 const Container = styled.div`
 position: fixed;
   width: 100%;
@@ -175,7 +176,9 @@ const Navbar = () => {
   const [productDropdown, setProductDropdown] = useState(false);
   const [introDropdown, setIntroDropdown] = useState(false);
   const [blogDropdown, setBlogDropdown] = useState(false);
-
+  const dispatch = useDispatch()
+  const [search,setSearch] = useState('')
+  const navigate=useNavigate()
   const [navbar, setNavbar] = useState(false);
 
   // const handleProductEnter = () => setProductDropdown(true);
@@ -250,6 +253,13 @@ const Navbar = () => {
       window.removeEventListener('scroll', changeBackground);
     };
   }, []);
+
+  const onSearch = (e) => {
+    console.log('e',e.target.value)
+    setSearch(e.target.value)
+    dispatch(searchProduct(e.target.value))
+    
+  };
   
   return (
     <Container>
@@ -295,8 +305,11 @@ const Navbar = () => {
 
             <Right>
             <SearchContainer>
-                  <Input/>
-                  <Search style={{color:'gray',fontSize:'16px'}}/>
+                  <Input onChange={onSearch} placeholder='Search for Product'/>
+                  <Link to="/products">
+                    <Search  style={{color:'gray',fontSize:'16px'}}/>
+                  </Link>
+                  
               </SearchContainer>
             <MyLinkcart to="/cart">
                 <Badge badgeContent={quantity} color="secondary" overlap="rectangular">

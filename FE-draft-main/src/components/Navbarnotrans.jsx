@@ -178,7 +178,8 @@ const Navbarnotrans = () => {
   const [introDropdown, setIntroDropdown] = useState(false);
   const [blogDropdown, setBlogDropdown] = useState(false);
   const dispatch = useDispatch()
-  const [search,setSearch] = useState('')
+  // const [search,setSearch] = useState('')
+  const search = useSelector((state) => state?.product?.search)
   const [navbar, setNavbar] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -257,7 +258,7 @@ const Navbarnotrans = () => {
   
   const onSearch = (e) => {
     console.log('e',e.target.value)
-    setSearch(e.target.value)
+    // setSearch(e.target.value)
     dispatch(searchProduct(e.target.value))
   };
 
@@ -305,7 +306,7 @@ const Navbarnotrans = () => {
 
             <Right>
             <SearchContainer>
-                  <Inputfield  onChange={onSearch}/>
+                  <Inputfield placeholder='Search for Product' onChange={onSearch} defaultValue={search}></Inputfield>
                   <Search style={{color:'gray',fontSize:'16px'}}/>
               </SearchContainer>
               

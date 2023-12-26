@@ -3,9 +3,40 @@ import * as ProductService from '../services/ProductService'
 import { Button, Form, Input, InputNumber } from 'antd';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import Loading from '../components/Loading';
+const ButtonHead = styled.button`
+cursor:pointer;
+display: flex;
+text-align: center; /* Căn giữa theo chiều ngang */
+align-items: center; /* Căn giữa theo chiều dọc */
+font-size: 16px;
+padding: 10px;
+border-color: black;
+background-color: #fff;
+color:#000;
+&:hover {
+  background-color: #fe5f00; // Màu của văn bản khi hover
+  border-color:#fe5f00;
+  color: white;
+  transition: 0.3s ease-in-out;
+}
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  text-align:justify;
+  min-width: 0;
+  max-width: 100%;
+  object-fit:contain;
+  margin-bottom:20px;
+  justify-content:center;
+  
+
+`;
 const AdminUpdate = () => {
     const location = useLocation();
+    const navigate=useNavigate()
     const id = location.pathname.split("/")[2];
     const layout = {
         labelCol: {
@@ -34,9 +65,9 @@ const { isLoading, data: productDetails } = useQuery(['product-details', id], fe
                 name:value.product.name,
                 rating:value.product.rating,
                 price: Number(value.product.price) ,
-                size:value.product.size.split(','),
-                image:value.product.image.split(','),
-                type:value.product.type,
+                size:{size: value.product.size.split(',')[0],size: value.product.size.split(',')[1],size: value.product.size.split(',')[2]},
+                image:{image: value.product.image.split(',')[0]},
+                type: [value.product.type.split(',')],
                 description:value.product.description,
             }
         )
@@ -44,6 +75,9 @@ const { isLoading, data: productDetails } = useQuery(['product-details', id], fe
   return (<>
 
     <div>AdminUpdate</div>
+    <ButtonContainer>
+      <ButtonHead  onClick={()=>navigate(`/products`)}>Product Home Page</ButtonHead>
+    </ButtonContainer>
     <Loading isLoading={isLoading}>
         
     <Form
@@ -56,7 +90,7 @@ const { isLoading, data: productDetails } = useQuery(['product-details', id], fe
           rating: productDetails?.rating,
           price: Number(productDetails?.price),
           size: productDetails?.size?.map((s) => s?.size) || [],
-          image: productDetails?.size?.map((s) => s?.image) || [],
+          image: productDetails?.image?.map((s) => s?.image) || [],
           type: productDetails?.type?.map((s) => s) || [],
           description: productDetails?.description,
         },
